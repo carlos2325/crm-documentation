@@ -1,1 +1,103 @@
-<!DOCTYPE html><html><head><title>CRM Documentation</title></head><body><h1>CRM Documentation</h1><p>Documentación completa del sistema CRM</p></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 CRM - Sistema de Gestión de Relaciones con Clientes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2563eb; text-align: center; margin-bottom: 30px; }
+        .section { margin-bottom: 30px; padding: 20px; border-left: 4px solid #2563eb; background: #f8fafc; }
+        h2 { color: #1f2937; margin-bottom: 15px; }
+        .endpoint { background: #1f2937; color: white; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: monospace; }
+        .code { background: #f1f5f9; padding: 15px; border-radius: 5px; border: 1px solid #e2e8f0; font-family: monospace; overflow-x: auto; }
+        .btn { display: inline-block; padding: 10px 20px; background: #2563eb; color: white; text-decoration: none; border-radius: 5px; margin: 5px; }
+        .btn:hover { background: #1d4ed8; }
+        .status { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        .status.success { background: #10b981; color: white; }
+        .status.warning { background: #f59e0b; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 CRM - Sistema de Gestión de Relaciones con Clientes</h1>
+        
+        <div class="section">
+            <h2>🏗️ Arquitectura del Sistema</h2>
+            <p>Sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React para gestionar leads, contactos, entidades y oportunidades de negocio.</p>
+            <ul>
+                <li><strong>Backend:</strong> Node.js + TypeScript + GraphQL</li>
+                <li><strong>Base de Datos:</strong> MongoDB Atlas</li>
+                <li><strong>Autenticación:</strong> Firebase JWT</li>
+                <li><strong>Frontend:</strong> React + TypeScript + Apollo Client</li>
+                <li><strong>Deployment:</strong> Docker + Nginx</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔧 API GraphQL</h2>
+            <h3>Endpoints Disponibles:</h3>
+            <div class="endpoint">
+                <span class="status success">Producción</span>
+                https://api2.eventosorganizador.com/graphql
+            </div>
+            <div class="endpoint">
+                <span class="status warning">Test</span>
+                https://testapi2.eventosorganizador.com/graphql
+            </div>
+            
+            <h3>Autenticación:</h3>
+            <div class="code">
+                Authorization: Bearer &lt;JWT_TOKEN&gt;
+                X-User-ID: &lt;USER_UID&gt;
+                X-Development: &lt;DEVELOPMENT_ID&gt;
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 Frontend Setup</h2>
+            <p>Configuración de React + TypeScript + Apollo Client para consumir la API GraphQL.</p>
+            <div class="code">
+                npm install @apollo/client graphql react react-dom typescript
+                npm install --save-dev @types/react @types/react-dom
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Ejemplos</h2>
+            <p>Casos de uso prácticos e implementaciones del sistema CRM.</p>
+            <ul>
+                <li>Crear un nuevo lead</li>
+                <li>Lista de leads con filtros</li>
+                <li>Dashboard de resumen</li>
+                <li>Gestión de contactos</li>
+                <li>Gestión de entidades</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Deployment</h2>
+            <p>Configuración de producción y despliegue del sistema.</p>
+            <ul>
+                <li>Variables de entorno</li>
+                <li>Configuración de Docker</li>
+                <li>Nginx setup</li>
+                <li>Monitoreo y logs</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>👥 Equipo de Desarrollo</h2>
+            <p>Este sistema está diseñado para el equipo de <strong>Marketing Soluciones</strong> y proporciona todas las herramientas necesarias para gestionar relaciones con clientes de manera eficiente.</p>
+            <a href="https://github.com/carlos2325/crm-documentation" class="btn">📁 Ver Repositorio</a>
+            <a href="https://carlos2325.github.io/crm-documentation/" class="btn">🌐 Ver Documentación</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #6b7280;">
+            <p>&copy; 2025 CRM Marketing Soluciones. Todos los derechos reservados.</p>
+            <p>Desarrollado por Carlos (carlos2325) para el equipo Marketing Soluciones</p>
+        </div>
+    </div>
+</body>
+</html>
