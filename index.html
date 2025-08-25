@@ -4,100 +4,392 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📋 CRM - Sistema de Gestión de Relaciones con Clientes</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #2563eb; text-align: center; margin-bottom: 30px; }
-        .section { margin-bottom: 30px; padding: 20px; border-left: 4px solid #2563eb; background: #f8fafc; }
-        h2 { color: #1f2937; margin-bottom: 15px; }
-        .endpoint { background: #1f2937; color: white; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: monospace; }
-        .code { background: #f1f5f9; padding: 15px; border-radius: 5px; border: 1px solid #e2e8f0; font-family: monospace; overflow-x: auto; }
-        .btn { display: inline-block; padding: 10px 20px; background: #2563eb; color: white; text-decoration: none; border-radius: 5px; margin: 5px; }
-        .btn:hover { background: #1d4ed8; }
-        .status { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; }
-        .status.success { background: #10b981; color: white; }
-        .status.warning { background: #f59e0b; color: white; }
-    </style>
+    <meta name="description" content="Documentación completa del sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React">
+    <meta name="keywords" content="CRM, GraphQL, Node.js, TypeScript, React, MongoDB, Firebase">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prism.js para syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>📋 CRM - Sistema de Gestión de Relaciones con Clientes</h1>
-        
-        <div class="section">
-            <h2>🏗️ Arquitectura del Sistema</h2>
-            <p>Sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React para gestionar leads, contactos, entidades y oportunidades de negocio.</p>
-            <ul>
-                <li><strong>Backend:</strong> Node.js + TypeScript + GraphQL</li>
-                <li><strong>Base de Datos:</strong> MongoDB Atlas</li>
-                <li><strong>Autenticación:</strong> Firebase JWT</li>
-                <li><strong>Frontend:</strong> React + TypeScript + Apollo Client</li>
-                <li><strong>Deployment:</strong> Docker + Nginx</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>🔧 API GraphQL</h2>
-            <h3>Endpoints Disponibles:</h3>
-            <div class="endpoint">
-                <span class="status success">Producción</span>
-                https://api2.eventosorganizador.com/graphql
-            </div>
-            <div class="endpoint">
-                <span class="status warning">Test</span>
-                https://testapi2.eventosorganizador.com/graphql
-            </div>
-            
-            <h3>Autenticación:</h3>
-            <div class="code">
-                Authorization: Bearer &lt;JWT_TOKEN&gt;
-                X-User-ID: &lt;USER_UID&gt;
-                X-Development: &lt;DEVELOPMENT_ID&gt;
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>CRM Marketing Soluciones</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#home" class="nav-link active">Inicio</a></li>
+                        <li><a href="#api" class="nav-link">API GraphQL</a></li>
+                        <li><a href="#frontend" class="nav-link">Frontend</a></li>
+                        <li><a href="#examples" class="nav-link">Ejemplos</a></li>
+                        <li><a href="#deployment" class="nav-link">Deployment</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="section">
-            <h2>💻 Frontend Setup</h2>
-            <p>Configuración de React + TypeScript + Apollo Client para consumir la API GraphQL.</p>
-            <div class="code">
-                npm install @apollo/client graphql react react-dom typescript
-                npm install --save-dev @types/react @types/react-dom
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>📋 Sistema CRM Completo</h2>
+                    <p class="hero-subtitle">Gestión de Relaciones con Clientes</p>
+                    <p class="hero-description">
+                        Sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React para gestionar 
+                        leads, contactos, entidades y oportunidades de negocio de manera eficiente.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#api" class="btn btn-primary">
+                            <i class="fas fa-code"></i>
+                            Ver API GraphQL
+                        </a>
+                        <a href="#frontend" class="btn btn-secondary">
+                            <i class="fas fa-laptop-code"></i>
+                            Configuración Frontend
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="architecture">
+            <div class="container">
+                <h3>🏗️ Arquitectura del Sistema</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <i class="fab fa-node-js"></i>
+                        <h4>Backend</h4>
+                        <p>Node.js + TypeScript + GraphQL</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Base de Datos</h4>
+                        <p>MongoDB Atlas</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fas fa-fire"></i>
+                        <h4>Autenticación</h4>
+                        <p>Firebase JWT</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fab fa-react"></i>
+                        <h4>Frontend</h4>
+                        <p>React + TypeScript + Apollo Client</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fab fa-docker"></i>
+                        <h4>Deployment</h4>
+                        <p>Docker + Nginx</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API GraphQL Section -->
+        <section id="api" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-code"></i> API GraphQL</h3>
+                    <p>Documentación completa de endpoints y operaciones</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🌐 Endpoints Disponibles</h4>
+                    <div class="endpoint-grid">
+                        <div class="endpoint-card production">
+                            <h5><i class="fas fa-server"></i> Producción</h5>
+                            <code>https://api2.eventosorganizador.com/graphql</code>
+                            <span class="status-badge">🟢 Activo</span>
+                        </div>
+                        <div class="endpoint-card test">
+                            <h5><i class="fas fa-flask"></i> Test</h5>
+                            <code>https://testapi2.eventosorganizador.com/graphql</code>
+                            <span class="status-badge">🟡 Test</span>
+                        </div>
+                    </div>
+
+                    <h4>🔐 Autenticación</h4>
+                    <div class="auth-example">
+                        <p><strong>Headers Requeridos:</strong></p>
+                        <pre><code class="language-http">Authorization: Bearer &lt;JWT_TOKEN&gt;
+X-User-ID: &lt;USER_UID&gt;
+X-Development: &lt;DEVELOPMENT_ID&gt;</code></pre>
+                    </div>
+
+                    <h4>📊 Operaciones Disponibles</h4>
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <h5><i class="fas fa-user-plus"></i> Leads (Prospectos)</h5>
+                            <ul>
+                                <li>Crear lead</li>
+                                <li>Obtener leads</li>
+                                <li>Actualizar lead</li>
+                                <li>Eliminar lead</li>
+                            </ul>
+                        </div>
+                        <div class="operation-card">
+                            <h5><i class="fas fa-address-book"></i> Contactos</h5>
+                            <ul>
+                                <li>Crear contacto</li>
+                                <li>Obtener contactos</li>
+                                <li>Actualizar contacto</li>
+                                <li>Eliminar contacto</li>
+                            </ul>
+                        </div>
+                        <div class="operation-card">
+                            <h5><i class="fas fa-building"></i> Entidades</h5>
+                            <ul>
+                                <li>Crear entidad</li>
+                                <li>Obtener entidades</li>
+                                <li>Actualizar entidad</li>
+                                <li>Eliminar entidad</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🧪 Testing de la API</h4>
+                    <div class="testing-example">
+                        <p><strong>Ejemplo con cURL:</strong></p>
+                        <pre><code class="language-bash"># Obtener leads
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "X-User-ID: YOUR_USER_UID" \
+  -H "X-Development: YOUR_DEVELOPMENT_ID" \
+  -d '{
+    "query": "query { getCRMLeads { leads { id name email company status } } }"
+  }' \
+  https://api2.eventosorganizador.com/graphql</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frontend Setup Section -->
+        <section id="frontend" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-laptop-code"></i> Frontend Setup</h3>
+                    <p>Configuración de React + TypeScript + Apollo Client</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>⚙️ Configuración Inicial</h4>
+                    <div class="setup-steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h5>Instalación de Dependencias</h5>
+                                <pre><code class="language-bash">npm install @apollo/client graphql react react-dom typescript
+npm install --save-dev @types/react @types/react-dom</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h5>Configuración de Apollo Client</h5>
+                                <pre><code class="language-typescript">import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: 'https://api2.eventosorganizador.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('jwt_token');
+  const userId = localStorage.getItem('user_uid');
+  const developmentId = localStorage.getItem('development_id');
+  
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+      'X-User-ID': userId || "",
+      'X-Development': developmentId || "",
+    }
+  }
+});
+
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🎣 Hooks Personalizados</h4>
+                    <div class="hooks-example">
+                        <p><strong>Hook para Leads:</strong></p>
+                        <pre><code class="language-typescript">export const useLeads = (filter?: any, pagination?: any) => {
+  const { data, loading, error, refetch } = useQuery(GET_LEADS, {
+    variables: { filter, pagination },
+    fetchPolicy: 'cache-and-network'
+  });
+
+  const [createLead] = useMutation(CREATE_LEAD, {
+    onCompleted: () => {
+      refetch();
+    }
+  });
+
+  return {
+    leads: data?.getCRMLeads?.leads || [],
+    totalCount: data?.getCRMLeads?.totalCount || 0,
+    pageInfo: data?.getCRMLeads?.pageInfo,
+    loading,
+    error,
+    createLead,
+    refetch
+  };
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section id="examples" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-lightbulb"></i> Ejemplos</h3>
+                    <p>Casos de uso prácticos e implementaciones</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🎯 Ejemplos de Implementación</h4>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5><i class="fas fa-user-plus"></i> Crear un Nuevo Lead</h5>
+                            <p>Formulario completo para captura de prospectos con validaciones y manejo de errores.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                        <div class="example-card">
+                            <h5><i class="fas fa-list"></i> Lista de Leads con Filtros</h5>
+                            <p>Componente de listado con filtros avanzados, paginación y búsqueda en tiempo real.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                        <div class="example-card">
+                            <h5><i class="fas fa-chart-bar"></i> Dashboard de Resumen</h5>
+                            <p>Panel de control con estadísticas, gráficos y actividad reciente del CRM.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deployment Section -->
+        <section id="deployment" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-rocket"></i> Deployment</h3>
+                    <p>Configuración de producción y despliegue</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🌐 Configuración del Entorno</h4>
+                    <div class="env-example">
+                        <p><strong>Variables de Entorno:</strong></p>
+                        <pre><code class="language-bash"># Configuración de la base de datos
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/crm_production
+
+# Configuración de Firebase
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY=your-private-key
+FIREBASE_CLIENT_EMAIL=your-client-email
+
+# Configuración del servidor
+PORT=4000
+NODE_ENV=production
+JWT_SECRET=your-super-secret-jwt-key</code></pre>
+                    </div>
+
+                    <h4>🐳 Configuración de Docker</h4>
+                    <div class="docker-example">
+                        <p><strong>Dockerfile:</strong></p>
+                        <pre><code class="language-dockerfile">FROM node:18-alpine
+
+WORKDIR /app
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm ci --only=production
+
+# Copiar código fuente
+COPY . .
+
+# Compilar TypeScript
+RUN npm run build
+
+# Exponer puerto
+EXPOSE 4000
+
+# Comando de inicio
+CMD ["npm", "start"]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CRM Marketing Soluciones</h4>
+                    <p>Sistema completo de gestión de relaciones con clientes</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#api">API GraphQL</a></li>
+                        <li><a href="#frontend">Frontend</a></li>
+                        <li><a href="#examples">Ejemplos</a></li>
+                        <li><a href="#deployment">Deployment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Equipo de Desarrollo</p>
+                    <p>Marketing Soluciones</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CRM Marketing Soluciones. Todos los derechos reservados.</p>
             </div>
         </div>
+    </footer>
 
-        <div class="section">
-            <h2>📝 Ejemplos</h2>
-            <p>Casos de uso prácticos e implementaciones del sistema CRM.</p>
-            <ul>
-                <li>Crear un nuevo lead</li>
-                <li>Lista de leads con filtros</li>
-                <li>Dashboard de resumen</li>
-                <li>Gestión de contactos</li>
-                <li>Gestión de entidades</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>🚀 Deployment</h2>
-            <p>Configuración de producción y despliegue del sistema.</p>
-            <ul>
-                <li>Variables de entorno</li>
-                <li>Configuración de Docker</li>
-                <li>Nginx setup</li>
-                <li>Monitoreo y logs</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>👥 Equipo de Desarrollo</h2>
-            <p>Este sistema está diseñado para el equipo de <strong>Marketing Soluciones</strong> y proporciona todas las herramientas necesarias para gestionar relaciones con clientes de manera eficiente.</p>
-            <a href="https://github.com/carlos2325/crm-documentation" class="btn">📁 Ver Repositorio</a>
-            <a href="https://carlos2325.github.io/crm-documentation/" class="btn">🌐 Ver Documentación</a>
-        </div>
-
-        <div style="text-align: center; margin-top: 40px; color: #6b7280;">
-            <p>&copy; 2025 CRM Marketing Soluciones. Todos los derechos reservados.</p>
-            <p>Desarrollado por Carlos (carlos2325) para el equipo Marketing Soluciones</p>
-        </div>
-    </div>
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
