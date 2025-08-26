@@ -1080,7 +1080,178 @@ input EntitySharingInput {
   permissions: [String!]!
 }</code></pre>
 
-                        <h5>🔄 Flujo de Compartición y Validaciones</h5>
+                        <h6>👥 Sistema de Grupos y Permisos</h6>
+                        <pre><code class="language-graphql"># Modelo de Grupo con permisos implementado
+type CRM_Group {
+  _id: ID!
+  name: String!                    # Nombre del grupo
+  description: String!             # Descripción del grupo
+  business: ID!                    # Negocio asociado (ObjectId)
+  members: [String!]!              # Array de Firebase UIDs
+  
+  # Permisos del grupo
+  permissions: CRM_GroupPermissions! {
+    canView: Boolean!              # Ver recursos
+    canEdit: Boolean!              # Editar recursos
+    canDelete: Boolean!            # Eliminar recursos
+    canShare: Boolean!             # Compartir recursos
+    canManageMembers: Boolean!     # Gestionar miembros
+  }
+  
+  # Configuración del grupo
+  isActive: Boolean!               # Si el grupo está activo
+  createdBy: String!               # Firebase UID del creador
+  createdAt: DateTime!             # Fecha de creación
+  updatedAt: DateTime!             # Fecha de actualización
+  
+  # Filtros asociados al grupo
+  filters: [ID!]                   # Array de ObjectIds de filtros
+}
+
+# Permisos del grupo
+type CRM_GroupPermissions {
+  canView: Boolean!                # Ver recursos
+  canEdit: Boolean!                # Editar recursos
+  canDelete: Boolean!              # Eliminar recursos
+  canShare: Boolean!               # Compartir recursos
+  canManageMembers: Boolean!       # Gestionar miembros del grupo
+}</code></pre>
+
+                        <h6>📊 Diagramas Visuales del Sistema</h6>
+                        
+                        <h7>🏗️ Arquitectura Multi-Tenant</h7>
+                        <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                    SISTEMA CRM MULTI-TENANT                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   DEVELOPER 1   │    │   DEVELOPER 2   │    │   DEVELOPER │ │
+│  │  "bodasdehoy"   │    │"eventosorganiz"│    │      3      │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│           │                       │                    │        │
+│           │                       │                    │        │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   WHITELABEL    │    │   WHITELABEL    │    │   WHITELABEL│ │
+│  │   CONFIG        │    │   CONFIG        │    │   CONFIG    │ │
+│  │                 │    │                 │    │             │ │
+│  │ • Features      │    │ • Features      │    │ • Features  │ │
+│  │ • Limits        │    │ • Limits        │    │ • Limits    │ │
+│  │ • Settings      │    │ • Settings      │    │ • Settings  │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│           │                       │                    │        │
+│           │                       │                    │        │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   BASE DE       │    │   BASE DE       │    │   BASE DE   │ │
+│  │   DATOS         │    │   DATOS         │    │   DATOS     │ │
+│  │                 │    │                 │    │             │ │
+│  │ • crm_leads     │    │ • crm_leads     │    │ • crm_leads │ │
+│  │ • crm_contacts  │    │ • crm_contacts  │    │ • crm_contacts│
+│  │ • crm_entities  │    │ • crm_entities  │    │ • crm_entities│
+│  │ • eventos       │    │ • eventos       │    │ • eventos   │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    SHARED INFRASTRUCTURE                    │ │
+│  │  • MongoDB Atlas Cluster                                   │ │
+│  │  • Firebase Authentication                                 │ │
+│  │  • GraphQL API Server                                      │ │
+│  │  • Nginx Reverse Proxy                                     │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+
+                        <h7>🔐 Sistema de Ownership y Compartición</h7>
+                        <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                SISTEMA DE OWNERSHIP Y COMPARTICIÓN               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    RECURSO CRM                              │ │
+│  │  (Lead, Contact, Entity, Event)                            │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                              │                                  │
+│                              │                                  │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    OWNERSHIP                                │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │ │
+│  │  │ PRIMARY OWNER   │  │ SHARED USERS    │  │ SHARED      │ │ │
+│  │  │                 │  │                 │  │ GROUPS      │ │ │
+│  │  │ • user_id       │  │ • [user_id_1]   │  │ • [group_1] │ │ │
+│  │  │ • name          │  │ • [user_id_2]   │  │ • [group_2] │ │ │
+│  │  │ • permissions   │  │ • [user_id_3]   │  │ • [group_3] │ │ │
+│  │  │   FULL_ACCESS   │  │ • permissions   │  │ • permissions│ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────┘ │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                              │                                  │
+│                              │                                  │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    PERMISOS POR ROL                         │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │ │
+│  │  │   OWNER         │  │   SHARED USER   │  │   GROUP     │ │ │
+│  │  │                 │  │                 │  │   MEMBER    │ │ │
+│  │  │ • Ver todo      │  │ • Ver limitado  │  │ • Ver según │ │ │
+│  │  │ • Editar todo   │  │ • Editar según  │  │   permisos  │ │ │
+│  │  │ • Eliminar      │  │   permisos      │  │ • Editar    │ │ │
+│  │  │ • Compartir     │  │ • No eliminar   │  │   según     │ │ │
+│  │  │ • Gestionar     │  │ • No compartir  │  │   permisos  │ │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────┘ │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+
+                        <h6>🔄 Flujo de Compartición y Validaciones</h6>
+                        <pre><code class="language-graphql"># Validaciones de Seguridad Implementadas
+export function validateDevelopmentAccess(
+  context: CRMContext,
+  development: string
+) {
+  if (context.user.development !== development) {
+    throw new Error('No tienes acceso a este development');
+  }
+}
+
+# Validación de ownership y permisos compartidos
+export function validateOwnership(
+  document: any,
+  userId: string,
+  allowShared: boolean = true
+) {
+  const isOwner = document.ownership?.primary_owner?.user_id === userId;
+  const isShared = allowShared && 
+    document.ownership?.shared_with_users?.includes(userId);
+
+  if (!isOwner && !isShared) {
+    throw new Error('No tienes permisos para acceder a este recurso');
+  }
+
+  return { isOwner, isShared };
+}
+
+# Flujo completo de compartición
+type CRM_SharingFlow {
+  # Paso 1: Verificar propiedad del recurso
+  checkOwnership: Boolean! {
+    document.ownership.primary_owner.user_id === currentUser.uid
+  }
+  
+  # Paso 2: Validar acceso al development
+  validateDevelopment: Boolean! {
+    context.user.development === document.development
+  }
+  
+  # Paso 3: Aplicar permisos de compartición
+  applySharing: Boolean! {
+    updateSharedUsers() && updateSharedGroups()
+  }
+  
+  # Paso 4: Validar límites de compartición
+  validateLimits: Boolean! {
+    maxSharedUsers <= 50 && maxSharedGroups <= 20
+  }
+  
+  # Paso 5: Registrar auditoría
+  logAudit: Boolean! {
+    recordSharingAction(userId, resourceId, permissions)
+  }
+}</code></pre>
                         <pre><code class="language-graphql"># Flujo de Compartición de Evento
 type EventSharingFlow {
   # Paso 1: Verificar Propiedad
@@ -1269,6 +1440,173 @@ type SecurityBestPractices {
   inheritedPermissions: String! {
     "Usuario compartido no puede tener más permisos que el propietario"
   }
+}</code></pre>
+                    </div>
+
+                    <h4>🏢 Sistema CRM de Compartición y Ownership</h4>
+                    <div class="crm-system-section">
+                        <h5>🔐 Arquitectura Multi-Tenant y Sistema de Permisos</h5>
+                        
+                        <h6>🏗️ Estructura del Sistema Multi-Developer</h6>
+                        <pre><code class="language-graphql"># Sistema de Marca Blanca (Whitelabel) Implementado
+type Whitelabel {
+  id: ID!
+  name: String!                    # Nombre de la marca
+  whiteLabelDomain: String!        # Dominio personalizado
+  development: String!             # ID único del developer
+  slug: String!                    # Slug de la marca
+  
+  # Configuración del Developer
+  developer: WhitelabelDeveloper! {
+    id: String!                    # ID del desarrollador
+    name: String!                  # Nombre del desarrollador
+    email: String!                 # Email del desarrollador
+    permissions: [String!]!        # Permisos del developer
+    isEnabled: Boolean!            # Si está habilitado
+    apiKey: String                 # API key para integraciones
+    webhookUrl: String             # URL para webhooks
+    rateLimit: Int                 # Límite de rate limiting
+  }
+  
+  # Features Habilitados por Tenant
+  features: WhitelabelFeatures! {
+    events: Boolean!               # Módulo de eventos
+    users: Boolean!                # Gestión de usuarios
+    business: Boolean!             # Gestión de negocios
+    posts: Boolean!                # Sistema de posts
+    categories: Boolean!           # Categorías
+    filters: Boolean!              # Filtros
+    groups: Boolean!               # Sistema de grupos
+    viewConfig: Boolean!           # Configuración de vistas
+    analytics: Boolean!            # Analytics
+    notifications: Boolean!        # Notificaciones
+    payments: Boolean!             # Pagos
+    integrations: Boolean!         # Integraciones
+    customBranding: Boolean!       # Branding personalizado
+    multiLanguage: Boolean!        # Multi-idioma
+  }
+  
+  # Límites por Tenant
+  limits: WhitelabelLimits! {
+    users: Int                     # Máximo de usuarios
+    events: Int                    # Máximo de eventos
+    storage: Int                   # Almacenamiento máximo (bytes)
+    apiCalls: Int                  # Llamadas API máximas por día
+    customizations: Int            # Personalizaciones máximas
+  }
+  
+  # Configuración de Seguridad
+  settings: WhitelabelSettings! {
+    theme: JSON                    # Tema personalizado
+    branding: JSON                 # Branding específico
+    notifications: JSON            # Configuración de notificaciones
+    security: JSON                 # Configuración de seguridad
+    performance: JSON              # Configuración de performance
+  }
+}</code></pre>
+
+                        <h6>🔐 Sistema de Ownership y Compartición</h6>
+                        <pre><code class="language-graphql"># Estructura de Ownership implementada en TODOS los módulos CRM
+type CRM_Ownership {
+  # Propietario principal del recurso
+  primary_owner: CRM_OwnerInfo! {
+    user_id: String!               # Firebase UID del propietario
+    name: String!                  # Nombre/Email del propietario
+  }
+  
+  # Usuarios con acceso compartido (individual)
+  shared_with_users: [String!]!    # Array de Firebase UIDs
+  
+  # Grupos con acceso compartido
+  shared_with_groups: [ID!]!       # Array de ObjectIds de grupos
+}
+
+# Información del propietario
+type CRM_OwnerInfo {
+  user_id: String!                 # Firebase UID
+  name: String!                    # Nombre o email
+}
+
+# Sistema de compartición implementado en:
+# - CRM_Lead (crm_leads collection)
+# - CRM_Contact (crm_contacts collection)  
+# - CRM_Entity (crm_entities collection)
+# - EVT_Event (eventos collection)
+
+# Campos de compartición en cada registro
+type CRM_SharingFields {
+  development: String!              # ID del developer/tenant
+  ownership: CRM_Ownership!        # Sistema de ownership
+  
+  # Información de marca blanca
+  whitelabel_info: CRM_WhitelabelInfo! {
+    whitelabel_id: String!         # ID de la marca blanca
+    name: String!                  # Nombre de la marca
+    domain: String!                # Dominio de la marca
+    developer_uid: String!         # UID del developer
+  }
+}</code></pre>
+
+                        <h6>🤝 Sistema de Compartición Multi-Nivel</h6>
+                        <pre><code class="language-graphql"># Compartir Lead con usuarios y grupos
+mutation ShareCRMLead($leadId: ID!, $sharing: LeadSharingInput!) {
+  shareCRMLead(leadId: $leadId, sharing: $sharing) {
+    success
+    lead {
+      ownership {
+        shared_with_users    # Usuarios individuales
+        shared_with_groups   # Grupos de usuarios
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Contacto
+mutation ShareCRMContact($contactId: ID!, $sharing: ContactSharingInput!) {
+  shareCRMContact(contactId: $contactId, sharing: $sharing) {
+    success
+    contact {
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Entidad
+mutation ShareCRMEntity($entityId: ID!, $sharing: EntitySharingInput!) {
+  shareCRMEntity(entityId: $entityId, sharing: $sharing) {
+    success
+    entity {
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Estructuras de compartición
+input LeadSharingInput {
+  userIds: [String!]!    # IDs de usuarios para compartir
+  groupIds: [ID!]!       # IDs de grupos para compartir
+  permissions: [String!]! # Permisos específicos
+}
+
+input ContactSharingInput {
+  userIds: [String!]!
+  groupIds: [ID!]!
+  permissions: [String!]!
+}
+
+input EntitySharingInput {
+  userIds: [String!]!
+  groupIds: [ID!]!
+  permissions: [String!]!
 }</code></pre>
                     </div>
 
