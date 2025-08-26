@@ -27,6 +27,7 @@
                 <a href="#examples" class="nav-link">📝 Ejemplos</a>
                 <a href="#deployment" class="nav-link">🚀 Deployment</a>
                 <a href="#monitoring" class="nav-link">📊 Monitoreo</a>
+                <a href="#monitoring-detailed" class="nav-link">🔔 Alertas</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="fas fa-bars"></i>
@@ -2048,6 +2049,270 @@ cat /etc/nginx/sites-available/api2.eventosorganizador.com</code></pre>
                         <div class="step-card">
                             <h6><i class="fas fa-database"></i> 4. Monitoreo de Base de Datos</h6>
                             <p>Implementar métricas de MongoDB Atlas y alertas de rendimiento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistema de Monitoreo y Alertas Detallado -->
+        <section id="monitoring-detailed" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-bell"></i> 🔔 Sistema de Monitoreo y Alertas Detallado</h3>
+                    <p>Guía completa del sistema de monitoreo automático y alertas por email</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>📊 ¿Cómo Funciona el Monitoreo Automático?</h4>
+                    
+                    <div class="monitoring-explanation">
+                        <div class="explanation-grid">
+                            <div class="explanation-card">
+                                <h6><i class="fas fa-clock"></i> Monitoreo Cada 5 Minutos</h6>
+                                <p>El sistema verifica automáticamente:</p>
+                                <ul>
+                                    <li>✅ Puertos activos (3000, 3001, 4000, 4001)</li>
+                                    <li>✅ Contenedores Docker (api-prod, api-test)</li>
+                                    <li>✅ Procesos Node.js (servicios MCP)</li>
+                                    <li>✅ Endpoints HTTP (health checks)</li>
+                                    <li>✅ Recursos del sistema (CPU, memoria, disco)</li>
+                                </ul>
+                            </div>
+
+                            <div class="explanation-card">
+                                <h6><i class="fas fa-file-alt"></i> Logs Automáticos</h6>
+                                <p>Se generan logs con timestamp:</p>
+                                <ul>
+                                    <li>📋 <code>crm-status-YYYYMMDD.log</code> - Estado diario</li>
+                                    <li>🚨 <code>crm-alerts-YYYYMMDD.log</code> - Alertas (si las hay)</li>
+                                    <li>❌ <code>crm-errors-YYYYMMDD.log</code> - Errores (si los hay)</li>
+                                </ul>
+                            </div>
+
+                            <div class="explanation-card">
+                                <h6><i class="fas fa-robot"></i> Cron Jobs Activos</h6>
+                                <p>Tareas programadas automáticas:</p>
+                                <ul>
+                                    <li>⏰ <strong>Cada 5 min:</strong> Verificación de servicios</li>
+                                    <li>📧 <strong>Cada hora:</strong> Envío de alertas por email</li>
+                                    <li>🧹 <strong>Diario 2:00 AM:</strong> Limpieza de logs</li>
+                                    <li>💾 <strong>Semanal 3:00 AM:</strong> Backup de logs</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>📧 Sistema de Alertas por Email con Gmail SMTP</h4>
+                    
+                    <div class="email-alerts-section">
+                        <div class="alert-config">
+                            <h6><i class="fas fa-envelope"></i> Configuración de Email</h6>
+                            <p><strong>Email de destino:</strong> <code>bodasdehoy.com@gmail.com</code></p>
+                            <p><strong>Servidor SMTP:</strong> <code>smtp.gmail.com:587</code></p>
+                            <p><strong>Frecuencia:</strong> Cada hora (solo si hay alertas)</p>
+                            <p><strong>Formato:</strong> Email HTML con diseño profesional</p>
+                        </div>
+
+                        <div class="alert-triggers">
+                            <h6><i class="fas fa-exclamation-triangle"></i> ¿Cuándo se Envían Alertas?</h6>
+                            <ul>
+                                <li>🚨 <strong>Servicios caídos:</strong> Puerto inactivo, contenedor caído</li>
+                                <li>⚠️ <strong>Recursos críticos:</strong> CPU > 90%, Memoria > 95%, Disco > 90%</li>
+                                <li>❌ <strong>Endpoints no responden:</strong> Health checks fallidos</li>
+                                <li>🔴 <strong>Procesos muertos:</strong> Node.js no responde</li>
+                            </ul>
+                        </div>
+
+                        <div class="email-example">
+                            <h6><i class="fas fa-eye"></i> Ejemplo de Email de Alerta</h6>
+                            <div class="email-preview">
+                                <div class="email-header">
+                                    <h4>🚨 ALERTAS CRM - Marketing Soluciones</h4>
+                                    <p>Sistema de Monitoreo Automático</p>
+                                </div>
+                                <div class="email-content">
+                                    <p><strong>Servidor:</strong> api2.eventosorganizador.com</p>
+                                    <p><strong>Fecha:</strong> 2025-08-26 18:45:00</p>
+                                    <p><strong>Total de Alertas:</strong> 2</p>
+                                    <div class="alert-item">
+                                        🚨 ALERTA: API GraphQL Test (puerto 3000) no responde
+                                    </div>
+                                    <div class="alert-item">
+                                        ⚠️ ALERTA: Uso de CPU crítico: 95%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🛠️ Comandos para Monitoreo Manual</h4>
+                    
+                    <div class="manual-monitoring">
+                        <div class="command-section">
+                            <h6><i class="fas fa-terminal"></i> Comandos de Estado</h6>
+                            <pre><code class="language-bash"># Estado rápido del sistema
+crm-status
+
+# Monitoreo detallado manual
+./monitor-services.sh
+
+# Monitoreo continuo (actualiza cada 30 segundos)
+./monitor-services.sh -c
+
+# Ver estado de servicios específicos
+netstat -tlnp | grep -E ":(3000|3001|4000|4001)"
+docker ps -a
+ps aux | grep -E "(node|npm)" | grep -v grep</code></pre>
+                        </div>
+
+                        <div class="command-section">
+                            <h6><i class="fas fa-file-alt"></i> Comandos de Logs</h6>
+                            <pre><code class="language-bash"># Ver logs en tiempo real
+tail -f /var/log/crm-monitoring/crm-status-$(date +%Y%m%d).log
+tail -f /var/log/crm-monitoring/crm-alerts-$(date +%Y%m%d).log
+
+# Ver logs del día
+cat /var/log/crm-monitoring/crm-status-$(date +%Y%m%d).log
+cat /var/log/crm-monitoring/crm-alerts-$(date +%Y%m%d).log
+
+# Ver todos los logs disponibles
+ls -la /var/log/crm-monitoring/</code></pre>
+                        </div>
+
+                        <div class="command-section">
+                            <h6><i class="fas fa-envelope"></i> Comandos de Email</h6>
+                            <pre><code class="language-bash"># Probar sistema de email
+test-email-alert.sh
+
+# Enviar alertas manualmente
+crm-send-alert-gmail.sh
+
+# Ver configuración de email
+cat /etc/ssmtp/ssmtp.conf
+cat /etc/ssmtp/revaliases</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>📁 Estructura de Archivos del Sistema</h4>
+                    
+                    <div class="file-structure">
+                        <div class="structure-tree">
+                            <pre><code class="language-text">/var/log/crm-monitoring/
+├── crm-status-20250826.log          # Estado diario de servicios
+├── crm-alerts-20250826.log          # Alertas generadas (si las hay)
+├── crm-errors-20250826.log          # Errores encontrados (si los hay)
+└── backup-20250826.tar.gz           # Backup semanal (domingo 3:00 AM)
+
+/usr/local/bin/
+├── crm-monitor.sh                   # Script de monitoreo automático
+├── crm-send-alert-gmail.sh          # Script de alertas por email
+├── crm-status                       # Comando rápido de estado
+└── test-email-alert.sh              # Script de prueba de email
+
+/var/www/api-production/
+├── monitor-services.sh               # Monitoreo manual detallado
+└── setup-gmail-alerts.sh            # Configuración de alertas</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>🔧 Configuración de Gmail SMTP</h4>
+                    
+                    <div class="gmail-config">
+                        <div class="config-steps">
+                            <h6><i class="fas fa-cog"></i> Pasos para Configurar Gmail</h6>
+                            <ol>
+                                <li><strong>Activar verificación en 2 pasos</strong> en tu cuenta de Gmail</li>
+                                <li><strong>Generar contraseña de aplicación</strong> específica para este servidor</li>
+                                <li><strong>Editar archivo de configuración:</strong> <code>/etc/ssmtp/ssmtp.conf</code></li>
+                                <li><strong>Reemplazar:</strong> <code>TU_APP_PASSWORD_AQUI</code> con tu contraseña real</li>
+                                <li><strong>Probar el sistema:</strong> <code>test-email-alert.sh</code></li>
+                            </ol>
+                        </div>
+
+                        <div class="config-files">
+                            <h6><i class="fas fa-file-code"></i> Archivos de Configuración</h6>
+                            <div class="config-file">
+                                <h7><code>/etc/ssmtp/ssmtp.conf</code></h7>
+                                <pre><code class="language-conf"># Configuración Gmail SMTP para CRM
+AuthUser=bodasdehoy.com@gmail.com
+AuthPass=TU_CONTRASEÑA_DE_APLICACIÓN
+AuthMethod=LOGIN
+mailhub=smtp.gmail.com:587
+UseSTARTTLS=YES
+UseTLS=YES
+FromLineOverride=YES
+hostname=api2.eventosorganizador.com</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>📊 Dashboard de Monitoreo en Tiempo Real</h4>
+                    
+                    <div class="monitoring-dashboard">
+                        <div class="dashboard-features">
+                            <h6><i class="fas fa-tachometer-alt"></i> Características del Dashboard</h6>
+                            <ul>
+                                <li>🟢 <strong>Estado visual:</strong> Verde (OK), Amarillo (Advertencia), Rojo (Crítico)</li>
+                                <li>📈 <strong>Métricas en tiempo real:</strong> CPU, memoria, disco, procesos</li>
+                                <li>🔍 <strong>Logs en vivo:</strong> Actualización automática cada 5 minutos</li>
+                                <li>📧 <strong>Historial de alertas:</strong> Todas las notificaciones enviadas</li>
+                                <li>📊 <strong>Estadísticas:</strong> Uptime, servicios activos, errores</li>
+                            </ul>
+                        </div>
+
+                        <div class="dashboard-commands">
+                            <h6><i class="fas fa-keyboard"></i> Comandos del Dashboard</h6>
+                            <pre><code class="language-bash"># Dashboard principal
+./monitor-services.sh
+
+# Dashboard continuo
+./monitor-services.sh -c
+
+# Estado rápido
+crm-status
+
+# Ver logs en tiempo real
+tail -f /var/log/crm-monitoring/crm-status-$(date +%Y%m%d).log</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Resumen del Sistema de Monitoreo</h4>
+                    
+                    <div class="monitoring-summary">
+                        <div class="summary-grid">
+                            <div class="summary-card">
+                                <h6><i class="fas fa-check-circle"></i> ✅ Lo que SÍ Funciona</h6>
+                                <ul>
+                                    <li>Monitoreo automático cada 5 minutos</li>
+                                    <li>Logs estructurados con timestamp</li>
+                                    <li>Verificación de servicios críticos</li>
+                                    <li>Monitoreo de recursos del sistema</li>
+                                    <li>Cron jobs automáticos</li>
+                                    <li>Scripts de monitoreo manual</li>
+                                </ul>
+                            </div>
+
+                            <div class="summary-card">
+                                <h6><i class="fas fa-cog"></i> ⚙️ Lo que Necesita Configuración</h6>
+                                <ul>
+                                    <li>Contraseña de aplicación Gmail</li>
+                                    <li>Configuración de archivo ssmtp.conf</li>
+                                    <li>Prueba del sistema de email</li>
+                                    <li>Verificación de envío de alertas</li>
+                                </ul>
+                            </div>
+
+                            <div class="summary-card">
+                                <h6><i class="fas fa-rocket"></i> 🚀 Próximas Mejoras</h6>
+                                <ul>
+                                    <li>Dashboard web con interfaz gráfica</li>
+                                    <li>Alertas por Slack/Telegram</li>
+                                    <li>Métricas con Prometheus + Grafana</li>
+                                    <li>Notificaciones push móviles</li>
+                                    <li>Reportes automáticos diarios</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
