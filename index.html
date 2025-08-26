@@ -1236,166 +1236,631 @@ export default Leads;</code></pre>
             <div class="container">
                 <h2 class="section-title">
                     <i class="fas fa-building"></i>
-                    🏢 Sistema Whitelabel y Multi-Tenant
+                    🏢 Sistema Whitelabel y Multi-Tenant Completo
                 </h2>
 
                 <div class="whitelabel-overview">
-                    <h3>🌐 Arquitectura Multi-Tenant</h3>
-                    <p>El sistema implementa una arquitectura completa de marca blanca que permite a diferentes desarrolladores tener sus propios entornos personalizados.</p>
+                    <h3>🌐 Arquitectura Multi-Tenant Avanzada</h3>
+                    <p>El sistema implementa una arquitectura completa de marca blanca que permite a diferentes desarrolladores tener sus propios entornos personalizados con funcionalidades específicas, límites configurables y branding personalizado.</p>
                 </div>
 
                 <div class="whitelabel-components">
-                    <h3>🏗️ Componentes del Sistema</h3>
+                    <h3>🏗️ Componentes del Sistema Whitelabel</h3>
                     
                     <div class="component-card">
                         <h4>👨‍💻 WhitelabelDeveloper</h4>
                         <div class="component-content">
                             <h5>Campos Principales:</h5>
                             <ul>
-                                <li><strong>id</strong> - Identificador único del desarrollador</li>
-                                <li><strong>name</strong> - Nombre del desarrollador/empresa</li>
-                                <li><strong>email</strong> - Email de contacto</li>
-                                <li><strong>permissions</strong> - Array de permisos específicos</li>
-                                <li><strong>status</strong> - Estado activo/inactivo</li>
-                                <li><strong>created_at</strong> - Fecha de creación</li>
+                                <li><strong>isEnabled</strong> - Estado habilitado/deshabilitado</li>
+                                <li><strong>apiKey</strong> - Clave API única para el desarrollador</li>
+                                <li><strong>webhookUrl</strong> - URL para notificaciones webhook</li>
+                                <li><strong>allowedDomains</strong> - Dominios permitidos para el desarrollador</li>
+                                <li><strong>rateLimit</strong> - Límite de llamadas API por minuto</li>
+                                <li><strong>features</strong> - Array de funcionalidades habilitadas</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="component-card">
-                        <h4>🏷️ WhitelabelInfo</h4>
+                        <h4>🏷️ Whitelabel (Marca Principal)</h4>
                         <div class="component-content">
                             <h5>Campos Principales:</h5>
                             <ul>
-                                <li><strong>whitelabel_id</strong> - ID único de la marca blanca</li>
-                                <li><strong>brand_name</strong> - Nombre de la marca</li>
-                                <li><strong>logo_url</strong> - URL del logo personalizado</li>
-                                <li><strong>color_scheme</strong> - Esquema de colores</li>
-                                <li><strong>custom_domain</strong> - Dominio personalizado</li>
+                                <li><strong>id</strong> - ID único de la marca blanca</li>
+                                <li><strong>name</strong> - Nombre de la marca</li>
+                                <li><strong>slug</strong> - Slug único para URLs</li>
+                                <li><strong>domain</strong> - Dominio personalizado</li>
+                                <li><strong>isActive</strong> - Estado activo/inactivo</li>
+                                <li><strong>createdAt/updatedAt</strong> - Timestamps</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="component-card">
-                        <h4>⚙️ Development</h4>
+                        <h4>🔥 WhitelabelFirebase</h4>
                         <div class="component-content">
-                            <h5>Campos Principales:</h5>
+                            <h5>Configuración Firebase:</h5>
                             <ul>
-                                <li><strong>development_id</strong> - ID del entorno</li>
-                                <li><strong>title</strong> - Título del development</li>
-                                <li><strong>permissions</strong> - Permisos del entorno</li>
-                                <li><strong>role</strong> - Rol del usuario en el development</li>
-                                <li><strong>status</strong> - Estado del development</li>
+                                <li><strong>projectId</strong> - ID del proyecto Firebase</li>
+                                <li><strong>apiKey</strong> - Clave API de Firebase</li>
+                                <li><strong>authDomain</strong> - Dominio de autenticación</li>
+                                <li><strong>storageBucket</strong> - Bucket de almacenamiento</li>
+                                <li><strong>messagingSenderId</strong> - ID del remitente de mensajes</li>
+                                <li><strong>appId</strong> - ID de la aplicación</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>🗄️ WhitelabelDatabase</h4>
+                        <div class="component-content">
+                            <h5>Configuración de Base de Datos:</h5>
+                            <ul>
+                                <li><strong>name</strong> - Nombre de la base de datos</li>
+                                <li><strong>connectionString</strong> - String de conexión</li>
+                                <li><strong>collections</strong> - Colecciones disponibles</li>
+                                <li><strong>backupEnabled</strong> - Backups habilitados</li>
+                                <li><strong>backupFrequency</strong> - Frecuencia de backups</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>⚙️ WhitelabelFeatures</h4>
+                        <div class="component-content">
+                            <h5>Funcionalidades Disponibles:</h5>
+                            <ul>
+                                <li><strong>events</strong> - Gestión de eventos</li>
+                                <li><strong>users</strong> - Gestión de usuarios</li>
+                                <li><strong>analytics</strong> - Analytics y reportes</li>
+                                <li><strong>notifications</strong> - Sistema de notificaciones</li>
+                                <li><strong>payments</strong> - Procesamiento de pagos</li>
+                                <li><strong>integrations</strong> - Integraciones externas</li>
+                                <li><strong>customBranding</strong> - Branding personalizado</li>
+                                <li><strong>multiLanguage</strong> - Soporte multi-idioma</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>🎨 WhitelabelSettings</h4>
+                        <div class="component-content">
+                            <h5>Configuraciones Personalizables:</h5>
+                            <ul>
+                                <li><strong>theme</strong> - Tema visual (JSON)</li>
+                                <li><strong>branding</strong> - Configuración de marca (JSON)</li>
+                                <li><strong>notifications</strong> - Configuración de notificaciones (JSON)</li>
+                                <li><strong>security</strong> - Configuración de seguridad (JSON)</li>
+                                <li><strong>performance</strong> - Configuración de rendimiento (JSON)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>📊 WhitelabelLimits</h4>
+                        <div class="component-content">
+                            <h5>Límites Configurables:</h5>
+                            <ul>
+                                <li><strong>users</strong> - Número máximo de usuarios</li>
+                                <li><strong>events</strong> - Número máximo de eventos</li>
+                                <li><strong>storage</strong> - Almacenamiento máximo (MB/GB)</li>
+                                <li><strong>apiCalls</strong> - Llamadas API máximas por día</li>
+                                <li><strong>customizations</strong> - Número de personalizaciones</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>📈 WhitelabelStats</h4>
+                        <div class="component-content">
+                            <h5>Estadísticas en Tiempo Real:</h5>
+                            <ul>
+                                <li><strong>totalUsers</strong> - Total de usuarios registrados</li>
+                                <li><strong>totalEvents</strong> - Total de eventos creados</li>
+                                <li><strong>activeUsers</strong> - Usuarios activos en el último mes</li>
+                                <li><strong>storageUsed</strong> - Almacenamiento utilizado</li>
+                                <li><strong>apiCallsToday</strong> - Llamadas API del día</li>
+                                <li><strong>lastActivity</strong> - Última actividad registrada</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="whitelabel-queries">
-                    <h3>🔍 Queries de Whitelabel</h3>
+                    <h3>🔍 Queries de Whitelabel Disponibles</h3>
                     
                     <div class="query-examples">
                         <h4>Consultas Principales:</h4>
-                        <pre><code class="language-graphql"># Obtener desarrollador por ID
-query GetWhitelabelDeveloper($developerId: ID!) {
-  getWhitelabelDeveloper(developerId: $developerId) {
-    id
-    name
-    email
-    permissions
-    status
-    created_at
-    whitelabel_info {
-      whitelabel_id
-      brand_name
-      logo_url
-      color_scheme
-      custom_domain
+                        <pre><code class="language-graphql"># Obtener todas las marcas blancas con paginación
+query GetWhitelabels($page: Int, $limit: Int, $search: String, $isActive: Boolean, $hasDeveloper: Boolean) {
+  getWhitelabels(page: $page, limit: $limit, search: $search, isActive: $isActive, hasDeveloper: $hasDeveloper) {
+    success
+    whitelabels {
+      id
+      name
+      slug
+      domain
+      isActive
+      createdAt
+      developer {
+        isEnabled
+        apiKey
+        allowedDomains
+        rateLimit
+      }
+      features {
+        events
+        users
+        analytics
+        notifications
+        payments
+        integrations
+        customBranding
+        multiLanguage
+      }
+      limits {
+        users
+        events
+        storage
+        apiCalls
+        customizations
+      }
+      stats {
+        totalUsers
+        totalEvents
+        activeUsers
+        storageUsed
+        apiCallsToday
+        lastActivity
+      }
     }
+    total
+    page
+    limit
+    errors
   }
 }
 
-# Obtener información de marca blanca
-query GetWhitelabelInfo($whitelabelId: ID!) {
-  getWhitelabelInfo(whitelabelId: $whitelabelId) {
-    whitelabel_id
-    brand_name
-    logo_url
-    color_scheme
-    custom_domain
-    features {
-      crm_enabled
-      events_enabled
-      campaigns_enabled
-      analytics_enabled
+# Obtener marca blanca específica por ID
+query GetWhitelabel($id: ID!) {
+  getWhitelabel(id: $id) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      createdAt
+      updatedAt
+      developer {
+        isEnabled
+        apiKey
+        webhookUrl
+        allowedDomains
+        rateLimit
+        features
+      }
+      firebase {
+        projectId
+        apiKey
+        authDomain
+        storageBucket
+        messagingSenderId
+        appId
+      }
+      database {
+        name
+        connectionString
+        collections
+        backupEnabled
+        backupFrequency
+      }
+      features {
+        events
+        users
+        analytics
+        notifications
+        payments
+        integrations
+        customBranding
+        multiLanguage
+      }
+      settings {
+        theme
+        branding
+        notifications
+        security
+        performance
+      }
+      limits {
+        users
+        events
+        storage
+        apiCalls
+        customizations
+      }
+      stats {
+        totalUsers
+        totalEvents
+        activeUsers
+        storageUsed
+        apiCallsToday
+        lastActivity
+      }
     }
-    limits {
-      max_users
-      max_storage
-      max_api_calls
-    }
+    errors
   }
 }
 
-# Obtener development por usuario
-query GetUserDevelopment($userId: ID!) {
-  getUserDevelopment(userId: $userId) {
-    development_id
-    title
-    permissions
-    role
-    status
-    whitelabel_info {
-      brand_name
-      logo_url
+# Obtener marca blanca por slug
+query GetWhitelabelBySlug($slug: String!) {
+  getWhitelabelBySlug(slug: $slug) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      createdAt
+      developer {
+        isEnabled
+        apiKey
+        allowedDomains
+      }
+      features {
+        events
+        users
+        analytics
+      }
     }
+    errors
+  }
+}
+
+# Obtener marca blanca por dominio
+query GetWhitelabelByDomain($domain: String!) {
+  getWhitelabelByDomain(domain: $domain) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      developer {
+        isEnabled
+        apiKey
+      }
+    }
+    errors
+  }
+}
+
+# Obtener estadísticas de marca blanca
+query GetWhitelabelStats($id: ID!) {
+  getWhitelabelStats(id: $id) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      stats {
+        totalUsers
+        totalEvents
+        activeUsers
+        storageUsed
+        apiCallsToday
+        lastActivity
+      }
+    }
+    errors
+  }
+}
+
+# Verificar disponibilidad de slug
+query CheckSlugAvailability($slug: String!) {
+  checkSlugAvailability(slug: $slug)
+}
+
+# Obtener marcas blancas activas
+query GetActiveWhitelabels {
+  getActiveWhitelabels {
+    success
+    whitelabels {
+      id
+      name
+      slug
+      domain
+      isActive
+      createdAt
+      developer {
+        isEnabled
+        apiKey
+      }
+    }
+    total
+    errors
   }
 }</code></pre>
                     </div>
                 </div>
 
                 <div class="whitelabel-mutations">
-                    <h3>⚙️ Mutations de Whitelabel</h3>
+                    <h3>⚙️ Mutations de Whitelabel Disponibles</h3>
                     
                     <div class="mutation-examples">
                         <h4>Operaciones Principales:</h4>
-                        <pre><code class="language-graphql"># Crear nuevo desarrollador
-mutation CreateWhitelabelDeveloper($developer: WhitelabelDeveloperInput!) {
-  createWhitelabelDeveloper(developer: $developer) {
+                        <pre><code class="language-graphql"># Crear nueva marca blanca
+mutation CreateWhitelabel($input: CreateWhitelabelInput!) {
+  createWhitelabel(input: $input) {
     success
-    developer {
+    message
+    whitelabel {
       id
       name
-      email
-      status
+      slug
+      domain
+      isActive
+      createdAt
+      developer {
+        isEnabled
+        apiKey
+        allowedDomains
+        rateLimit
+      }
+      features {
+        events
+        users
+        analytics
+        notifications
+        payments
+        integrations
+        customBranding
+        multiLanguage
+      }
+      limits {
+        users
+        events
+        storage
+        apiCalls
+        customizations
+      }
     }
     errors
   }
 }
 
-# Actualizar información de marca blanca
-mutation UpdateWhitelabelInfo($whitelabelId: ID!, $updates: WhitelabelInfoInput!) {
-  updateWhitelabelInfo(whitelabelId: $whitelabelId, updates: $updates) {
+# Actualizar marca blanca existente
+mutation UpdateWhitelabel($id: ID!, $input: UpdateWhitelabelInput!) {
+  updateWhitelabel(id: $id, input: $input) {
     success
-    whitelabel_info {
-      whitelabel_id
-      brand_name
-      logo_url
-      color_scheme
+    message
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      updatedAt
+      developer {
+        isEnabled
+        apiKey
+        allowedDomains
+        rateLimit
+      }
+      features {
+        events
+        users
+        analytics
+        notifications
+        payments
+        integrations
+        customBranding
+        multiLanguage
+      }
+      limits {
+        users
+        events
+        storage
+        apiCalls
+        customizations
+      }
     }
     errors
   }
 }
 
-# Asignar usuario a development
-mutation AssignUserToDevelopment($userId: ID!, $developmentId: ID!, $role: String!) {
-  assignUserToDevelopment(userId: $userId, developmentId: $developmentId, role: $role) {
+# Eliminar marca blanca
+mutation DeleteWhitelabel($id: ID!) {
+  deleteWhitelabel(id: $id) {
     success
-    user {
-      uid
-      email
-      development
-      role
+    message
+    whitelabel {
+      id
+      name
+      slug
+    }
+    errors
+  }
+}
+
+# Cambiar estado activo/inactivo
+mutation ToggleWhitelabelStatus($id: ID!) {
+  toggleWhitelabelStatus(id: $id) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      isActive
+    }
+    errors
+  }
+}
+
+# Configurar developer embebido
+mutation ConfigureDeveloper($id: ID!, $developer: WhitelabelDeveloperInput!) {
+  configureDeveloper(id: $id, developer: $developer) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      developer {
+        isEnabled
+        apiKey
+        webhookUrl
+        allowedDomains
+        rateLimit
+        features
+      }
+    }
+    errors
+  }
+}
+
+# Configurar Firebase
+mutation ConfigureFirebase($id: ID!, $firebase: WhitelabelFirebaseInput!) {
+  configureFirebase(id: $id, firebase: $firebase) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      firebase {
+        projectId
+        apiKey
+        authDomain
+        storageBucket
+        messagingSenderId
+        appId
+      }
+    }
+    errors
+  }
+}
+
+# Configurar base de datos
+mutation ConfigureDatabase($id: ID!, $database: WhitelabelDatabaseInput!) {
+  configureDatabase(id: $id, database: $database) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      database {
+        name
+        connectionString
+        collections
+        backupEnabled
+        backupFrequency
+      }
+    }
+    errors
+  }
+}
+
+# Actualizar features
+mutation UpdateFeatures($id: ID!, $features: WhitelabelFeaturesInput!) {
+  updateFeatures(id: $id, features: $features) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      features {
+        events
+        users
+        analytics
+        notifications
+        payments
+        integrations
+        customBranding
+        multiLanguage
+      }
+    }
+    errors
+  }
+}
+
+# Actualizar settings
+mutation UpdateSettings($id: ID!, $settings: WhitelabelSettingsInput!) {
+  updateSettings(id: $id, settings: $settings) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      settings {
+        theme
+        branding
+        notifications
+        security
+        performance
+      }
+    }
+    errors
+  }
+}
+
+# Actualizar límites
+mutation UpdateLimits($id: ID!, $limits: WhitelabelLimitsInput!) {
+  updateLimits(id: $id, limits: $limits) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      limits {
+        users
+        events
+        storage
+        apiCalls
+        customizations
+      }
+    }
+    errors
+  }
+}
+
+# Regenerar API key
+mutation RegenerateApiKey($id: ID!) {
+  regenerateApiKey(id: $id) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      developer {
+        apiKey
+      }
+    }
+    errors
+  }
+}
+
+# Clonar marca blanca
+mutation CloneWhitelabel($id: ID!, $newName: String!, $newSlug: String!) {
+  cloneWhitelabel(id: $id, newName: $newName, newSlug: $newSlug) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      createdAt
+      developer {
+        isEnabled
+        apiKey
+      }
     }
     errors
   }
@@ -1404,19 +1869,20 @@ mutation AssignUserToDevelopment($userId: ID!, $developmentId: ID!, $role: Strin
                 </div>
 
                 <div class="whitelabel-use-cases">
-                    <h3>🎯 Casos de Uso del Sistema</h3>
+                    <h3>🎯 Casos de Uso del Sistema Whitelabel</h3>
                     
                     <div class="use-case-card">
-                        <h4>1. 🏢 Empresa que Vende Software como Servicio</h4>
+                        <h4>1. 🏢 Empresa que Vende Software como Servicio (SaaS)</h4>
                         <div class="use-case-content">
                             <h5>Escenario:</h5>
-                            <p>Una empresa vende el CRM a diferentes clientes, cada uno con su propia marca y configuración.</p>
+                            <p>Una empresa vende el CRM a diferentes clientes, cada uno con su propia marca, configuración y límites específicos.</p>
                             <h5>Implementación:</h5>
                             <ul>
-                                <li>Crear WhitelabelDeveloper para cada cliente</li>
-                                <li>Configurar WhitelabelInfo con logo y colores</li>
-                                <li>Asignar usuarios al Development correspondiente</li>
-                                <li>Configurar permisos específicos por cliente</li>
+                                <li>Crear Whitelabel para cada cliente con branding personalizado</li>
+                                <li>Configurar WhitelabelDeveloper con API key única y límites</li>
+                                <li>Habilitar/deshabilitar features según el plan del cliente</li>
+                                <li>Configurar límites de usuarios, eventos y almacenamiento</li>
+                                <li>Asignar dominio personalizado y configuración Firebase</li>
                             </ul>
                         </div>
                     </div>
@@ -1425,223 +1891,151 @@ mutation AssignUserToDevelopment($userId: ID!, $developmentId: ID!, $role: Strin
                         <h4>2. 🎨 Agencia de Marketing con Múltiples Clientes</h4>
                         <div class="use-case-content">
                             <h5>Escenario:</h5>
-                            <p>Una agencia usa el sistema para gestionar campañas de diferentes clientes.</p>
+                            <p>Una agencia usa el sistema para gestionar campañas de diferentes clientes con marcas separadas.</p>
                             <h5>Implementación:</h5>
                             <ul>
-                                <li>Development por cliente con su propia marca</li>
+                                <li>Development por cliente con su propia marca y colores</li>
                                 <li>Usuarios de la agencia con acceso a múltiples developments</li>
                                 <li>Permisos granulares por cliente y funcionalidad</li>
-                                <li>Reportes separados por development</li>
+                                <li>Reportes separados por development con estadísticas</li>
+                                <li>Configuración de webhooks para notificaciones por cliente</li>
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Whitelabel Section -->
-        <section id="whitelabel" class="section">
-            <div class="container">
-                <h2 class="section-title">
-                    <i class="fas fa-building"></i>
-                    🏢 Sistema Whitelabel y Multi-Tenant
-                </h2>
-
-                <div class="whitelabel-overview">
-                    <h3>🌐 Arquitectura Multi-Tenant</h3>
-                    <p>El sistema implementa una arquitectura completa de marca blanca que permite a diferentes desarrolladores tener sus propios entornos personalizados.</p>
-                </div>
-
-                <div class="whitelabel-components">
-                    <h3>🏗️ Componentes del Sistema</h3>
-                    
-                    <div class="component-card">
-                        <h4>👨‍💻 WhitelabelDeveloper</h4>
-                        <div class="component-content">
-                            <h5>Campos Principales:</h5>
+                    <div class="use-case-card">
+                        <h4>3. 🏭 Empresa con Múltiples Divisiones</h4>
+                        <div class="use-case-content">
+                            <h5>Escenario:</h5>
+                            <p>Una empresa grande con diferentes divisiones que necesitan sistemas independientes.</p>
+                            <h5>Implementación:</h5>
                             <ul>
-                                <li><strong>id</strong> - Identificador único del desarrollador</li>
-                                <li><strong>name</strong> - Nombre del desarrollador/empresa</li>
-                                <li><strong>email</strong> - Email de contacto</li>
-                                <li><strong>permissions</strong> - Array de permisos específicos</li>
-                                <li><strong>status</strong> - Estado activo/inactivo</li>
-                                <li><strong>created_at</strong> - Fecha de creación</li>
+                                <li>Whitelabel por división con branding corporativo</li>
+                                <li>Configuración de base de datos separada por división</li>
+                                <li>Límites de recursos según presupuesto de cada división</li>
+                                <li>Integración con sistemas internos de cada división</li>
+                                <li>Reportes consolidados y por división</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="component-card">
-                        <h4>🏷️ WhitelabelInfo</h4>
-                        <div class="component-content">
-                            <h5>Campos Principales:</h5>
+                    <div class="use-case-card">
+                        <h4>4. 🌍 Empresa Internacional con Localización</h4>
+                        <div class="use-case-content">
+                            <h5>Escenario:</h5>
+                            <p>Una empresa que opera en diferentes países con requisitos locales específicos.</p>
+                            <h5>Implementación:</h5>
                             <ul>
-                                <li><strong>whitelabel_id</strong> - ID único de la marca blanca</li>
-                                <li><strong>brand_name</strong> - Nombre de la marca</li>
-                                <li><strong>logo_url</strong> - URL del logo personalizado</li>
-                                <li><strong>color_scheme</strong> - Esquema de colores</li>
-                                <li><strong>custom_domain</strong> - Dominio personalizado</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="component-card">
-                        <h4>⚙️ Development</h4>
-                        <div class="component-content">
-                            <h5>Campos Principales:</h5>
-                            <ul>
-                                <li><strong>development_id</strong> - ID del entorno</li>
-                                <li><strong>title</strong> - Título del development</li>
-                                <li><strong>permissions</strong> - Permisos del entorno</li>
-                                <li><strong>role</strong> - Rol del usuario en el development</li>
-                                <li><strong>status</strong> - Estado del development</li>
+                                <li>Whitelabel por país/región con idioma local</li>
+                                <li>Configuración de pagos según moneda y métodos locales</li>
+                                <li>Integración con servicios locales (bancos, proveedores)</li>
+                                <li>Cumplimiento de regulaciones locales (GDPR, LGPD, etc.)</li>
+                                <li>Configuración de timezone y formatos de fecha</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="whitelabel-queries">
-                    <h3>🔍 Queries de Whitelabel</h3>
+                <div class="whitelabel-tools">
+                    <h3>🛠️ Herramientas MCP para Whitelabel</h3>
                     
-                    <div class="query-examples">
-                        <h4>Consultas Principales:</h4>
-                        <pre><code class="language-graphql"># Obtener desarrollador por ID
-query GetWhitelabelDeveloper($developerId: ID!) {
-  getWhitelabelDeveloper(developerId: $developerId) {
-    id
-    name
-    email
-    permissions
-    status
-    created_at
-    whitelabel_info {
-      whitelabel_id
-      brand_name
-      logo_url
-      color_scheme
-      custom_domain
-    }
-  }
-}
-
-# Obtener información de marca blanca
-query GetWhitelabelInfo($whitelabelId: ID!) {
-  getWhitelabelInfo(whitelabelId: $whitelabelId) {
-    whitelabel_id
-    brand_name
-    logo_url
-    color_scheme
-    custom_domain
-    features {
-      crm_enabled
-      events_enabled
-      campaigns_enabled
-      analytics_enabled
-    }
-    limits {
-      max_users
-      max_storage
-      max_api_calls
-    }
-  }
-}
-
-# Obtener development por usuario
-query GetUserDevelopment($userId: ID!) {
-  getUserDevelopment(userId: $userId) {
-    development_id
-    title
-    permissions
-    role
-    status
-    whitelabel_info {
-      brand_name
-      logo_url
-    }
-  }
-}</code></pre>
+                    <div class="tools-overview">
+                        <h4>Herramientas Disponibles:</h4>
+                        <ul>
+                            <li><strong>get_whitelabels</strong> - Obtener lista de marcas blancas con filtros</li>
+                            <li><strong>get_whitelabel</strong> - Obtener marca blanca específica por ID</li>
+                            <li><strong>get_whitelabel_by_slug</strong> - Obtener marca blanca por slug</li>
+                            <li><strong>get_whitelabel_by_domain</strong> - Obtener marca blanca por dominio</li>
+                            <li><strong>create_whitelabel</strong> - Crear nueva marca blanca</li>
+                            <li><strong>update_whitelabel</strong> - Actualizar marca blanca existente</li>
+                            <li><strong>delete_whitelabel</strong> - Eliminar marca blanca</li>
+                            <li><strong>configure_developer</strong> - Configurar developer embebido</li>
+                            <li><strong>configure_firebase</strong> - Configurar Firebase</li>
+                            <li><strong>configure_database</strong> - Configurar base de datos</li>
+                            <li><strong>update_features</strong> - Actualizar funcionalidades</li>
+                            <li><strong>update_limits</strong> - Actualizar límites</li>
+                            <li><strong>regenerate_api_key</strong> - Regenerar clave API</li>
+                            <li><strong>clone_whitelabel</strong> - Clonar marca blanca existente</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="whitelabel-mutations">
-                    <h3>⚙️ Mutations de Whitelabel</h3>
+                <div class="whitelabel-examples">
+                    <h3>💡 Ejemplos Prácticos de Implementación</h3>
                     
-                    <div class="mutation-examples">
-                        <h4>Operaciones Principales:</h4>
-                        <pre><code class="language-graphql"># Crear nuevo desarrollador
-mutation CreateWhitelabelDeveloper($developer: WhitelabelDeveloperInput!) {
-  createWhitelabelDeveloper(developer: $developer) {
+                    <div class="example-card">
+                        <h4>📱 Crear Marca Blanca para App Móvil</h4>
+                        <pre><code class="language-graphql">mutation CreateMobileAppWhitelabel {
+  createWhitelabel(input: {
+    name: "MiApp CRM"
+    slug: "miapp-crm"
+    domain: "miapp.example.com"
+    isActive: true
+    developer: {
+      isEnabled: true
+      allowedDomains: ["miapp.example.com", "app.miapp.com"]
+      rateLimit: 1000
+      features: ["events", "users", "analytics", "notifications"]
+    }
+    features: {
+      events: true
+      users: true
+      analytics: true
+      notifications: true
+      payments: false
+      integrations: true
+      customBranding: true
+      multiLanguage: false
+    }
+    limits: {
+      users: 1000
+      events: 500
+      storage: 1024
+      apiCalls: 10000
+      customizations: 50
+    }
+  }) {
     success
-    developer {
+    message
+    whitelabel {
       id
       name
-      email
-      status
-    }
-    errors
-  }
-}
-
-# Actualizar información de marca blanca
-mutation UpdateWhitelabelInfo($whitelabelId: ID!, $updates: WhitelabelInfoInput!) {
-  updateWhitelabelInfo(whitelabelId: $whitelabelId, updates: $updates) {
-    success
-    whitelabel_info {
-      whitelabel_id
-      brand_name
-      logo_url
-      color_scheme
-    }
-    errors
-  }
-}
-
-# Asignar usuario a development
-mutation AssignUserToDevelopment($userId: ID!, $developmentId: ID!, $role: String!) {
-  assignUserToDevelopment(userId: $userId, developmentId: $developmentId, role: $role) {
-    success
-    user {
-      uid
-      email
-      development
-      role
+      slug
+      developer {
+        apiKey
+        isEnabled
+      }
     }
     errors
   }
 }</code></pre>
                     </div>
-                </div>
 
-                <div class="whitelabel-use-cases">
-                    <h3>🎯 Casos de Uso del Sistema</h3>
-                    
-                    <div class="use-case-card">
-                        <h4>1. 🏢 Empresa que Vende Software como Servicio</h4>
-                        <div class="use-case-content">
-                            <h5>Escenario:</h5>
-                            <p>Una empresa vende el CRM a diferentes clientes, cada uno con su propia marca y configuración.</p>
-                            <h5>Implementación:</h5>
-                            <ul>
-                                <li>Crear WhitelabelDeveloper para cada cliente</li>
-                                <li>Configurar WhitelabelInfo con logo y colores</li>
-                                <li>Asignar usuarios al Development correspondiente</li>
-                                <li>Configurar permisos específicos por cliente</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="use-case-card">
-                        <h4>2. 🎨 Agencia de Marketing con Múltiples Clientes</h4>
-                        <div class="use-case-content">
-                            <h5>Escenario:</h5>
-                            <p>Una agencia usa el sistema para gestionar campañas de diferentes clientes.</p>
-                            <h5>Implementación:</h5>
-                            <ul>
-                                <li>Development por cliente con su propia marca</li>
-                                <li>Usuarios de la agencia con acceso a múltiples developments</li>
-                                <li>Permisos granulares por cliente y funcionalidad</li>
-                                <li>Reportes separados por development</li>
-                            </ul>
-                        </div>
+                    <div class="example-card">
+                        <h4>🏢 Configurar Empresa Corporativa</h4>
+                        <pre><code class="language-graphql">mutation ConfigureCorporateWhitelabel {
+  configureDeveloper(id: "whitelabel_id", developer: {
+    isEnabled: true
+    webhookUrl: "https://webhook.corporate.com/notifications"
+    allowedDomains: ["corporate.com", "*.corporate.com"]
+    rateLimit: 5000
+    features: ["events", "users", "analytics", "notifications", "payments", "integrations"]
+  }) {
+    success
+    message
+    whitelabel {
+      id
+      name
+      developer {
+        apiKey
+        webhookUrl
+        allowedDomains
+        rateLimit
+      }
+    }
+    errors
+  }
+}</code></pre>
                     </div>
                 </div>
             </div>
