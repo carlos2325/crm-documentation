@@ -2103,13 +2103,13 @@ cat /etc/nginx/sites-available/api2.eventosorganizador.com</code></pre>
                         </div>
                     </div>
 
-                    <h4>📧 Sistema de Alertas por Email con Gmail SMTP</h4>
+                    <h4>📧 Sistema de Alertas por Email con Brevo SMTP</h4>
                     
                     <div class="email-alerts-section">
                         <div class="alert-config">
                             <h6><i class="fas fa-envelope"></i> Configuración de Email</h6>
                             <p><strong>Email de destino:</strong> <code>bodasdehoy.com@gmail.com</code></p>
-                            <p><strong>Servidor SMTP:</strong> <code>smtp.gmail.com:587</code></p>
+                            <p><strong>Servidor SMTP:</strong> <code>smtp-relay.brevo.com:587</code></p>
                             <p><strong>Frecuencia:</strong> Cada hora (solo si hay alertas)</p>
                             <p><strong>Formato:</strong> Email HTML con diseño profesional</p>
                         </div>
@@ -2216,16 +2216,16 @@ cat /etc/ssmtp/revaliases</code></pre>
                         </div>
                     </div>
 
-                    <h4>🔧 Configuración de Gmail SMTP</h4>
+                    <h4>🔧 Configuración de Brevo SMTP</h4>
                     
-                    <div class="gmail-config">
+                    <div class="brevo-config">
                         <div class="config-steps">
-                            <h6><i class="fas fa-cog"></i> Pasos para Configurar Gmail</h6>
+                            <h6><i class="fas fa-cog"></i> Pasos para Configurar Brevo</h6>
                             <ol>
-                                <li><strong>Activar verificación en 2 pasos</strong> en tu cuenta de Gmail</li>
-                                <li><strong>Generar contraseña de aplicación</strong> específica para este servidor</li>
+                                <li><strong>Crear cuenta en Brevo</strong> (anteriormente Sendinblue)</li>
+                                <li><strong>Generar clave SMTP</strong> en el panel de control</li>
                                 <li><strong>Editar archivo de configuración:</strong> <code>/etc/ssmtp/ssmtp.conf</code></li>
-                                <li><strong>Reemplazar:</strong> <code>TU_APP_PASSWORD_AQUI</code> con tu contraseña real</li>
+                                <li><strong>Reemplazar:</strong> <code>TU_CONTRASEÑA_DE_BREVO</code> con tu clave SMTP real</li>
                                 <li><strong>Probar el sistema:</strong> <code>test-email-alert.sh</code></li>
                             </ol>
                         </div>
@@ -2234,11 +2234,11 @@ cat /etc/ssmtp/revaliases</code></pre>
                             <h6><i class="fas fa-file-code"></i> Archivos de Configuración</h6>
                             <div class="config-file">
                                 <h7><code>/etc/ssmtp/ssmtp.conf</code></h7>
-                                <pre><code class="language-conf"># Configuración Gmail SMTP para CRM
-AuthUser=bodasdehoy.com@gmail.com
-AuthPass=TU_CONTRASEÑA_DE_APLICACIÓN
+                                <pre><code class="language-conf"># Configuración Brevo SMTP para CRM
+AuthUser=BODASDEHOY.COM@GMAIL.COM
+AuthPass=TU_CONTRASEÑA_DE_BREVO
 AuthMethod=LOGIN
-mailhub=smtp.gmail.com:587
+mailhub=smtp-relay.brevo.com:587
 UseSTARTTLS=YES
 UseTLS=YES
 FromLineOverride=YES
@@ -2296,7 +2296,7 @@ tail -f /var/log/crm-monitoring/crm-status-$(date +%Y%m%d).log</code></pre>
                             <div class="summary-card">
                                 <h6><i class="fas fa-cog"></i> ⚙️ Lo que Necesita Configuración</h6>
                                 <ul>
-                                    <li>Contraseña de aplicación Gmail</li>
+                                    <li>Clave SMTP de Brevo</li>
                                     <li>Configuración de archivo ssmtp.conf</li>
                                     <li>Prueba del sistema de email</li>
                                     <li>Verificación de envío de alertas</li>
