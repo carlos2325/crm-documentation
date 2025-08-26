@@ -490,3 +490,219 @@ html {
 .section {
     animation: fadeInUp 0.6s ease-out;
 }
+
+/* Responsive para secciones de API */
+@media (max-width: 768px) {
+    .type-card,
+    .subscriptions-section pre,
+    .events-section pre,
+    .campaigns-section pre,
+    .query-card pre,
+    .mutation-card pre {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
+    
+    .type-card h6,
+    .subscriptions-section h5,
+    .events-section h5,
+    .campaigns-section h5,
+    .query-card h6,
+    .mutation-card h6 {
+        font-size: 1rem;
+    }
+}
+
+/* Estilos para secciones de errores, seguridad, testing y próximos pasos */
+.error-section,
+.security-section,
+.testing-section,
+.next-steps-section {
+    margin-top: 2rem;
+}
+
+.error-card,
+.security-card,
+.testing-card,
+.next-steps-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.error-card:hover,
+.security-card:hover,
+.testing-card:hover,
+.next-steps-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.error-card h6,
+.security-card h6,
+.testing-card h6,
+.next-steps-card h6 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-card h6 i {
+    color: var(--error-color);
+}
+
+.security-card h6 i {
+    color: var(--success-color);
+}
+
+.testing-card h6 i {
+    color: var(--accent-color);
+}
+
+.next-steps-card h6 i {
+    color: var(--primary-color);
+}
+
+.error-card pre,
+.testing-card pre {
+    background: var(--bg-dark);
+    color: #e5e7eb;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border: 1px solid #374151;
+    margin-bottom: 1rem;
+}
+
+.error-card pre code,
+.testing-card pre code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+}
+
+.security-card ul,
+.testing-card ul,
+.next-steps-card ul,
+.next-steps-card ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.security-card li,
+.testing-card li,
+.next-steps-card li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.security-card strong,
+.testing-card strong,
+.next-steps-card strong {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.next-steps-card ol {
+    counter-reset: step-counter;
+}
+
+.next-steps-card ol li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.next-steps-card ol li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--primary-color);
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.next-steps-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.next-steps-card a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Estilos especiales para códigos de estado HTTP */
+.error-card ul {
+    list-style: none;
+    margin-left: 0;
+}
+
+.error-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error-card li:last-child {
+    border-bottom: none;
+}
+
+.error-card strong {
+    color: var(--primary-color);
+    font-weight: 600;
+    min-width: 120px;
+}
+
+/* Responsive para secciones de errores, seguridad, testing y próximos pasos */
+@media (max-width: 768px) {
+    .error-card,
+    .security-card,
+    .testing-card,
+    .next-steps-card {
+        padding: 1rem;
+    }
+    
+    .error-card h6,
+    .security-card h6,
+    .testing-card h6,
+    .next-steps-card h6 {
+        font-size: 1rem;
+    }
+    
+    .error-card pre,
+    .testing-card pre {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
+    
+    .error-card li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .error-card strong {
+        min-width: auto;
+    }
+}

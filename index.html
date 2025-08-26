@@ -183,6 +183,628 @@ curl -X POST \
   }' \
   https://api2.eventosorganizador.com/graphql</code></pre>
                     </div>
+
+                    <h4>🏗️ Esquema y Tipos de Datos</h4>
+                    <div class="schema-section">
+                        <h5>Tipos Principales del CRM</h5>
+                        
+                        <div class="type-card">
+                            <h6><i class="fas fa-user-plus"></i> CRM_Lead (26 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Lead {
+  _id: ID!
+  name: String!
+  email: String!
+  company: String
+  phone: String
+  status: LeadStatus!
+  source: LeadSource!
+  value: Float
+  probability: Float
+  assignedTo: String
+  tags: [String]
+  description: String
+  nextFollowUp: DateTime
+  lastContact: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  convertedTo: String
+  convertedAt: DateTime
+  score: Int
+  priority: Priority!
+  expectedCloseDate: DateTime
+  actualCloseDate: DateTime
+  lostReason: String
+  wonReason: String
+  notes: [CRM_Note]
+  reminders: [CRM_Reminder]
+  activities: [Activity]
+  customFields: JSON
+}</code></pre>
+                        </div>
+
+                        <div class="type-card">
+                            <h6><i class="fas fa-address-book"></i> CRM_Contact (32 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Contact {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  mobile: String
+  company: String
+  jobTitle: String
+  department: String
+  address: Address
+  socialMedia: SocialMedia
+  birthday: DateTime
+  anniversary: DateTime
+  preferences: ContactPreferences
+  tags: [String]
+  status: ContactStatus!
+  source: ContactSource!
+  assignedTo: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastContact: DateTime
+  nextFollowUp: DateTime
+  notes: [CRM_Note]
+  reminders: [CRM_Reminder]
+  activities: [Activity]
+  customFields: JSON
+  relationships: [Relationship]
+  campaigns: [CRM_Campaign]
+  events: [EVT_Event]
+}</code></pre>
+                        </div>
+
+                        <div class="type-card">
+                            <h6><i class="fas fa-building"></i> CRM_Entity (26 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Entity {
+  _id: ID!
+  name: String!
+  type: EntityType!
+  industry: String
+  size: CompanySize
+  website: String
+  phone: String
+  email: String
+  address: Address
+  description: String
+  founded: Int
+  revenue: Float
+  employees: Int
+  status: EntityStatus!
+  assignedTo: String
+  tags: [String]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastContact: DateTime
+  nextFollowUp: DateTime
+  contacts: [CRM_Contact]
+  leads: [CRM_Lead]
+  opportunities: [Opportunity]
+  activities: [Activity]
+  customFields: JSON
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>📡 Subscriptions y Webhooks</h4>
+                    <div class="subscriptions-section">
+                        <h5>Subscriptions en Tiempo Real</h5>
+                        <pre><code class="language-graphql">subscription LeadChanges($filters: LeadFilterInput) {
+  leadChanges(filters: $filters) {
+    operation: ChangeOperation!
+    lead: CRM_Lead!
+    previousValues: CRM_Lead
+    timestamp: DateTime!
+    userId: String
+    userName: String
+    changes: [FieldChange!]!
+  }
+}</code></pre>
+                        
+                        <h5>Webhooks y Integraciones</h5>
+                        <pre><code class="language-graphql">mutation CreateWebhook($input: WebhookInput!) {
+  createWebhook(input: $input) {
+    _id: ID!
+    name: String!
+    url: String!
+    events: [WebhookEvent!]!
+    secret: String!
+    active: Boolean!
+    retryCount: Int!
+    timeout: Int!
+    headers: [WebhookHeader!]
+    filters: WebhookFilters
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+}</code></pre>
+                    </div>
+
+                    <h4>🎉 Módulo de Eventos (EVT)</h4>
+                    <div class="events-section">
+                        <h5>Gestión Completa de Eventos</h5>
+                        <pre><code class="language-graphql">type EVT_Event {
+  _id: ID!
+  name: String!
+  description: String
+  type: EventType!
+  category: EventCategory!
+  status: EventStatus!
+  
+  # Fechas y Horarios
+  date: DateTime!
+  startTime: DateTime!
+  endTime: DateTime!
+  timezone: String!
+  duration: Int! # en minutos
+  
+  # Ubicación
+  location: EventLocation!
+  virtual: Boolean!
+  virtualUrl: String
+  virtualPlatform: String
+  
+  # Organización
+  organizer: String!
+  coOrganizers: [String!]
+  assignedTo: String
+  team: [EventTeamMember!]
+  
+  # Presupuesto y Finanzas
+  budget: EventBudget!
+  revenue: EventRevenue!
+  expenses: [EventExpense!]
+  
+  # Asistentes y Capacidad
+  capacity: Int
+  attendees: [EventAttendee!]
+  waitlist: [EventAttendee!]
+  registrationOpen: Boolean!
+  registrationDeadline: DateTime
+  
+  # Marketing y Promoción
+  marketing: EventMarketing!
+  socialMedia: EventSocialMedia!
+  tags: [String!]
+  
+  # Contenido y Programa
+  agenda: [EventAgendaItem!]
+  speakers: [EventSpeaker!]
+  materials: [EventMaterial!]
+  
+  # Tareas y Logística
+  tasks: [EventTask!]
+  logistics: EventLogistics!
+  vendors: [EventVendor!]
+  
+  # Métricas y Analytics
+  metrics: EventMetrics!
+  feedback: [EventFeedback!]
+  
+  # Metadatos
+  customFields: JSON
+  notes: [EventNote!]
+  attachments: [EventAttachment!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}</code></pre>
+                    </div>
+
+                    <h4>🚀 Módulo de Campañas (BUSN)</h4>
+                    <div class="campaigns-section">
+                        <h5>Gestión Integral de Campañas</h5>
+                        <pre><code class="language-graphql">type CRM_Campaign {
+  _id: ID!
+  name: String!
+  description: String
+  type: CampaignType!
+  status: CampaignStatus!
+  
+  # Objetivos y KPIs
+  objectives: [CampaignObjective!]!
+  kpis: [CampaignKPI!]!
+  targetMetrics: CampaignMetrics!
+  
+  # Audiencia y Segmentación
+  targetAudience: TargetAudience!
+  segments: [AudienceSegment!]
+  filters: AudienceFilters
+  
+  # Canales y Contenido
+  channels: [CampaignChannel!]!
+  content: [CampaignContent!]
+  creative: CreativeAssets
+  
+  # Programación y Automatización
+  schedule: CampaignSchedule!
+  automation: AutomationRules
+  triggers: [Trigger!]
+  
+  # Presupuesto y ROI
+  budget: CampaignBudget!
+  roi: ROIMetrics!
+  performance: PerformanceMetrics!
+  
+  # Metadatos
+  tags: [String!]
+  customFields: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}</code></pre>
+                    </div>
+
+                    <h4>🔧 Enums y Tipos Especializados</h4>
+                    <div class="enum-section">
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> LeadStatus</h6>
+                            <pre><code class="language-graphql">enum LeadStatus {
+  NUEVO
+  CONTACTADO
+  CALIFICADO
+  PROPUESTA
+  NEGOCIACION
+  GANADO
+  PERDIDO
+  RECHAZADO
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> LeadSource</h6>
+                            <pre><code class="language-graphql">enum LeadSource {
+  WEB
+  PHONE
+  REFERRAL
+  SOCIAL
+  EVENT
+  EMAIL
+  COLD_CALL
+  PARTNER
+  ADVERTISING
+  OTHER
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> Priority</h6>
+                            <pre><code class="language-graphql">enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> EventType</h6>
+                            <pre><code class="language-graphql">enum EventType {
+  CONFERENCE
+  SEMINAR
+  WORKSHOP
+  NETWORKING
+  PRODUCT_LAUNCH
+  TRAINING
+  MEETING
+  PRESENTATION
+  DEMO
+  WEBINAR
+  HACKATHON
+  COMPETITION
+  EXHIBITION
+  TRADE_SHOW
+  AWARDS
+  GALA
+  PARTY
+  CELEBRATION
+  TEAM_BUILDING
+  CORPORATE_EVENT
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>🔍 Queries y Mutations Principales</h4>
+                    <div class="query-section">
+                        <div class="query-card">
+                            <h6><i class="fas fa-search"></i> Obtener Leads con Filtros</h6>
+                            <pre><code class="language-graphql">query GetLeads(
+  $filters: LeadFilterInput
+  $pagination: PaginationInput
+  $sort: LeadSortInput
+) {
+  getCRMLeads(
+    filters: $filters
+    pagination: $pagination
+    sort: $sort
+  ) {
+    leads {
+      _id
+      name
+      email
+      company
+      status
+      source
+      value
+      probability
+      assignedTo
+      tags
+      nextFollowUp
+      lastContact
+      createdAt
+      updatedAt
+    }
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="query-card">
+                            <h6><i class="fas fa-search"></i> Obtener Contactos</h6>
+                            <pre><code class="language-graphql">query GetContacts(
+  $filters: ContactFilterInput
+  $pagination: PaginationInput
+) {
+  getCRMContacts(
+    filters: $filters
+    pagination: $pagination
+  ) {
+    contacts {
+      _id
+      firstName
+      lastName
+      email
+      phone
+      company
+      jobTitle
+      status
+      assignedTo
+      tags
+      lastContact
+      nextFollowUp
+      createdAt
+      updatedAt
+    }
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="mutation-section">
+                        <div class="mutation-card">
+                            <h6><i class="fas fa-plus"></i> Crear Lead</h6>
+                            <pre><code class="language-graphql">mutation CreateLead($input: LeadInput!) {
+  createCRMLead(input: $input) {
+    _id
+    name
+    email
+    company
+    status
+    source
+    value
+    probability
+    assignedTo
+    tags
+    description
+    nextFollowUp
+    createdAt
+    updatedAt
+    validation {
+      isValid
+      errors {
+        field
+        message
+        code
+      }
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="mutation-card">
+                            <h6><i class="fas fa-edit"></i> Actualizar Lead</h6>
+                            <pre><code class="language-graphql">mutation UpdateLead($id: ID!, $input: LeadUpdateInput!) {
+  updateCRMLead(id: $id, input: $input) {
+    _id
+    name
+    email
+    company
+    status
+    source
+    value
+    probability
+    assignedTo
+    tags
+    description
+    nextFollowUp
+    lastContact
+    updatedAt
+    changeHistory {
+      field
+      oldValue
+      newValue
+      changedBy
+      changedAt
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>📊 Métricas y Analytics</h4>
+                    <div class="metrics-section">
+                        <div class="metrics-card">
+                            <h6><i class="fas fa-chart-line"></i> Dashboard de Leads</h6>
+                            <pre><code class="language-graphql">query GetLeadAnalytics($dateRange: DateRangeInput) {
+  getLeadAnalytics(dateRange: $dateRange) {
+    overview {
+      totalLeads
+      newLeads
+      convertedLeads
+      conversionRate
+      totalValue
+      averageValue
+      averageTimeToConvert
+    }
+    
+    byStatus {
+      status
+      count
+      value
+      percentage
+    }
+    
+    bySource {
+      source
+      count
+      conversionRate
+      averageValue
+    }
+    
+    trends {
+      date
+      newLeads
+      convertedLeads
+      conversionRate
+    }
+    
+    performance {
+      assignedTo
+      leadsAssigned
+      leadsConverted
+      conversionRate
+      totalValue
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>⚠️ Manejo de Errores y Códigos de Estado</h4>
+                    <div class="error-section">
+                        <div class="error-card">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Códigos de Error Comunes</h6>
+                            <pre><code class="language-json">{
+  "errors": [
+    {
+      "message": "Validation failed",
+      "extensions": {
+        "code": "VALIDATION_ERROR",
+        "field": "email",
+        "details": "Invalid email format"
+      }
+    }
+  ]
+}</code></pre>
+                        </div>
+
+                        <div class="error-card">
+                            <h6><i class="fas fa-shield-alt"></i> Códigos de Estado HTTP</h6>
+                            <ul>
+                                <li><strong>200 OK:</strong> Operación exitosa</li>
+                                <li><strong>201 Created:</strong> Recurso creado exitosamente</li>
+                                <li><strong>400 Bad Request:</strong> Error de validación o datos incorrectos</li>
+                                <li><strong>401 Unauthorized:</strong> Token de autenticación inválido o expirado</li>
+                                <li><strong>403 Forbidden:</strong> Sin permisos para acceder al recurso</li>
+                                <li><strong>404 Not Found:</strong> Recurso no encontrado</li>
+                                <li><strong>429 Too Many Requests:</strong> Límite de rate limiting excedido</li>
+                                <li><strong>500 Internal Server Error:</strong> Error interno del servidor</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔐 Seguridad y Permisos</h4>
+                    <div class="security-section">
+                        <div class="security-card">
+                            <h6><i class="fas fa-lock"></i> Autenticación JWT</h6>
+                            <p>La API utiliza tokens JWT para autenticación. Cada request debe incluir:</p>
+                            <ul>
+                                <li><strong>Authorization:</strong> Bearer token válido</li>
+                                <li><strong>X-User-ID:</strong> ID del usuario autenticado</li>
+                                <li><strong>X-Development:</strong> ID del desarrollo/empresa</li>
+                            </ul>
+                        </div>
+
+                        <div class="security-card">
+                            <h6><i class="fas fa-user-shield"></i> Control de Acceso</h6>
+                            <p>El sistema implementa control de acceso basado en roles (RBAC):</p>
+                            <ul>
+                                <li><strong>Admin:</strong> Acceso completo a todos los recursos</li>
+                                <li><strong>Manager:</strong> Acceso a leads y contactos de su equipo</li>
+                                <li><strong>Sales:</strong> Acceso solo a sus leads asignados</li>
+                                <li><strong>Viewer:</strong> Acceso de solo lectura</li>
+                            </ul>
+                        </div>
+
+                        <div class="security-card">
+                            <h6><i class="fas fa-shield-alt"></i> Rate Limiting</h6>
+                            <p>Protección contra abuso de la API:</p>
+                            <ul>
+                                <li><strong>Límite por usuario:</strong> 1000 requests por hora</li>
+                                <li><strong>Límite por IP:</strong> 5000 requests por hora</li>
+                                <li><strong>Límite por endpoint:</strong> 100 requests por minuto</li>
+                                <li><strong>Headers de respuesta:</strong> X-RateLimit-*</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🧪 Testing y Sandbox</h4>
+                    <div class="testing-section">
+                        <div class="testing-card">
+                            <h6><i class="fas fa-flask"></i> Entorno de Testing</h6>
+                            <p>Utiliza el endpoint de test para desarrollo y pruebas:</p>
+                            <pre><code class="language-bash"># Endpoint de testing
+https://testapi2.eventosorganizador.com/graphql
+
+# Base de datos separada para testing
+# No afecta datos de producción
+# Ideal para desarrollo e integración</code></pre>
+                        </div>
+
+                        <div class="testing-card">
+                            <h6><i class="fas fa-tools"></i> Herramientas Recomendadas</h6>
+                            <ul>
+                                <li><strong>GraphQL Playground:</strong> IDE integrado en la API</li>
+                                <li><strong>Insomnia:</strong> Cliente REST/GraphQL avanzado</li>
+                                <li><strong>Postman:</strong> Testing de APIs completo</li>
+                                <li><strong>cURL:</strong> Línea de comandos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Próximos Pasos</h4>
+                    <div class="next-steps-section">
+                        <div class="next-steps-card">
+                            <h6><i class="fas fa-rocket"></i> Implementación</h6>
+                            <ol>
+                                <li>Configurar autenticación JWT</li>
+                                <li>Implementar cliente GraphQL</li>
+                                <li>Crear componentes de UI</li>
+                                <li>Configurar manejo de errores</li>
+                                <li>Implementar cache y optimizaciones</li>
+                            </ol>
+                        </div>
+
+                        <div class="next-steps-card">
+                            <h6><i class="fas fa-book"></i> Recursos Adicionales</h6>
+                            <ul>
+                                <li><strong>Documentación GraphQL:</strong> <a href="https://graphql.org/learn/" target="_blank">graphql.org</a></li>
+                                <li><strong>Apollo Client:</strong> <a href="https://www.apollographql.com/docs/react/" target="_blank">apollographql.com</a></li>
+                                <li><strong>React TypeScript:</strong> <a href="https://react-typescript-cheatsheet.netlify.app/" target="_blank">Cheat Sheet</a></li>
+                                <li><strong>MongoDB Atlas:</strong> <a href="https://docs.atlas.mongodb.com/" target="_blank">docs.atlas.mongodb.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
