@@ -207,6 +207,14 @@
                                         <li>addBudgetCategory - Agregar categoría de presupuesto</li>
                                     </ul>
                                 </li>
+                                <li><a href="#event-permissions">🔐 Sistema de Permisos</a>
+                                    <ul>
+                                        <li>Roles: CREADOR, COMPARTIDO, INVITADO</li>
+                                        <li>Permisos granulares por funcionalidad</li>
+                                        <li>Sistema de compartir eventos</li>
+                                        <li>Control de acceso granular</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
 
@@ -842,6 +850,424 @@ query GetUserEventSummary {
       totalPermissions
     }
     recommendations
+  }
+}</code></pre>
+
+                        <h5>🔐 Sistema de Permisos y Compartición</h5>
+                        <pre><code class="language-graphql"># Sistema de Roles Implementado
+enum UserRole {
+  CREADOR      # Propietario del evento - Acceso completo
+  COMPARTIDO   # Usuario con acceso compartido - Acceso básico
+  INVITADO     # Usuario invitado - Acceso limitado
+  SIN_ACCESO   # Sin permisos - No puede ver el evento
+}
+
+# Permisos Granulares por Rol
+type UserPermissions {
+  # Permisos de Visualización
+  canViewBudget: Boolean!        # Ver presupuesto
+  canViewAllGuests: Boolean!     # Ver lista completa de invitados
+  canViewItineraries: Boolean!   # Ver itinerarios y tareas
+  canViewShared: Boolean!        # Ver información compartida
+  
+  # Permisos de Edición
+  canEditEvent: Boolean!         # Editar información del evento
+  canInviteGuests: Boolean!      # Invitar nuevos invitados
+  canDeleteEvent: Boolean!       # Eliminar el evento
+  canShareEvent: Boolean!        # Compartir con otros usuarios
+  
+  # Permisos Específicos
+  canViewConversations: Boolean! # Ver conversaciones/chat
+  canViewChat: Boolean!          # Acceso al chat del evento
+  canViewDocuments: Boolean!     # Ver documentos adjuntos
+}
+
+# Matriz de Permisos por Rol
+type PermissionsMatrix {
+  CREADOR: UserPermissions!      # Acceso completo
+  COMPARTIDO: UserPermissions!   # Acceso básico con restricciones
+  INVITADO: UserPermissions!     # Solo información básica
+}</code></pre>
+
+                        <h5>🏗️ Arquitectura del Sistema de Permisos</h5>
+                        <pre><code class="language-graphql"># Servicios de Permisos Implementados
+type PermissionServices {
+  EventPermissionService: String!           # Servicio principal de permisos
+  EnhancedEventPermissionService: String!   # Servicio mejorado con filtrado
+  EventPermissionModel: String!            # Modelo de base de datos
+}
+
+# Jerarquía de Prioridades para Determinar Rol
+enum RolePriority {
+  CREADOR      # PRIORIDAD MÁXIMA - Propietario del evento
+  COMPARTIDO   # PRIORIDAD MEDIA - Usuario compartido
+  INVITADO     # PRIORIDAD BAJA - Usuario invitado
+  SIN_ACCESO   # SIN ACCESO - No tiene permisos
+}
+
+# Lógica de Determinación de Rol
+type RoleDetermination {
+  # Verificación por ID de Usuario (Máxima prioridad)
+  checkByUserId: Boolean!
+  
+  # Verificación por Email (Prioridad media)
+  checkByEmail: Boolean!
+  
+  # Verificación por Teléfono (Prioridad baja)
+  checkByPhone: Boolean!
+  
+  # Verificación por Invitación (Prioridad mínima)
+  checkByInvitation: Boolean!
+}</code></pre>
+
+                        <h5>🤝 Sistema de Compartir Implementado</h5>
+                        <pre><code class="language-graphql"># Compartir Evento con Usuario
+mutation ShareEvent($eventId: ID!, $userId: ID!, $permissions: JSON!) {
+  shareEvent(eventId: $eventId, userId: $userId, permissions: $permissions)
+}
+
+# Estructura de Permisos para Compartir
+input SharePermissionsInput {
+  # Permisos de Visualización
+  canViewBudget: Boolean!
+  canViewGuests: Boolean!
+  canViewItineraries: Boolean!
+  canViewDocuments: Boolean!
+  
+  # Permisos de Edición
+  canEditEvent: Boolean!
+  canInviteGuests: Boolean!
+  canManageBudget: Boolean!
+  canManageTasks: Boolean!
+  
+  # Permisos de Administración
+  canShareEvent: Boolean!
+  canDeleteEvent: Boolean!
+}
+
+# Campos de Compartición en EVT_Event
+type EventSharing {
+  compartido_array: [String!]!              # IDs de usuarios compartidos
+  detalles_compartidos_array: [ShareDetail!]! # Detalles de permisos por usuario
+}
+
+type ShareDetail {
+  user_id: String!                          # ID del usuario compartido
+  permissions: JSON!                         # Permisos específicos
+  shared_at: DateTime!                       # Fecha de compartición
+  shared_by: String!                         # Usuario que compartió
+  role: String!                              # Rol asignado
+}</code></pre>
+
+                        <h5>💡 Ejemplos de Uso del Sistema de Permisos</h5>
+                        <pre><code class="language-graphql"># Ejemplo 1: Compartir evento con permisos específicos
+mutation ShareEventWithPermissions {
+  shareEvent(
+    eventId: "64f8a1b2c3d4e5f6a7b8c9d0"
+    userId: "user123"
+    permissions: {
+      canViewBudget: true
+      canViewGuests: true
+      canViewItineraries: true
+      canEditEvent: true
+      canInviteGuests: true
+      canShareEvent: false
+      canDeleteEvent: false
+    }
+  )
+}
+
+# Ejemplo 2: Verificar permisos del usuario en evento
+query CheckUserPermissions {
+  getEvent(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    _id
+    nombre
+    user_role           # Rol del usuario actual
+    user_permissions    # Permisos específicos
+    compartido_array    # Usuarios con acceso compartido
+    detalles_compartidos_array {
+      user_id
+      permissions
+      shared_at
+      shared_by
+      role
+    }
+  }
+}
+
+# Ejemplo 3: Obtener eventos según rol del usuario
+query GetEventsByUserRole {
+  getAllUserRelatedEvents(userId: "user123") {
+    _id
+    nombre
+    tipo
+    fecha
+    user_role           # CREADOR, COMPARTIDO, INVITADO
+    user_permissions    # Permisos específicos
+    # Campos filtrados según permisos
+    invitados_array @include(if: $canViewGuests)
+    presupuesto_objeto @include(if: $canViewBudget)
+    itinerarios_array @include(if: $canViewItineraries)
+  }
+}</code></pre>
+
+                        <h5>🏢 Sistema de Permisos para Otros Módulos CRM</h5>
+                        <pre><code class="language-graphql"># Compartir Lead con Usuario
+mutation ShareCRMLead($leadId: ID!, $sharing: LeadSharingInput!) {
+  shareCRMLead(leadId: $leadId, sharing: $sharing) {
+    success
+    lead {
+      _id
+      name
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Contacto
+mutation ShareCRMContact($contactId: ID!, $sharing: ContactSharingInput!) {
+  shareCRMContact(contactId: $contactId, sharing: $sharing) {
+    success
+    contact {
+      _id
+      firstName
+      lastName
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Entidad
+mutation ShareCRMEntity($entityId: ID!, $sharing: EntitySharingInput!) {
+  shareCRMEntity(entityId: $entityId, sharing: $sharing) {
+    success
+    entity {
+      _id
+      name
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Estructura de Compartición para CRM
+input LeadSharingInput {
+  userIds: [String!]!    # IDs de usuarios para compartir
+  groupIds: [String!]!   # IDs de grupos para compartir
+  permissions: [String!]! # Permisos específicos
+}
+
+input ContactSharingInput {
+  userIds: [String!]!
+  groupIds: [String!]!
+  permissions: [String!]!
+}
+
+input EntitySharingInput {
+  userIds: [String!]!
+  groupIds: [String!]!
+  permissions: [String!]!
+}</code></pre>
+
+                        <h5>🔄 Flujo de Compartición y Validaciones</h5>
+                        <pre><code class="language-graphql"># Flujo de Compartición de Evento
+type EventSharingFlow {
+  # Paso 1: Verificar Propiedad
+  checkOwnership: Boolean! {
+    event.usuario_id === currentUser.uid
+  }
+  
+  # Paso 2: Validar Usuario Destino
+  validateTargetUser: Boolean! {
+    userExists && userActive && userInSameDevelopment
+  }
+  
+  # Paso 3: Aplicar Permisos
+  applyPermissions: SharePermissionsInput! {
+    canViewBudget: Boolean!
+    canViewGuests: Boolean!
+    canEditEvent: Boolean!
+    canInviteGuests: Boolean!
+  }
+  
+  # Paso 4: Actualizar Base de Datos
+  updateDatabase: Boolean! {
+    event.compartido_array.push(userId)
+    event.detalles_compartidos_array.push(shareDetail)
+  }
+  
+  # Paso 5: Notificar Usuario
+  notifyUser: Boolean! {
+    sendEmailNotification || sendPushNotification
+  }
+}
+
+# Validaciones de Seguridad
+type SecurityValidations {
+  # Verificar que solo el propietario puede compartir
+  ownerOnlySharing: Boolean!
+  
+  # Verificar que el usuario no se comparte a sí mismo
+  noSelfSharing: Boolean!
+  
+  # Verificar límites de compartición
+  sharingLimits: Boolean! {
+    maxSharedUsers <= 50
+    maxPermissionsPerUser <= 10
+  }
+  
+  # Verificar permisos heredados
+  inheritedPermissions: Boolean! {
+    sharedUser.cannotHaveMorePermissionsThanOwner
+  }
+}</code></pre>
+
+                        <h5>🎯 Casos de Uso y Escenarios Reales</h5>
+                        <pre><code class="language-graphql"># Escenario 1: Organizador de Boda Comparte con Proveedores
+type WeddingSharingScenario {
+  # Organizador (CREADOR) comparte con:
+  photographer: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false       # No editar evento
+      canInviteGuests: false    # No invitar gente
+    }
+  }
+  
+  caterer: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true       # Para saber cuántos comensales
+      canViewItinerary: true    # Para horarios de comida
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false
+    }
+  }
+  
+  weddingPlanner: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: true       # Ver presupuesto para planificar
+      canEditEvent: true        # Editar detalles del evento
+      canInviteGuests: true     # Invitar gente
+      canShareEvent: false      # No compartir con otros
+    }
+  }
+}
+
+# Escenario 2: Empresa Comparte Evento Corporativo
+type CorporateEventSharingScenario {
+  # CEO (CREADOR) comparte con:
+  marketingTeam: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: true
+      canEditEvent: true
+      canInviteGuests: true
+      canShareEvent: false
+    }
+  }
+  
+  financeTeam: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: false      # No ver invitados
+      canViewItinerary: false   # No ver itinerario
+      canViewBudget: true       # Solo ver presupuesto
+      canEditEvent: false
+      canInviteGuests: false
+    }
+  }
+  
+  attendees: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: false      # No ver otros invitados
+      canViewItinerary: true    # Ver agenda del evento
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false
+      canInviteGuests: false
+    }
+  }
+}</code></pre>
+
+                        <h5>📋 Resumen del Sistema de Permisos y Mejores Prácticas</h5>
+                        <pre><code class="language-graphql"># Resumen de Funcionalidades Implementadas
+type PermissionsSystemSummary {
+  # Sistema de Roles
+  roles: [String!]! {
+    "CREADOR"      # Acceso completo - Propietario
+    "COMPARTIDO"   # Acceso básico - Usuario compartido  
+    "INVITADO"     # Acceso limitado - Usuario invitado
+    "SIN_ACCESO"   # Sin acceso - Sin permisos
+  }
+  
+  # Permisos Granulares
+  permissions: [String!]! {
+    "Visualización"    # Ver presupuesto, invitados, itinerarios
+    "Edición"          # Editar evento, invitar gente
+    "Administración"   # Compartir, eliminar, gestionar
+  }
+  
+  # Recursos Compartibles
+  shareableResources: [String!]! {
+    "Eventos"          # EVT_Event con sistema completo
+    "Leads"            # CRM_Lead con ownership
+    "Contactos"        # CRM_Contact con permisos
+    "Entidades"        # CRM_Entity con acceso
+  }
+  
+  # Servicios Implementados
+  services: [String!]! {
+    "EventPermissionService"           # Servicio principal
+    "EnhancedEventPermissionService"   # Servicio mejorado
+    "EventPermissionModel"            # Modelo de BD
+  }
+}
+
+# Mejores Prácticas de Seguridad
+type SecurityBestPractices {
+  # Principio de Mínimo Privilegio
+  leastPrivilege: String! {
+    "Solo dar permisos necesarios para la tarea"
+  }
+  
+  # Verificación de Propiedad
+  ownershipVerification: String! {
+    "Solo el propietario puede compartir recursos"
+  }
+  
+  # Auditoría de Accesos
+  accessAudit: String! {
+    "Registrar todas las acciones de compartición"
+  }
+  
+  # Límites de Compartición
+  sharingLimits: String! {
+    "Máximo 50 usuarios compartidos por recurso"
+  }
+  
+  # Permisos Heredados
+  inheritedPermissions: String! {
+    "Usuario compartido no puede tener más permisos que el propietario"
   }
 }</code></pre>
                     </div>
