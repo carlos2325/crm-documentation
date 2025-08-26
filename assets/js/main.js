@@ -348,3 +348,178 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('🚀 CRM Documentation loaded successfully!');
 });
+
+// ===== BÚSQUEDA FLOTANTE =====
+class FloatingSearch {
+    constructor() {
+        this.searchBtn = document.getElementById('nav-search-btn');
+        this.floatingSearch = document.getElementById('floating-search');
+        this.searchInput = document.getElementById('floating-search-input');
+        this.clearBtn = document.getElementById('floating-clear-search');
+        this.filters = {
+            types: document.getElementById('floating-filter-types'),
+            queries: document.getElementById('floating-filter-queries'),
+            mutations: document.getElementById('floating-filter-mutations'),
+            fields: document.getElementById('floating-filter-fields')
+        };
+        this.searchResults = document.getElementById('floating-search-results');
+        this.searchData = this.initializeSearchData();
+        this.init();
+    }
+    
+    init() {
+        if (!this.searchBtn || !this.floatingSearch) return;
+        
+        this.searchBtn.addEventListener('click', () => this.toggleSearch());
+        this.searchInput.addEventListener('input', () => this.performSearch());
+        this.clearBtn.addEventListener('click', () => this.clearSearch());
+        
+        // Atajo de teclado Ctrl+K
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                this.toggleSearch();
+            }
+        });
+        
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!this.floatingSearch.contains(e.target) && !this.searchBtn.contains(e.target)) {
+                this.hideSearch();
+            }
+        });
+    }
+    
+    toggleSearch() {
+        if (this.floatingSearch.classList.contains('active')) {
+            this.hideSearch();
+        } else {
+            this.showSearch();
+        }
+    }
+    
+    showSearch() {
+        this.floatingSearch.classList.add('active');
+        this.searchInput.focus();
+        this.searchBtn.style.background = 'var(--primary-dark)';
+    }
+    
+    hideSearch() {
+        this.floatingSearch.classList.remove('active');
+        this.searchBtn.style.background = 'var(--primary-color)';
+        this.clearSearch();
+    }
+    
+    performSearch() {
+        const query = this.searchInput.value.trim().toLowerCase();
+        if (query.length < 2) {
+            this.hideResults();
+            return;
+        }
+        
+        const results = this.searchData.filter(item => {
+            const matchesQuery = item.title.toLowerCase().includes(query) ||
+                               item.description.toLowerCase().includes(query) ||
+                               item.type.toLowerCase().includes(query);
+            
+            const matchesFilter = this.filters[item.category].checked;
+            
+            return matchesQuery && matchesFilter;
+        });
+        
+        this.displayResults(results);
+    }
+    
+    displayResults(results) {
+        if (results.length === 0) {
+            this.searchResults.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
+            this.searchResults.style.display = 'block';
+            return;
+        }
+        
+        this.searchResults.innerHTML = results.slice(0, 8).map(item => `
+            <div class="search-result-item" onclick="scrollToSection('${item.section}')">
+                <div class="search-result-title">${item.title}</div>
+                <div class="search-result-type">${item.type}</div>
+                <div class="search-result-description">${item.description}</div>
+            </div>
+        `).join('');
+        
+        this.searchResults.style.display = 'block';
+    }
+    
+    hideResults() {
+        this.searchResults.style.display = 'none';
+    }
+    
+    clearSearch() {
+        this.searchInput.value = '';
+        this.hideResults();
+    }
+    
+    initializeSearchData() {
+        return [
+            { title: 'CRM_Lead', type: 'Tipo', description: 'Gestión de leads y pipeline', category: 'types', section: 'crm-leads' },
+            { title: 'CRM_Contact', type: 'Tipo', description: 'Gestión de contactos', category: 'types', section: 'crm-contacts' },
+            { title: 'getLeads', type: 'Query', description: 'Obtener lista de leads', category: 'queries', section: 'crm-leads' },
+            { title: 'createLead', type: 'Mutation', description: 'Crear nuevo lead', category: 'mutations', section: 'crm-leads' },
+            { title: 'name', type: 'Campo', description: 'Nombre del lead', category: 'fields', section: 'crm-leads' },
+            { title: 'email', type: 'Campo', description: 'Email del lead', category: 'fields', section: 'crm-leads' },
+            { title: 'EVT_Event', type: 'Tipo', description: 'Gestión de eventos', category: 'types', section: 'evt-events' },
+            { title: 'getEvents', type: 'Query', description: 'Obtener eventos', category: 'queries', section: 'evt-events' }
+        ];
+    }
+}
+
+// ===== MENÚ MÓVIL =====
+class MobileMenu {
+    constructor() {
+        this.toggle = document.getElementById('nav-toggle');
+        this.menu = document.getElementById('nav-menu');
+        this.init();
+    }
+    
+    init() {
+        if (!this.toggle || !this.menu) return;
+        
+        this.toggle.addEventListener('click', () => this.toggleMenu());
+    }
+    
+    toggleMenu() {
+        this.menu.classList.toggle('active');
+        this.toggle.classList.toggle('active');
+    }
+}
+
+// ===== FUNCIÓN GLOBAL PARA SCROLL =====
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Cerrar búsqueda flotante
+        const floatingSearch = document.getElementById('floating-search');
+        if (floatingSearch) {
+            floatingSearch.classList.remove('active');
+        }
+    }
+}
+
+// ===== INICIALIZAR NUEVAS FUNCIONALIDADES =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar búsqueda flotante
+    new FloatingSearch();
+    
+    // Inicializar menú móvil
+    new MobileMenu();
+    
+    // Inicializar botón Quick Start
+    const quickStartBtn = document.getElementById('quick-start-btn');
+    if (quickStartBtn) {
+        quickStartBtn.addEventListener('click', () => {
+            const apiSection = document.getElementById('api');
+            if (apiSection) {
+                apiSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+});
