@@ -185,17 +185,26 @@
                             <ul>
                                 <li><a href="#eventos">📅 Gestión de Eventos</a>
                                     <ul>
-                                        <li>EVT_Event - Tipo principal de evento</li>
-                                        <li>EventLocation - Ubicación y logística</li>
-                                        <li>EventBudget - Presupuesto y finanzas</li>
-                                        <li>EventAttendee - Gestión de asistentes</li>
+                                        <li>EVT_Event - Tipo principal de evento (estructura real)</li>
+                                        <li>EVT_Invitado - Gestión de invitados y asistentes</li>
+                                        <li>EVT_Presupuesto - Presupuesto y categorías de gastos</li>
+                                        <li>EVT_Itinerario - Tareas y programación del evento</li>
                                     </ul>
                                 </li>
                                 <li><a href="#event-queries">🔍 Queries de Eventos</a>
                                     <ul>
-                                        <li>getEvents - Obtener eventos</li>
-                                        <li>searchEventsByLocation - Búsqueda por ubicación</li>
-                                        <li>getEventAnalytics - Analytics de eventos</li>
+                                        <li>getEvent - Obtener evento por ID</li>
+                                        <li>getEventsByBrand - Eventos por marca</li>
+                                        <li>getAllUserRelatedEvents - Eventos del usuario</li>
+                                        <li>getEventDataForAI - Datos optimizados para IA</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#event-mutations">📤 Mutations de Eventos</a>
+                                    <ul>
+                                        <li>createEvent - Crear nuevo evento</li>
+                                        <li>updateEventBasicInfo - Actualizar información básica</li>
+                                        <li>addGuest - Agregar invitado</li>
+                                        <li>addBudgetCategory - Agregar categoría de presupuesto</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -497,73 +506,343 @@ curl -X POST \
 }</code></pre>
                     </div>
 
-                    <h4>🎉 Módulo de Eventos (EVT)</h4>
+                    <h4>🎉 Módulo de Eventos (EVT) - Estructura Real</h4>
                     <div class="events-section">
-                        <h5>Gestión Completa de Eventos</h5>
+                        <h5>Gestión de Eventos (Implementación Actual)</h5>
                         <pre><code class="language-graphql">type EVT_Event {
   _id: ID!
-  name: String!
-  description: String
-  type: EventType!
-  category: EventCategory!
-  status: EventStatus!
+  development: String
+  estatus: String
+  fecha_creacion: String
+  fecha_actualizacion: String
   
-  # Fechas y Horarios
-  date: DateTime!
-  startTime: DateTime!
-  endTime: DateTime!
-  timezone: String!
-  duration: Int! # en minutos
+  # Datos básicos
+  tipo: String
+  color: [String]
+  nombre: String
+  fecha: String
+  poblacion: String
+  pais: String
   
-  # Ubicación
-  location: EventLocation!
-  virtual: Boolean!
-  virtualUrl: String
-  virtualPlatform: String
+  # Gestión de usuarios
+  usuario_id: String
+  usuario_nombre: String
+  compartido_array: [String]
+  detalles_compartidos_array: [JSON]
   
-  # Organización
-  organizer: String!
-  coOrganizers: [String!]
-  assignedTo: String
-  team: [EventTeamMember!]
+  # Datos complejos
+  invitados_array: [EVT_Invitado]
+  presupuesto_objeto: EVT_Presupuesto
+  itinerarios_array: [EVT_Itinerario]
   
-  # Presupuesto y Finanzas
-  budget: EventBudget!
-  revenue: EventRevenue!
-  expenses: [EventExpense!]
+  # Otros campos
+  planSpace: [JSON]
+  planSpaceSelect: String
+  mesas_array: [JSON]
+  menus_array: [JSON]
+  grupos_array: [String]
   
-  # Asistentes y Capacidad
-  capacity: Int
-  attendees: [EventAttendee!]
-  waitlist: [EventAttendee!]
-  registrationOpen: Boolean!
-  registrationDeadline: DateTime
-  
-  # Marketing y Promoción
-  marketing: EventMarketing!
-  socialMedia: EventSocialMedia!
-  tags: [String!]
-  
-  # Contenido y Programa
-  agenda: [EventAgendaItem!]
-  speakers: [EventSpeaker!]
-  materials: [EventMaterial!]
-  
-  # Tareas y Logística
-  tasks: [EventTask!]
-  logistics: EventLogistics!
-  vendors: [EventVendor!]
-  
-  # Métricas y Analytics
-  metrics: EventMetrics!
-  feedback: [EventFeedback!]
-  
-  # Metadatos
-  customFields: JSON
-  notes: [EventNote!]
-  attachments: [EventAttachment!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  # Información de rol y permisos del usuario
+  user_role: String
+  user_permissions: [String]
+  invitados_count: Int
+  compartido_count: Int
+}
+
+type EVT_Invitado {
+  _id: ID
+  nombre: String
+  correo: String
+  telefono: String
+  asistencia: String
+  alergenos: [String]
+  grupo_relacion: String
+  nombre_mesa: String
+  puesto: String
+  usuario_id: String
+}
+
+type EVT_Presupuesto {
+  coste_proporcion: Float
+  coste_estimado: Float
+  coste_final: Float
+  pagado: Float
+  categorias_array: [EVT_CategoriaPresupuesto]
+  currency: String
+  totalStimatedGuests: EVT_TotalStimatedGuests
+}
+
+type EVT_Itinerario {
+  _id: ID
+  title: String
+  tipo: String
+  estatus: Boolean
+  tasks: [EVT_Task]
+}</code></pre>
+                        
+                        <h5>🔍 Queries Disponibles</h5>
+                        <pre><code class="language-graphql"># Obtener evento por ID
+getEvent(eventId: ID!): EVT_Event
+
+# Obtener eventos por marca
+getEventsByBrand(brandId: String!): [EVT_Event]
+
+# Obtener todos los eventos relacionados con un usuario
+getAllUserRelatedEvents(userId: String!): [EVT_Event]
+getAllUserRelatedEventsByPhone(phoneNumber: String!): [EVT_Event]
+getAllUserRelatedEventsByEmail(email: String!): [EVT_Event]
+
+# Datos optimizados para IA
+getEventDataForAI(eventId: ID!): EVT_EventAI
+
+# Resumen completo del usuario
+getUserCompleteEventSummary(userIdentifier: String!): EVT_UserEventSummary</code></pre>
+                        
+                        <h5>📤 Mutations Disponibles</h5>
+                        <pre><code class="language-graphql"># Crear y actualizar eventos
+createEvent(input: EVT_EventInput!): EVT_Event
+updateEventBasicInfo(eventId: ID!, input: EVT_EventInput!): EVT_Event
+
+# Gestión de permisos
+shareEvent(eventId: ID!, userId: ID!, permissions: JSON!): Boolean
+
+# Gestión de invitados
+addGuest(eventId: ID!, nombre: String!, correo: String, telefono: String): EVT_Invitado
+updateGuestAttendance(eventId: ID!, guestId: ID!, asistencia: String!): EVT_Invitado
+
+# Gestión de presupuesto
+addBudgetCategory(eventId: ID!, nombre: String!, coste_estimado: Float!): EVT_CategoriaPresupuesto
+addExpense(eventId: ID!, categoryId: ID!, nombre: String!, coste_estimado: Float!): EVT_Gasto</code></pre>
+
+                        <h5>🤖 Tipos Especializados para IA y Resúmenes</h5>
+                        <pre><code class="language-graphql"># Tipo optimizado para IA
+type EVT_EventAI {
+  eventId: ID!
+  basicInfo: EVT_Event
+  tasks: [EVT_Task]
+  guests: [EVT_GuestBasic]
+  budget: EVT_Presupuesto
+}
+
+type EVT_GuestBasic {
+  nombre: String
+  asistencia: String
+}
+
+# Tipo completo para resumen de usuario optimizado para MCP/IA
+type EVT_UserEventSummary {
+  userInfo: EVT_UserInfo
+  eventsSummary: EVT_EventsSummary
+  permissionsSummary: EVT_PermissionsSummary
+  recommendations: [String]
+}
+
+type EVT_UserInfo {
+  identifier: String!
+  firebaseUID: String
+  email: String
+  phone: String
+  userType: String # "FIREBASE_USER", "EMAIL_ONLY", "PHONE_ONLY"
+}
+
+type EVT_EventsSummary {
+  totalEvents: Int!
+  eventsByRole: EVT_EventsByRole
+  eventsByType: [EVT_EventTypeCount]
+  recentEvents: [EVT_EventBasic]
+  upcomingEvents: [EVT_EventBasic]
+}
+
+type EVT_EventsByRole {
+  creator: Int!
+  shared: Int!
+  invited: Int!
+}
+
+type EVT_EventTypeCount {
+  type: String!
+  count: Int!
+}
+
+type EVT_EventBasic {
+  _id: ID!
+  nombre: String!
+  tipo: String!
+  fecha: String!
+  estatus: String!
+  user_role: String!
+  user_permissions: [String]!
+  canViewBudget: Boolean!
+  canViewItineraries: Boolean!
+  canViewGuests: Boolean!
+  canEditEvent: Boolean!
+}
+
+type EVT_PermissionsSummary {
+  hasBudgetAccess: Boolean!
+  hasItineraryAccess: Boolean!
+  hasGuestAccess: Boolean!
+  hasEditAccess: Boolean!
+  totalPermissions: Int!
+  permissionDetails: [EVT_PermissionDetail]
+}
+
+type EVT_PermissionDetail {
+  eventId: ID!
+  eventName: String!
+  role: String!
+  permissions: [String]!
+  specificPermissions: EVT_SpecificPermissions
+}
+
+type EVT_SpecificPermissions {
+  canViewBudget: Boolean!
+  canViewConversations: Boolean!
+  canViewChat: Boolean!
+  canViewDocuments: Boolean!
+  canEditEvent: Boolean!
+  canInviteGuests: Boolean!
+}</code></pre>
+
+                        <h5>📝 Input Types y Validaciones</h5>
+                        <pre><code class="language-graphql"># Input para crear/actualizar eventos
+input EVT_EventInput {
+  nombre: String!
+  tipo: String!
+  fecha: String!
+  poblacion: String
+  pais: String
+  usuario_id: String!
+  usuario_nombre: String!
+  color: [String]
+}
+
+# Enums y Validaciones Implementadas
+enum EventType {
+  BODA
+  COMUNION
+  BAUTIZO
+  CUMPLEANOS
+  CORPORATIVO
+  CONFERENCIA
+  EXPOSICION
+  FIESTA
+  REUNION
+  OTRO
+}
+
+enum EventStatus {
+  PLANIFICACION
+  CONFIRMADO
+  EN_CURSO
+  COMPLETADO
+  CANCELADO
+  POSTPUESTO
+}
+
+enum GuestAttendance {
+  PENDIENTE
+  CONFIRMADO
+  RECHAZADO
+  TAL_VEZ
+}
+
+enum UserRole {
+  CREADOR
+  COMPARTIDO
+  INVITADO
+  ADMIN
+  VIEWER
+}
+
+enum PermissionType {
+  VIEW_EVENT
+  EDIT_EVENT
+  DELETE_EVENT
+  VIEW_BUDGET
+  EDIT_BUDGET
+  VIEW_GUESTS
+  EDIT_GUESTS
+  VIEW_ITINERARY
+  EDIT_ITINERARY
+  SHARE_EVENT
+}</code></pre>
+
+                        <h5>💡 Ejemplos de Uso Real</h5>
+                        <pre><code class="language-graphql"># Ejemplo 1: Obtener evento por ID
+query GetEventById {
+  getEvent(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    _id
+    nombre
+    tipo
+    fecha
+    poblacion
+    pais
+    usuario_nombre
+    invitados_count
+    user_role
+    user_permissions
+  }
+}
+
+# Ejemplo 2: Obtener eventos del usuario por teléfono
+query GetUserEventsByPhone {
+  getAllUserRelatedEventsByPhone(phoneNumber: "+34612345678") {
+    _id
+    nombre
+    tipo
+    fecha
+    estatus
+    user_role
+    user_permissions
+    invitados_count
+  }
+}
+
+# Ejemplo 3: Obtener datos optimizados para IA
+query GetEventDataForAI {
+  getEventDataForAI(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    eventId
+    basicInfo {
+      nombre
+      tipo
+      fecha
+      poblacion
+    }
+    guests {
+      nombre
+      asistencia
+    }
+    budget {
+      coste_estimado
+      coste_final
+    }
+  }
+}
+
+# Ejemplo 4: Resumen completo del usuario
+query GetUserEventSummary {
+  getUserCompleteEventSummary(userIdentifier: "user@example.com") {
+    userInfo {
+      identifier
+      email
+      userType
+    }
+    eventsSummary {
+      totalEvents
+      eventsByRole {
+        creator
+        shared
+        invited
+      }
+    }
+    permissionsSummary {
+      hasBudgetAccess
+      hasEditAccess
+      totalPermissions
+    }
+    recommendations
+  }
 }</code></pre>
                     </div>
 
