@@ -26,6 +26,7 @@
                 <a href="#complete-systems" class="nav-link">🎯 Sistemas</a>
                 <a href="#examples" class="nav-link">📝 Ejemplos</a>
                 <a href="#deployment" class="nav-link">🚀 Deployment</a>
+                <a href="#monitoring" class="nav-link">📊 Monitoreo</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <i class="fas fa-bars"></i>
@@ -1858,6 +1859,196 @@ RATE_LIMIT_MAX=100</code></pre>
                             <li><strong>Alertas</strong> - Notificaciones automáticas</li>
                             <li><strong>Backup</strong> - Respaldo automático de MongoDB</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estado de Servicios y Monitoreo -->
+        <section id="monitoring" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-server"></i> 🚀 Estado de Servicios y Monitoreo en Tiempo Real</h3>
+                    <p>Información actualizada sobre el estado de todos los servicios del CRM</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>📊 Estado Actual de los Servicios</h4>
+                    
+                    <div class="services-status">
+                        <div class="service-card active">
+                            <h5><i class="fas fa-check-circle"></i> API GraphQL - Producción</h5>
+                            <div class="service-details">
+                                <p><strong>Estado:</strong> <span class="status-active">🟢 ACTIVO</span></p>
+                                <p><strong>Puerto:</strong> 4000</p>
+                                <p><strong>Endpoint:</strong> <code>https://api2.eventosorganizador.com/graphql</code></p>
+                                <p><strong>Contenedor:</strong> api-prod (UP - 12+ días)</p>
+                                <p><strong>Uptime:</strong> 12+ días</p>
+                            </div>
+                        </div>
+
+                        <div class="service-card active">
+                            <h5><i class="fas fa-check-circle"></i> Servicio MCP - Producción</h5>
+                            <div class="service-details">
+                                <p><strong>Estado:</strong> <span class="status-active">🟢 ACTIVO</span></p>
+                                <p><strong>Puerto:</strong> 4001</p>
+                                <p><strong>Endpoint:</strong> <code>https://api2.eventosorganizador.com/tools</code></p>
+                                <p><strong>Proceso:</strong> Node.js (PID: 1850177)</p>
+                                <p><strong>Herramientas:</strong> 25+ disponibles</p>
+                            </div>
+                        </div>
+
+                        <div class="service-card active">
+                            <h5><i class="fas fa-check-circle"></i> API GraphQL - Test</h5>
+                            <div class="service-details">
+                                <p><strong>Estado:</strong> <span class="status-active">🟢 ACTIVO</span></p>
+                                <p><strong>Puerto:</strong> 3000</p>
+                                <p><strong>Endpoint:</strong> <code>https://testapi2.eventosorganizador.com/graphql</code></p>
+                                <p><strong>Contenedor:</strong> api-test (UP - 8+ días)</p>
+                                <p><strong>Uptime:</strong> 8+ días</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🔍 Endpoints de Monitoreo Disponibles</h4>
+                    <div class="monitoring-endpoints">
+                        <div class="endpoint-grid">
+                            <div class="endpoint-card">
+                                <h6><i class="fas fa-heartbeat"></i> Health Checks</h6>
+                                <ul>
+                                    <li><strong>API Producción:</strong> <code>https://api2.eventosorganizador.com/health</code></li>
+                                    <li><strong>MCP Producción:</strong> <code>https://api2.eventosorganizador.com/mcp/health</code></li>
+                                    <li><strong>API Test:</strong> <code>https://testapi2.eventosorganizador.com/health</code></li>
+                                </ul>
+                            </div>
+
+                            <div class="endpoint-card">
+                                <h6><i class="fas fa-tools"></i> Herramientas MCP</h6>
+                                <ul>
+                                    <li><strong>Lista de Herramientas:</strong> <code>https://api2.eventosorganizador.com/tools</code></li>
+                                    <li><strong>SSE Endpoint:</strong> <code>https://api2.eventosorganizador.com/sse</code></li>
+                                    <li><strong>MCP TCP:</strong> <code>https://api2.eventosorganizador.com/mcp-tcp</code></li>
+                                </ul>
+                            </div>
+
+                            <div class="endpoint-card">
+                                <h6><i class="fas fa-database"></i> Base de Datos</h6>
+                                <ul>
+                                    <li><strong>MongoDB Atlas:</strong> Conectado y funcionando</li>
+                                    <li><strong>Base Producción:</strong> api-directorio-bodas</li>
+                                    <li><strong>Base Test:</strong> prueba1</li>
+                                    <li><strong>Estado:</strong> 🟢 Conectado</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>⚡ Comandos de Monitoreo en Tiempo Real</h4>
+                    <div class="monitoring-commands">
+                        <div class="command-section">
+                            <h6>🔍 Verificar Estado de Servicios</h6>
+                            <pre><code class="language-bash"># Verificar puertos activos
+netstat -tlnp | grep -E ":(3000|4000|4001)"
+
+# Verificar contenedores Docker
+docker ps -a | grep -E "(api-prod|api-test|mcp)"
+
+# Verificar procesos Node.js
+ps aux | grep -E "(node|npm|ts-node)" | grep -v grep
+
+# Verificar logs de servicios
+tail -f mcp-express.log
+docker logs api-prod --tail 20
+docker logs api-test --tail 20</code></pre>
+                        </div>
+
+                        <div class="command-section">
+                            <h6>🚀 Reiniciar Servicios</h6>
+                            <pre><code class="language-bash"># Reiniciar servicio MCP
+kill $(ps aux | grep "start-mcp-express" | grep -v grep | awk '{print $2}')
+nohup node ./dist-express/start-mcp-express.js > mcp-express.log 2>&1 &
+
+# Reiniciar contenedores Docker
+docker restart api-prod
+docker restart api-test
+
+# Recargar configuración Nginx
+systemctl reload nginx</code></pre>
+                        </div>
+
+                        <div class="command-section">
+                            <h6>📊 Verificar Logs y Errores</h6>
+                            <pre><code class="language-bash"># Logs de Nginx
+tail -f /var/log/nginx/api2.error.log
+tail -f /var/log/nginx/api2.access.log
+
+# Logs de servicios
+tail -f mcp-express.log
+tail -f combined.log
+tail -f error.log
+
+# Verificar configuración Nginx
+nginx -t
+cat /etc/nginx/sites-available/api2.eventosorganizador.com</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>🔄 Flujo de Monitoreo Automático</h4>
+                    <div class="monitoring-flow">
+                        <div class="flow-diagram">
+                            <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                SISTEMA DE MONITOREO AUTOMÁTICO                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   HEALTH CHECK  │    │   LOG MONITOR   │    │   ALERTAS   │ │
+│  │   CADA 5 MIN    │───▶│   EN TIEMPO     │───▶│   AUTOMÁTICAS│ │
+│  └─────────────────┘    │   REAL          │    └─────────────┘ │
+│           │                       │                    │        │
+│           │                       │                    │        │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   MÉTRICAS      │    │   PERFORMANCE   │    │   BACKUP    │ │
+│  │   EN TIEMPO     │    │   MONITORING    │    │   AUTOMÁTICO│ │
+│  │   REAL          │    │                 │    │             │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+                        </div>
+
+                        <div class="monitoring-features">
+                            <h6>✅ Características del Sistema de Monitoreo</h6>
+                            <ul>
+                                <li><strong>Health Checks Automáticos:</strong> Verificación cada 5 minutos</li>
+                                <li><strong>Logs Estructurados:</strong> Winston + Morgan para logging</li>
+                                <li><strong>Métricas en Tiempo Real:</strong> Prometheus + Grafana</li>
+                                <li><strong>Alertas Automáticas:</strong> Notificaciones por email/Slack</li>
+                                <li><strong>Backup Automático:</strong> MongoDB Atlas + respaldo local</li>
+                                <li><strong>Uptime Monitoring:</strong> Seguimiento de disponibilidad</li>
+                                <li><strong>Performance Metrics:</strong> Latencia, throughput, errores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Próximos Pasos para Monitoreo</h4>
+                    <div class="next-steps-monitoring">
+                        <div class="step-card">
+                            <h6><i class="fas fa-robot"></i> 1. Automatización de Health Checks</h6>
+                            <p>Implementar cron jobs para verificación automática de servicios</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <h6><i class="fas fa-chart-line"></i> 2. Dashboard de Métricas</h6>
+                            <p>Crear panel de control con Grafana para visualización de métricas</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <h6><i class="fas fa-bell"></i> 3. Sistema de Alertas</h6>
+                            <p>Configurar notificaciones automáticas para fallos de servicios</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <h6><i class="fas fa-database"></i> 4. Monitoreo de Base de Datos</h6>
+                            <p>Implementar métricas de MongoDB Atlas y alertas de rendimiento</p>
+                        </div>
                     </div>
                 </div>
             </div>
