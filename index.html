@@ -139,46 +139,99 @@
                     </div>
                 </div>
 
-                <div class="index-links">
-                    <h3>🔗 Enlaces Directos a Secciones</h3>
-                    <ul>
-                        <li><a href="#api">📊 Tipos Principales del CRM</a></li>
-                        <li><a href="#api">🔧 Enums y Tipos Especializados</a></li>
-                        <li><a href="#api">📥 Queries Principales</a></li>
-                        <li><a href="#api">📤 Mutations Principales</a></li>
-                        <li><a href="#api">⚡ Subscriptions en Tiempo Real</a></li>
-                        <li><a href="#api">🔗 Webhooks y Integraciones</a></li>
-                        <li><a href="#events">📅 Gestión de Eventos</a></li>
-                        <li><a href="#events">🔍 Queries de Eventos</a></li>
-                        <li><a href="#events">📤 Mutations de Eventos</a></li>
-                        <li><a href="#events">🔐 Sistema de Permisos</a></li>
-                        <li><a href="#campaigns">📢 Gestión de Campañas</a></li>
-                        <li><a href="#campaigns">🔍 Queries de Campañas</a></li>
-                        <li><a href="#whitelabel">🏢 Sistema Whitelabel</a></li>
-                        <li><a href="#permissions">🔐 Sistema de Permisos</a></li>
-                        <li><a href="#complete-systems">🎯 Sistemas de Compartición</a></li>
-                    </ul>
+                <!-- Sistema de Búsqueda Interactivo -->
+                <div class="search-section">
+                    <h3>🔍 Buscar en la Documentación</h3>
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="search-input" placeholder="Buscar tipos, queries, mutations, campos..." class="search-input">
+                            <button id="clear-search" class="clear-search-btn" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="search-filters">
+                            <label class="filter-checkbox">
+                                <input type="checkbox" id="filter-types" checked> Tipos
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" id="filter-queries" checked> Queries
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" id="filter-mutations" checked> Mutations
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" id="filter-fields" checked> Campos
+                            </label>
+                        </div>
+                    </div>
+                    <div id="search-results" class="search-results" style="display: none;"></div>
                 </div>
 
                 <div class="index-links">
                     <h3>🔗 Enlaces Directos a Secciones</h3>
-                    <ul>
-                        <li><a href="#api">📊 Tipos Principales del CRM</a></li>
-                        <li><a href="#api">🔧 Enums y Tipos Especializados</a></li>
-                        <li><a href="#api">📥 Queries Principales</a></li>
-                        <li><a href="#api">📤 Mutations Principales</a></li>
-                        <li><a href="#api">⚡ Subscriptions en Tiempo Real</a></li>
-                        <li><a href="#api">🔗 Webhooks y Integraciones</a></li>
-                        <li><a href="#events">📅 Gestión de Eventos</a></li>
-                        <li><a href="#events">🔍 Queries de Eventos</a></li>
-                        <li><a href="#events">📤 Mutations de Eventos</a></li>
-                        <li><a href="#events">🔐 Sistema de Permisos</a></li>
-                        <li><a href="#campaigns">📢 Gestión de Campañas</a></li>
-                        <li><a href="#campaigns">🔍 Queries de Campañas</a></li>
-                        <li><a href="#whitelabel">🏢 Sistema Whitelabel</a></li>
-                        <li><a href="#permissions">🔐 Sistema de Permisos</a></li>
-                        <li><a href="#complete-systems">🎯 Sistemas de Compartición</a></li>
-                    </ul>
+                    <div class="links-grid">
+                        <div class="link-category">
+                            <h4>📊 CRM - Gestión de Relaciones</h4>
+                            <ul>
+                                <li><a href="#crm-leads" class="api-link" data-type="crm-leads">📈 CRM_Lead - Pipeline y Conversiones</a></li>
+                                <li><a href="#crm-contacts" class="api-link" data-type="crm-contacts">👥 CRM_Contact - Gestión de Contactos</a></li>
+                                <li><a href="#crm-entities" class="api-link" data-type="crm-entities">🏢 CRM_Entity - Organizaciones y Empresas</a></li>
+                                <li><a href="#crm-campaigns" class="api-link" data-type="crm-campaigns">📧 CRM_Campaign - Campañas Multi-Canal</a></li>
+                                <li><a href="#crm-notes" class="api-link" data-type="crm-notes">📝 CRM_Note - Notas y Seguimiento</a></li>
+                                <li><a href="#crm-reminders" class="api-link" data-type="crm-reminders">⏰ CRM_Reminder - Recordatorios</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-category">
+                            <h4>🎉 Eventos y Gestión</h4>
+                            <ul>
+                                <li><a href="#evt-events" class="api-link" data-type="evt-events">📅 EVT_Event - Eventos Principales</a></li>
+                                <li><a href="#evt-invitados" class="api-link" data-type="evt-invitados">👥 EVT_Invitado - Gestión de Invitados</a></li>
+                                <li><a href="#evt-presupuesto" class="api-link" data-type="evt-presupuesto">💰 EVT_Presupuesto - Control Financiero</a></li>
+                                <li><a href="#evt-tasks" class="api-link" data-type="evt-tasks">✅ EVT_Task - Tareas del Evento</a></li>
+                                <li><a href="#evt-itinerario" class="api-link" data-type="evt-itinerario">📋 EVT_Itinerario - Agenda</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-category">
+                            <h4>🏢 Whitelabel y Multi-Tenant</h4>
+                            <ul>
+                                <li><a href="#whitelabel" class="api-link" data-type="whitelabel">🏢 Sistema Whitelabel Completo</a></li>
+                                <li><a href="#whitelabel-developer" class="api-link" data-type="whitelabel-developer">👨‍💻 WhitelabelDeveloper</a></li>
+                                <li><a href="#whitelabel-features" class="api-link" data-type="whitelabel-features">⚙️ Funcionalidades y Límites</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-category">
+                            <h4>🔐 Permisos y Seguridad</h4>
+                            <ul>
+                                <li><a href="#permissions" class="api-link" data-type="permissions">🔐 Sistema de Permisos</a></li>
+                                <li><a href="#user-roles" class="api-link" data-type="user-roles">👤 Roles de Usuario</a></li>
+                                <li><a href="#sharing" class="api-link" data-type="sharing">🤝 Sistemas de Compartición</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-category">
+                            <h4>📊 Analytics y Métricas</h4>
+                            <ul>
+                                <li><a href="#usage-tracking" class="api-link" data-type="usage-tracking">📈 USAGE_UsageTracking</a></li>
+                                <li><a href="#campaign-billing" class="api-link" data-type="campaign-billing">💳 USAGE_CampaignBilling</a></li>
+                                <li><a href="#delivery-metrics" class="api-link" data-type="delivery-metrics">📊 USAGE_DeliveryMetrics</a></li>
+                                <li><a href="#usage-dashboard-stats" class="api-link" data-type="usage-dashboard-stats">📋 USAGE_DashboardStats</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="link-category">
+                            <h4>🏪 Negocios y Reviews</h4>
+                            <ul>
+                                <li><a href="#business" class="api-link" data-type="business">🏪 BUSN_Business - Gestión de Negocios</a></li>
+                                <li><a href="#reviews" class="api-link" data-type="reviews">⭐ BUSN_reviewsT - Sistema de Reviews</a></li>
+                                <li><a href="#faq" class="api-link" data-type="faq">❓ BUSN_questionsAndAnswers - FAQ</a></li>
+                                <li><a href="#horarios" class="api-link" data-type="horarios">🕐 BUSN_horario - Gestión de Horarios</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="api-modules">
