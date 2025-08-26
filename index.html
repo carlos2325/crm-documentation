@@ -31,6 +31,7 @@
                 <nav class="nav">
                     <ul>
                         <li><a href="#home" class="nav-link active">Inicio</a></li>
+                        <li><a href="#indice-api" class="nav-link">📚 Índice</a></li>
                         <li><a href="#api" class="nav-link">API GraphQL</a></li>
                         <li><a href="#frontend" class="nav-link">Frontend</a></li>
                         <li><a href="#examples" class="nav-link">Ejemplos</a></li>
@@ -102,6 +103,179 @@
                         <i class="fab fa-docker"></i>
                         <h4>Deployment</h4>
                         <p>Docker + Nginx</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Índice Completo de la API -->
+        <section id="indice-api" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-list"></i> 📚 Índice Completo de la API GraphQL</h3>
+                    <p>Navegación rápida a todas las funcionalidades del CRM</p>
+                </div>
+                
+                <div class="content-card">
+                    <div class="index-grid">
+                        <div class="index-category">
+                            <h4><i class="fas fa-database"></i> 🏗️ Esquema y Tipos de Datos</h4>
+                            <ul>
+                                <li><a href="#tipos-crm">📊 Tipos Principales del CRM</a>
+                                    <ul>
+                                        <li>CRM_Lead (26 campos)</li>
+                                        <li>CRM_Contact (32 campos)</li>
+                                        <li>CRM_Entity (26 campos)</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#enums">🔧 Enums y Tipos Especializados</a>
+                                    <ul>
+                                        <li>LeadStatus, LeadSource, Priority</li>
+                                        <li>EventType, CampaignType</li>
+                                        <li>EntityType, CompanySize</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-code"></i> 🔍 Queries y Mutations</h4>
+                            <ul>
+                                <li><a href="#queries">📥 Queries Principales</a>
+                                    <ul>
+                                        <li>getCRMLeads - Obtener leads con filtros</li>
+                                        <li>getCRMContacts - Obtener contactos</li>
+                                        <li>getCRMEntities - Obtener entidades</li>
+                                        <li>getLeadAnalytics - Dashboard de leads</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#mutations">📤 Mutations Principales</a>
+                                    <ul>
+                                        <li>createCRMLead - Crear lead</li>
+                                        <li>updateCRMLead - Actualizar lead</li>
+                                        <li>deleteCRMLead - Eliminar lead</li>
+                                        <li>convertLead - Convertir lead</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-bolt"></i> 📡 Subscriptions y Webhooks</h4>
+                            <ul>
+                                <li><a href="#subscriptions">⚡ Subscriptions en Tiempo Real</a>
+                                    <ul>
+                                        <li>leadChanges - Cambios en leads</li>
+                                        <li>activityUpdates - Actualizaciones de actividad</li>
+                                        <li>notifications - Notificaciones del sistema</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#webhooks">🔗 Webhooks y Integraciones</a>
+                                    <ul>
+                                        <li>createWebhook - Configurar webhook</li>
+                                        <li>getWebhookLogs - Logs de webhooks</li>
+                                        <li>testWebhook - Probar webhook</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-calendar-alt"></i> 🎉 Módulo de Eventos (EVT)</h4>
+                            <ul>
+                                <li><a href="#eventos">📅 Gestión de Eventos</a>
+                                    <ul>
+                                        <li>EVT_Event - Tipo principal de evento</li>
+                                        <li>EventLocation - Ubicación y logística</li>
+                                        <li>EventBudget - Presupuesto y finanzas</li>
+                                        <li>EventAttendee - Gestión de asistentes</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#event-queries">🔍 Queries de Eventos</a>
+                                    <ul>
+                                        <li>getEvents - Obtener eventos</li>
+                                        <li>searchEventsByLocation - Búsqueda por ubicación</li>
+                                        <li>getEventAnalytics - Analytics de eventos</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-rocket"></i> 🚀 Módulo de Campañas (BUSN)</h4>
+                            <ul>
+                                <li><a href="#campanas">📢 Gestión de Campañas</a>
+                                    <ul>
+                                        <li>CRM_Campaign - Tipo principal de campaña</li>
+                                        <li>CampaignObjective - Objetivos y KPIs</li>
+                                        <li>TargetAudience - Audiencia y segmentación</li>
+                                        <li>CampaignBudget - Presupuesto y ROI</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#campaign-queries">🔍 Queries de Campañas</a>
+                                    <ul>
+                                        <li>getCampaigns - Obtener campañas</li>
+                                        <li>getCampaignAnalytics - Analytics de campañas</li>
+                                        <li>getCampaignPerformance - Rendimiento</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-chart-line"></i> 📊 Métricas y Analytics</h4>
+                            <ul>
+                                <li><a href="#metricas">📈 Dashboard y Reportes</a>
+                                    <ul>
+                                        <li>Lead Analytics - Conversión y rendimiento</li>
+                                        <li>Campaign Analytics - ROI y engagement</li>
+                                        <li>Event Analytics - Asistencia y satisfacción</li>
+                                        <li>User Performance - Productividad del equipo</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-shield-alt"></i> 🔐 Seguridad y Permisos</h4>
+                            <ul>
+                                <li><a href="#autenticacion">🔑 Autenticación JWT</a>
+                                    <ul>
+                                        <li>Headers requeridos</li>
+                                        <li>Token management</li>
+                                        <li>Refresh tokens</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#permisos">👥 Control de Acceso RBAC</a>
+                                    <ul>
+                                        <li>Admin - Acceso completo</li>
+                                        <li>Manager - Acceso de equipo</li>
+                                        <li>Sales - Acceso limitado</li>
+                                        <li>Viewer - Solo lectura</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-tools"></i> 🧪 Testing y Desarrollo</h4>
+                            <ul>
+                                <li><a href="#testing">🔬 Entorno de Testing</a>
+                                    <ul>
+                                        <li>Endpoint de test</li>
+                                        <li>Base de datos separada</li>
+                                        <li>Herramientas recomendadas</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#development">💻 Guía de Desarrollo</a>
+                                    <ul>
+                                        <li>Configuración inicial</li>
+                                        <li>Ejemplos de implementación</li>
+                                        <li>Mejores prácticas</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -513,196 +513,103 @@ html {
     }
 }
 
-/* Estilos para secciones de errores, seguridad, testing y próximos pasos */
-.error-section,
-.security-section,
-.testing-section,
-.next-steps-section {
+/* Estilos para el Índice Completo de la API */
+.index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
     margin-top: 2rem;
 }
 
-.error-card,
-.security-card,
-.testing-card,
-.next-steps-card {
+.index-category {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
 }
 
-.error-card:hover,
-.security-card:hover,
-.testing-card:hover,
-.next-steps-card:hover {
+.index-category:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
 
-.error-card h6,
-.security-card h6,
-.testing-card h6,
-.next-steps-card h6 {
+.index-category h4 {
     color: var(--primary-color);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
 }
 
-.error-card h6 i {
-    color: var(--error-color);
-}
-
-.security-card h6 i {
-    color: var(--success-color);
-}
-
-.testing-card h6 i {
+.index-category h4 i {
     color: var(--accent-color);
 }
 
-.next-steps-card h6 i {
-    color: var(--primary-color);
+.index-category ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.error-card pre,
-.testing-card pre {
-    background: var(--bg-dark);
-    color: #e5e7eb;
-    padding: 1rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    border: 1px solid #374151;
-    margin-bottom: 1rem;
-}
-
-.error-card pre code,
-.testing-card pre code {
-    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-}
-
-.security-card ul,
-.testing-card ul,
-.next-steps-card ul,
-.next-steps-card ol {
+.index-category ul ul {
     margin-left: 1.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 }
 
-.security-card li,
-.testing-card li,
-.next-steps-card li {
-    margin-bottom: 0.5rem;
+.index-category li {
+    margin-bottom: 0.75rem;
     line-height: 1.6;
 }
 
-.security-card strong,
-.testing-card strong,
-.next-steps-card strong {
-    color: var(--primary-color);
-    font-weight: 600;
+.index-category li:last-child {
+    margin-bottom: 0;
 }
 
-.next-steps-card ol {
-    counter-reset: step-counter;
-}
-
-.next-steps-card ol li {
-    counter-increment: step-counter;
-    position: relative;
-    padding-left: 2rem;
-}
-
-.next-steps-card ol li::before {
-    content: counter(step-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: var(--primary-color);
-    color: white;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.next-steps-card a {
+.index-category a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition);
+    display: inline-block;
+    padding: 0.25rem 0;
 }
 
-.next-steps-card a:hover {
+.index-category a:hover {
     color: var(--primary-dark);
     text-decoration: underline;
+    transform: translateX(5px);
 }
 
-/* Estilos especiales para códigos de estado HTTP */
-.error-card ul {
-    list-style: none;
-    margin-left: 0;
+.index-category ul ul li {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--border-color);
 }
 
-.error-card li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.error-card li:last-child {
-    border-bottom: none;
-}
-
-.error-card strong {
-    color: var(--primary-color);
-    font-weight: 600;
-    min-width: 120px;
-}
-
-/* Responsive para secciones de errores, seguridad, testing y próximos pasos */
+/* Responsive para el índice */
 @media (max-width: 768px) {
-    .error-card,
-    .security-card,
-    .testing-card,
-    .next-steps-card {
+    .index-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .index-category {
         padding: 1rem;
     }
     
-    .error-card h6,
-    .security-card h6,
-    .testing-card h6,
-    .next-steps-card h6 {
-        font-size: 1rem;
+    .index-category h4 {
+        font-size: 1.1rem;
     }
     
-    .error-card pre,
-    .testing-card pre {
-        font-size: 0.8rem;
-        padding: 0.75rem;
-    }
-    
-    .error-card li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .error-card strong {
-        min-width: auto;
+    .index-category ul ul {
+        margin-left: 1rem;
     }
 }
