@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 CRM - Sistema de Gestión de Relaciones con Clientes</title>
+    <meta name="description" content="Documentación completa del sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React">
+    <meta name="keywords" content="CRM, GraphQL, Node.js, TypeScript, React, MongoDB, Firebase">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prism.js para syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>CRM Marketing Soluciones</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#home" class="nav-link active">Inicio</a></li>
+                        <li><a href="#indice-api" class="nav-link">📚 Índice</a></li>
+                        <li><a href="#api" class="nav-link">API GraphQL</a></li>
+                        <li><a href="#frontend" class="nav-link">Frontend</a></li>
+                        <li><a href="#examples" class="nav-link">Ejemplos</a></li>
+                        <li><a href="#deployment" class="nav-link">Deployment</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>📋 Sistema CRM Completo</h2>
+                    <p class="hero-subtitle">Gestión de Relaciones con Clientes</p>
+                    <p class="hero-description">
+                        Sistema CRM desarrollado con Node.js, TypeScript, GraphQL y React para gestionar 
+                        leads, contactos, entidades y oportunidades de negocio de manera eficiente.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#api" class="btn btn-primary">
+                            <i class="fas fa-code"></i>
+                            Ver API GraphQL
+                        </a>
+                        <a href="#frontend" class="btn btn-secondary">
+                            <i class="fas fa-laptop-code"></i>
+                            Configuración Frontend
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="architecture">
+            <div class="container">
+                <h3>🏗️ Arquitectura del Sistema</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <i class="fab fa-node-js"></i>
+                        <h4>Backend</h4>
+                        <p>Node.js + TypeScript + GraphQL</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Base de Datos</h4>
+                        <p>MongoDB Atlas</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fas fa-fire"></i>
+                        <h4>Autenticación</h4>
+                        <p>Firebase JWT</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fab fa-react"></i>
+                        <h4>Frontend</h4>
+                        <p>React + TypeScript + Apollo Client</p>
+                    </div>
+                    <div class="tech-card">
+                        <i class="fab fa-docker"></i>
+                        <h4>Deployment</h4>
+                        <p>Docker + Nginx</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Índice Completo de la API -->
+        <section id="indice-api" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-list"></i> 📚 Índice Completo de la API GraphQL</h3>
+                    <p>Navegación rápida a todas las funcionalidades del CRM</p>
+                </div>
+                
+                <div class="content-card">
+                    <div class="index-grid">
+                        <div class="index-category">
+                            <h4><i class="fas fa-database"></i> 🏗️ Esquema y Tipos de Datos</h4>
+                            <ul>
+                                <li><a href="#tipos-crm">📊 Tipos Principales del CRM</a>
+                                    <ul>
+                                        <li>CRM_Lead (26 campos)</li>
+                                        <li>CRM_Contact (32 campos)</li>
+                                        <li>CRM_Entity (26 campos)</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#enums">🔧 Enums y Tipos Especializados</a>
+                                    <ul>
+                                        <li>LeadStatus, LeadSource, Priority</li>
+                                        <li>EventType, CampaignType</li>
+                                        <li>EntityType, CompanySize</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-code"></i> 🔍 Queries y Mutations</h4>
+                            <ul>
+                                <li><a href="#queries">📥 Queries Principales</a>
+                                    <ul>
+                                        <li>getCRMLeads - Obtener leads con filtros</li>
+                                        <li>getCRMContacts - Obtener contactos</li>
+                                        <li>getCRMEntities - Obtener entidades</li>
+                                        <li>getLeadAnalytics - Dashboard de leads</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#mutations">📤 Mutations Principales</a>
+                                    <ul>
+                                        <li>createCRMLead - Crear lead</li>
+                                        <li>updateCRMLead - Actualizar lead</li>
+                                        <li>deleteCRMLead - Eliminar lead</li>
+                                        <li>convertLead - Convertir lead</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-bolt"></i> 📡 Subscriptions y Webhooks</h4>
+                            <ul>
+                                <li><a href="#subscriptions">⚡ Subscriptions en Tiempo Real</a>
+                                    <ul>
+                                        <li>leadChanges - Cambios en leads</li>
+                                        <li>activityUpdates - Actualizaciones de actividad</li>
+                                        <li>notifications - Notificaciones del sistema</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#webhooks">🔗 Webhooks y Integraciones</a>
+                                    <ul>
+                                        <li>createWebhook - Configurar webhook</li>
+                                        <li>getWebhookLogs - Logs de webhooks</li>
+                                        <li>testWebhook - Probar webhook</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-calendar-alt"></i> 🎉 Módulo de Eventos (EVT)</h4>
+                            <ul>
+                                <li><a href="#eventos">📅 Gestión de Eventos</a>
+                                    <ul>
+                                        <li>EVT_Event - Tipo principal de evento (estructura real)</li>
+                                        <li>EVT_Invitado - Gestión de invitados y asistentes</li>
+                                        <li>EVT_Presupuesto - Presupuesto y categorías de gastos</li>
+                                        <li>EVT_Itinerario - Tareas y programación del evento</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#event-queries">🔍 Queries de Eventos</a>
+                                    <ul>
+                                        <li>getEvent - Obtener evento por ID</li>
+                                        <li>getEventsByBrand - Eventos por marca</li>
+                                        <li>getAllUserRelatedEvents - Eventos del usuario</li>
+                                        <li>getEventDataForAI - Datos optimizados para IA</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#event-mutations">📤 Mutations de Eventos</a>
+                                    <ul>
+                                        <li>createEvent - Crear nuevo evento</li>
+                                        <li>updateEventBasicInfo - Actualizar información básica</li>
+                                        <li>addGuest - Agregar invitado</li>
+                                        <li>addBudgetCategory - Agregar categoría de presupuesto</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#event-permissions">🔐 Sistema de Permisos</a>
+                                    <ul>
+                                        <li>Roles: CREADOR, COMPARTIDO, INVITADO</li>
+                                        <li>Permisos granulares por funcionalidad</li>
+                                        <li>Sistema de compartir eventos</li>
+                                        <li>Control de acceso granular</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-rocket"></i> 🚀 Módulo de Campañas (BUSN)</h4>
+                            <ul>
+                                <li><a href="#campanas">📢 Gestión de Campañas</a>
+                                    <ul>
+                                        <li>CRM_Campaign - Tipo principal de campaña</li>
+                                        <li>CampaignObjective - Objetivos y KPIs</li>
+                                        <li>TargetAudience - Audiencia y segmentación</li>
+                                        <li>CampaignBudget - Presupuesto y ROI</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#campaign-queries">🔍 Queries de Campañas</a>
+                                    <ul>
+                                        <li>getCampaigns - Obtener campañas</li>
+                                        <li>getCampaignAnalytics - Analytics de campañas</li>
+                                        <li>getCampaignPerformance - Rendimiento</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-chart-line"></i> 📊 Métricas y Analytics</h4>
+                            <ul>
+                                <li><a href="#metricas">📈 Dashboard y Reportes</a>
+                                    <ul>
+                                        <li>Lead Analytics - Conversión y rendimiento</li>
+                                        <li>Campaign Analytics - ROI y engagement</li>
+                                        <li>Event Analytics - Asistencia y satisfacción</li>
+                                        <li>User Performance - Productividad del equipo</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-shield-alt"></i> 🔐 Seguridad y Permisos</h4>
+                            <ul>
+                                <li><a href="#autenticacion">🔑 Autenticación JWT</a>
+                                    <ul>
+                                        <li>Headers requeridos</li>
+                                        <li>Token management</li>
+                                        <li>Refresh tokens</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#permisos">👥 Control de Acceso RBAC</a>
+                                    <ul>
+                                        <li>Admin - Acceso completo</li>
+                                        <li>Manager - Acceso de equipo</li>
+                                        <li>Sales - Acceso limitado</li>
+                                        <li>Viewer - Solo lectura</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="index-category">
+                            <h4><i class="fas fa-tools"></i> 🧪 Testing y Desarrollo</h4>
+                            <ul>
+                                <li><a href="#testing">🔬 Entorno de Testing</a>
+                                    <ul>
+                                        <li>Endpoint de test</li>
+                                        <li>Base de datos separada</li>
+                                        <li>Herramientas recomendadas</li>
+                                    </ul>
+                                </li>
+                                <li><a href="#development">💻 Guía de Desarrollo</a>
+                                    <ul>
+                                        <li>Configuración inicial</li>
+                                        <li>Ejemplos de implementación</li>
+                                        <li>Mejores prácticas</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API GraphQL Section -->
+        <section id="api" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-code"></i> API GraphQL</h3>
+                    <p>Documentación completa de endpoints y operaciones</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🌐 Endpoints Disponibles</h4>
+                    <div class="endpoint-grid">
+                        <div class="endpoint-card production">
+                            <h5><i class="fas fa-server"></i> Producción</h5>
+                            <code>https://api2.eventosorganizador.com/graphql</code>
+                            <span class="status-badge">🟢 Activo</span>
+                        </div>
+                        <div class="endpoint-card test">
+                            <h5><i class="fas fa-flask"></i> Test</h5>
+                            <code>https://testapi2.eventosorganizador.com/graphql</code>
+                            <span class="status-badge">🟡 Test</span>
+                        </div>
+                    </div>
+
+                    <h4>🔐 Autenticación</h4>
+                    <div class="auth-example">
+                        <p><strong>Headers Requeridos:</strong></p>
+                        <pre><code class="language-http">Authorization: Bearer &lt;JWT_TOKEN&gt;
+X-User-ID: &lt;USER_UID&gt;
+X-Development: &lt;DEVELOPMENT_ID&gt;</code></pre>
+                    </div>
+
+                    <h4>📊 Operaciones Disponibles</h4>
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <h5><i class="fas fa-user-plus"></i> Leads (Prospectos)</h5>
+                            <ul>
+                                <li>Crear lead</li>
+                                <li>Obtener leads</li>
+                                <li>Actualizar lead</li>
+                                <li>Eliminar lead</li>
+                            </ul>
+                        </div>
+                        <div class="operation-card">
+                            <h5><i class="fas fa-address-book"></i> Contactos</h5>
+                            <ul>
+                                <li>Crear contacto</li>
+                                <li>Obtener contactos</li>
+                                <li>Actualizar contacto</li>
+                                <li>Eliminar contacto</li>
+                            </ul>
+                        </div>
+                        <div class="operation-card">
+                            <h5><i class="fas fa-building"></i> Entidades</h5>
+                            <ul>
+                                <li>Crear entidad</li>
+                                <li>Obtener entidades</li>
+                                <li>Actualizar entidad</li>
+                                <li>Eliminar entidad</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🧪 Testing de la API</h4>
+                    <div class="testing-example">
+                        <p><strong>Ejemplo con cURL:</strong></p>
+                        <pre><code class="language-bash"># Obtener leads
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "X-User-ID: YOUR_USER_UID" \
+  -H "X-Development: YOUR_DEVELOPMENT_ID" \
+  -d '{
+    "query": "query { getCRMLeads { leads { id name email company status } } }"
+  }' \
+  https://api2.eventosorganizador.com/graphql</code></pre>
+                    </div>
+
+                    <h4>🏗️ Esquema y Tipos de Datos</h4>
+                    <div class="schema-section">
+                        <h5>Tipos Principales del CRM</h5>
+                        
+                        <div class="type-card">
+                            <h6><i class="fas fa-user-plus"></i> CRM_Lead (26 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Lead {
+  _id: ID!
+  name: String!
+  email: String!
+  company: String
+  phone: String
+  status: LeadStatus!
+  source: LeadSource!
+  value: Float
+  probability: Float
+  assignedTo: String
+  tags: [String]
+  description: String
+  nextFollowUp: DateTime
+  lastContact: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  convertedTo: String
+  convertedAt: DateTime
+  score: Int
+  priority: Priority!
+  expectedCloseDate: DateTime
+  actualCloseDate: DateTime
+  lostReason: String
+  wonReason: String
+  notes: [CRM_Note]
+  reminders: [CRM_Reminder]
+  activities: [Activity]
+  customFields: JSON
+}</code></pre>
+                        </div>
+
+                        <div class="type-card">
+                            <h6><i class="fas fa-address-book"></i> CRM_Contact (32 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Contact {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  mobile: String
+  company: String
+  jobTitle: String
+  department: String
+  address: Address
+  socialMedia: SocialMedia
+  birthday: DateTime
+  anniversary: DateTime
+  preferences: ContactPreferences
+  tags: [String]
+  status: ContactStatus!
+  source: ContactSource!
+  assignedTo: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastContact: DateTime
+  nextFollowUp: DateTime
+  notes: [CRM_Note]
+  reminders: [CRM_Reminder]
+  activities: [Activity]
+  customFields: JSON
+  relationships: [Relationship]
+  campaigns: [CRM_Campaign]
+  events: [EVT_Event]
+}</code></pre>
+                        </div>
+
+                        <div class="type-card">
+                            <h6><i class="fas fa-building"></i> CRM_Entity (26 campos)</h6>
+                            <pre><code class="language-graphql">type CRM_Entity {
+  _id: ID!
+  name: String!
+  type: EntityType!
+  industry: String
+  size: CompanySize
+  website: String
+  phone: String
+  email: String
+  address: Address
+  description: String
+  founded: Int
+  revenue: Float
+  employees: Int
+  status: EntityStatus!
+  assignedTo: String
+  tags: [String]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastContact: DateTime
+  nextFollowUp: DateTime
+  contacts: [CRM_Contact]
+  leads: [CRM_Lead]
+  opportunities: [Opportunity]
+  activities: [Activity]
+  customFields: JSON
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>📡 Subscriptions y Webhooks</h4>
+                    <div class="subscriptions-section">
+                        <h5>Subscriptions en Tiempo Real</h5>
+                        <pre><code class="language-graphql">subscription LeadChanges($filters: LeadFilterInput) {
+  leadChanges(filters: $filters) {
+    operation: ChangeOperation!
+    lead: CRM_Lead!
+    previousValues: CRM_Lead
+    timestamp: DateTime!
+    userId: String
+    userName: String
+    changes: [FieldChange!]!
+  }
+}</code></pre>
+                        
+                        <h5>Webhooks y Integraciones</h5>
+                        <pre><code class="language-graphql">mutation CreateWebhook($input: WebhookInput!) {
+  createWebhook(input: $input) {
+    _id: ID!
+    name: String!
+    url: String!
+    events: [WebhookEvent!]!
+    secret: String!
+    active: Boolean!
+    retryCount: Int!
+    timeout: Int!
+    headers: [WebhookHeader!]
+    filters: WebhookFilters
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+}</code></pre>
+                    </div>
+
+                    <h4>🎉 Módulo de Eventos (EVT) - Estructura Real</h4>
+                    <div class="events-section">
+                        <h5>Gestión de Eventos (Implementación Actual)</h5>
+                        <pre><code class="language-graphql">type EVT_Event {
+  _id: ID!
+  development: String
+  estatus: String
+  fecha_creacion: String
+  fecha_actualizacion: String
+  
+  # Datos básicos
+  tipo: String
+  color: [String]
+  nombre: String
+  fecha: String
+  poblacion: String
+  pais: String
+  
+  # Gestión de usuarios
+  usuario_id: String
+  usuario_nombre: String
+  compartido_array: [String]
+  detalles_compartidos_array: [JSON]
+  
+  # Datos complejos
+  invitados_array: [EVT_Invitado]
+  presupuesto_objeto: EVT_Presupuesto
+  itinerarios_array: [EVT_Itinerario]
+  
+  # Otros campos
+  planSpace: [JSON]
+  planSpaceSelect: String
+  mesas_array: [JSON]
+  menus_array: [JSON]
+  grupos_array: [String]
+  
+  # Información de rol y permisos del usuario
+  user_role: String
+  user_permissions: [String]
+  invitados_count: Int
+  compartido_count: Int
+}
+
+type EVT_Invitado {
+  _id: ID
+  nombre: String
+  correo: String
+  telefono: String
+  asistencia: String
+  alergenos: [String]
+  grupo_relacion: String
+  nombre_mesa: String
+  puesto: String
+  usuario_id: String
+}
+
+type EVT_Presupuesto {
+  coste_proporcion: Float
+  coste_estimado: Float
+  coste_final: Float
+  pagado: Float
+  categorias_array: [EVT_CategoriaPresupuesto]
+  currency: String
+  totalStimatedGuests: EVT_TotalStimatedGuests
+}
+
+type EVT_Itinerario {
+  _id: ID
+  title: String
+  tipo: String
+  estatus: Boolean
+  tasks: [EVT_Task]
+}</code></pre>
+                        
+                        <h5>🔍 Queries Disponibles</h5>
+                        <pre><code class="language-graphql"># Obtener evento por ID
+getEvent(eventId: ID!): EVT_Event
+
+# Obtener eventos por marca
+getEventsByBrand(brandId: String!): [EVT_Event]
+
+# Obtener todos los eventos relacionados con un usuario
+getAllUserRelatedEvents(userId: String!): [EVT_Event]
+getAllUserRelatedEventsByPhone(phoneNumber: String!): [EVT_Event]
+getAllUserRelatedEventsByEmail(email: String!): [EVT_Event]
+
+# Datos optimizados para IA
+getEventDataForAI(eventId: ID!): EVT_EventAI
+
+# Resumen completo del usuario
+getUserCompleteEventSummary(userIdentifier: String!): EVT_UserEventSummary</code></pre>
+                        
+                        <h5>📤 Mutations Disponibles</h5>
+                        <pre><code class="language-graphql"># Crear y actualizar eventos
+createEvent(input: EVT_EventInput!): EVT_Event
+updateEventBasicInfo(eventId: ID!, input: EVT_EventInput!): EVT_Event
+
+# Gestión de permisos
+shareEvent(eventId: ID!, userId: ID!, permissions: JSON!): Boolean
+
+# Gestión de invitados
+addGuest(eventId: ID!, nombre: String!, correo: String, telefono: String): EVT_Invitado
+updateGuestAttendance(eventId: ID!, guestId: ID!, asistencia: String!): EVT_Invitado
+
+# Gestión de presupuesto
+addBudgetCategory(eventId: ID!, nombre: String!, coste_estimado: Float!): EVT_CategoriaPresupuesto
+addExpense(eventId: ID!, categoryId: ID!, nombre: String!, coste_estimado: Float!): EVT_Gasto</code></pre>
+
+                        <h5>🤖 Tipos Especializados para IA y Resúmenes</h5>
+                        <pre><code class="language-graphql"># Tipo optimizado para IA
+type EVT_EventAI {
+  eventId: ID!
+  basicInfo: EVT_Event
+  tasks: [EVT_Task]
+  guests: [EVT_GuestBasic]
+  budget: EVT_Presupuesto
+}
+
+type EVT_GuestBasic {
+  nombre: String
+  asistencia: String
+}
+
+# Tipo completo para resumen de usuario optimizado para MCP/IA
+type EVT_UserEventSummary {
+  userInfo: EVT_UserInfo
+  eventsSummary: EVT_EventsSummary
+  permissionsSummary: EVT_PermissionsSummary
+  recommendations: [String]
+}
+
+type EVT_UserInfo {
+  identifier: String!
+  firebaseUID: String
+  email: String
+  phone: String
+  userType: String # "FIREBASE_USER", "EMAIL_ONLY", "PHONE_ONLY"
+}
+
+type EVT_EventsSummary {
+  totalEvents: Int!
+  eventsByRole: EVT_EventsByRole
+  eventsByType: [EVT_EventTypeCount]
+  recentEvents: [EVT_EventBasic]
+  upcomingEvents: [EVT_EventBasic]
+}
+
+type EVT_EventsByRole {
+  creator: Int!
+  shared: Int!
+  invited: Int!
+}
+
+type EVT_EventTypeCount {
+  type: String!
+  count: Int!
+}
+
+type EVT_EventBasic {
+  _id: ID!
+  nombre: String!
+  tipo: String!
+  fecha: String!
+  estatus: String!
+  user_role: String!
+  user_permissions: [String]!
+  canViewBudget: Boolean!
+  canViewItineraries: Boolean!
+  canViewGuests: Boolean!
+  canEditEvent: Boolean!
+}
+
+type EVT_PermissionsSummary {
+  hasBudgetAccess: Boolean!
+  hasItineraryAccess: Boolean!
+  hasGuestAccess: Boolean!
+  hasEditAccess: Boolean!
+  totalPermissions: Int!
+  permissionDetails: [EVT_PermissionDetail]
+}
+
+type EVT_PermissionDetail {
+  eventId: ID!
+  eventName: String!
+  role: String!
+  permissions: [String]!
+  specificPermissions: EVT_SpecificPermissions
+}
+
+type EVT_SpecificPermissions {
+  canViewBudget: Boolean!
+  canViewConversations: Boolean!
+  canViewChat: Boolean!
+  canViewDocuments: Boolean!
+  canEditEvent: Boolean!
+  canInviteGuests: Boolean!
+}</code></pre>
+
+                        <h5>📝 Input Types y Validaciones</h5>
+                        <pre><code class="language-graphql"># Input para crear/actualizar eventos
+input EVT_EventInput {
+  nombre: String!
+  tipo: String!
+  fecha: String!
+  poblacion: String
+  pais: String
+  usuario_id: String!
+  usuario_nombre: String!
+  color: [String]
+}
+
+# Enums y Validaciones Implementadas
+enum EventType {
+  BODA
+  COMUNION
+  BAUTIZO
+  CUMPLEANOS
+  CORPORATIVO
+  CONFERENCIA
+  EXPOSICION
+  FIESTA
+  REUNION
+  OTRO
+}
+
+enum EventStatus {
+  PLANIFICACION
+  CONFIRMADO
+  EN_CURSO
+  COMPLETADO
+  CANCELADO
+  POSTPUESTO
+}
+
+enum GuestAttendance {
+  PENDIENTE
+  CONFIRMADO
+  RECHAZADO
+  TAL_VEZ
+}
+
+enum UserRole {
+  CREADOR
+  COMPARTIDO
+  INVITADO
+  ADMIN
+  VIEWER
+}
+
+enum PermissionType {
+  VIEW_EVENT
+  EDIT_EVENT
+  DELETE_EVENT
+  VIEW_BUDGET
+  EDIT_BUDGET
+  VIEW_GUESTS
+  EDIT_GUESTS
+  VIEW_ITINERARY
+  EDIT_ITINERARY
+  SHARE_EVENT
+}</code></pre>
+
+                        <h5>💡 Ejemplos de Uso Real</h5>
+                        <pre><code class="language-graphql"># Ejemplo 1: Obtener evento por ID
+query GetEventById {
+  getEvent(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    _id
+    nombre
+    tipo
+    fecha
+    poblacion
+    pais
+    usuario_nombre
+    invitados_count
+    user_role
+    user_permissions
+  }
+}
+
+# Ejemplo 2: Obtener eventos del usuario por teléfono
+query GetUserEventsByPhone {
+  getAllUserRelatedEventsByPhone(phoneNumber: "+34612345678") {
+    _id
+    nombre
+    tipo
+    fecha
+    estatus
+    user_role
+    user_permissions
+    invitados_count
+  }
+}
+
+# Ejemplo 3: Obtener datos optimizados para IA
+query GetEventDataForAI {
+  getEventDataForAI(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    eventId
+    basicInfo {
+      nombre
+      tipo
+      fecha
+      poblacion
+    }
+    guests {
+      nombre
+      asistencia
+    }
+    budget {
+      coste_estimado
+      coste_final
+    }
+  }
+}
+
+# Ejemplo 4: Resumen completo del usuario
+query GetUserEventSummary {
+  getUserCompleteEventSummary(userIdentifier: "user@example.com") {
+    userInfo {
+      identifier
+      email
+      userType
+    }
+    eventsSummary {
+      totalEvents
+      eventsByRole {
+        creator
+        shared
+        invited
+      }
+    }
+    permissionsSummary {
+      hasBudgetAccess
+      hasEditAccess
+      totalPermissions
+    }
+    recommendations
+  }
+}</code></pre>
+
+                        <h5>🔐 Sistema de Permisos y Compartición</h5>
+                        <pre><code class="language-graphql"># Sistema de Roles Implementado
+enum UserRole {
+  CREADOR      # Propietario del evento - Acceso completo
+  COMPARTIDO   # Usuario con acceso compartido - Acceso básico
+  INVITADO     # Usuario invitado - Acceso limitado
+  SIN_ACCESO   # Sin permisos - No puede ver el evento
+}
+
+# Permisos Granulares por Rol
+type UserPermissions {
+  # Permisos de Visualización
+  canViewBudget: Boolean!        # Ver presupuesto
+  canViewAllGuests: Boolean!     # Ver lista completa de invitados
+  canViewItineraries: Boolean!   # Ver itinerarios y tareas
+  canViewShared: Boolean!        # Ver información compartida
+  
+  # Permisos de Edición
+  canEditEvent: Boolean!         # Editar información del evento
+  canInviteGuests: Boolean!      # Invitar nuevos invitados
+  canDeleteEvent: Boolean!       # Eliminar el evento
+  canShareEvent: Boolean!        # Compartir con otros usuarios
+  
+  # Permisos Específicos
+  canViewConversations: Boolean! # Ver conversaciones/chat
+  canViewChat: Boolean!          # Acceso al chat del evento
+  canViewDocuments: Boolean!     # Ver documentos adjuntos
+}
+
+# Matriz de Permisos por Rol
+type PermissionsMatrix {
+  CREADOR: UserPermissions!      # Acceso completo
+  COMPARTIDO: UserPermissions!   # Acceso básico con restricciones
+  INVITADO: UserPermissions!     # Solo información básica
+}</code></pre>
+
+                        <h5>🏗️ Arquitectura del Sistema de Permisos</h5>
+                        <pre><code class="language-graphql"># Servicios de Permisos Implementados
+type PermissionServices {
+  EventPermissionService: String!           # Servicio principal de permisos
+  EnhancedEventPermissionService: String!   # Servicio mejorado con filtrado
+  EventPermissionModel: String!            # Modelo de base de datos
+}
+
+# Jerarquía de Prioridades para Determinar Rol
+enum RolePriority {
+  CREADOR      # PRIORIDAD MÁXIMA - Propietario del evento
+  COMPARTIDO   # PRIORIDAD MEDIA - Usuario compartido
+  INVITADO     # PRIORIDAD BAJA - Usuario invitado
+  SIN_ACCESO   # SIN ACCESO - No tiene permisos
+}
+
+# Lógica de Determinación de Rol
+type RoleDetermination {
+  # Verificación por ID de Usuario (Máxima prioridad)
+  checkByUserId: Boolean!
+  
+  # Verificación por Email (Prioridad media)
+  checkByEmail: Boolean!
+  
+  # Verificación por Teléfono (Prioridad baja)
+  checkByPhone: Boolean!
+  
+  # Verificación por Invitación (Prioridad mínima)
+  checkByInvitation: Boolean!
+}</code></pre>
+
+                        <h5>🤝 Sistema de Compartir Implementado</h5>
+                        <pre><code class="language-graphql"># Compartir Evento con Usuario
+mutation ShareEvent($eventId: ID!, $userId: ID!, $permissions: JSON!) {
+  shareEvent(eventId: $eventId, userId: $userId, permissions: $permissions)
+}
+
+# Estructura de Permisos para Compartir
+input SharePermissionsInput {
+  # Permisos de Visualización
+  canViewBudget: Boolean!
+  canViewGuests: Boolean!
+  canViewItineraries: Boolean!
+  canViewDocuments: Boolean!
+  
+  # Permisos de Edición
+  canEditEvent: Boolean!
+  canInviteGuests: Boolean!
+  canManageBudget: Boolean!
+  canManageTasks: Boolean!
+  
+  # Permisos de Administración
+  canShareEvent: Boolean!
+  canDeleteEvent: Boolean!
+}
+
+# Campos de Compartición en EVT_Event
+type EventSharing {
+  compartido_array: [String!]!              # IDs de usuarios compartidos
+  detalles_compartidos_array: [ShareDetail!]! # Detalles de permisos por usuario
+}
+
+type ShareDetail {
+  user_id: String!                          # ID del usuario compartido
+  permissions: JSON!                         # Permisos específicos
+  shared_at: DateTime!                       # Fecha de compartición
+  shared_by: String!                         # Usuario que compartió
+  role: String!                              # Rol asignado
+}</code></pre>
+
+                        <h5>💡 Ejemplos de Uso del Sistema de Permisos</h5>
+                        <pre><code class="language-graphql"># Ejemplo 1: Compartir evento con permisos específicos
+mutation ShareEventWithPermissions {
+  shareEvent(
+    eventId: "64f8a1b2c3d4e5f6a7b8c9d0"
+    userId: "user123"
+    permissions: {
+      canViewBudget: true
+      canViewGuests: true
+      canViewItineraries: true
+      canEditEvent: true
+      canInviteGuests: true
+      canShareEvent: false
+      canDeleteEvent: false
+    }
+  )
+}
+
+# Ejemplo 2: Verificar permisos del usuario en evento
+query CheckUserPermissions {
+  getEvent(eventId: "64f8a1b2c3d4e5f6a7b8c9d0") {
+    _id
+    nombre
+    user_role           # Rol del usuario actual
+    user_permissions    # Permisos específicos
+    compartido_array    # Usuarios con acceso compartido
+    detalles_compartidos_array {
+      user_id
+      permissions
+      shared_at
+      shared_by
+      role
+    }
+  }
+}
+
+# Ejemplo 3: Obtener eventos según rol del usuario
+query GetEventsByUserRole {
+  getAllUserRelatedEvents(userId: "user123") {
+    _id
+    nombre
+    tipo
+    fecha
+    user_role           # CREADOR, COMPARTIDO, INVITADO
+    user_permissions    # Permisos específicos
+    # Campos filtrados según permisos
+    invitados_array @include(if: $canViewGuests)
+    presupuesto_objeto @include(if: $canViewBudget)
+    itinerarios_array @include(if: $canViewItineraries)
+  }
+}</code></pre>
+
+                        <h5>🏢 Sistema de Permisos para Otros Módulos CRM</h5>
+                        <pre><code class="language-graphql"># Compartir Lead con Usuario
+mutation ShareCRMLead($leadId: ID!, $sharing: LeadSharingInput!) {
+  shareCRMLead(leadId: $leadId, sharing: $sharing) {
+    success
+    lead {
+      _id
+      name
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Contacto
+mutation ShareCRMContact($contactId: ID!, $sharing: ContactSharingInput!) {
+  shareCRMContact(contactId: $contactId, sharing: $sharing) {
+    success
+    contact {
+      _id
+      firstName
+      lastName
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Entidad
+mutation ShareCRMEntity($entityId: ID!, $sharing: EntitySharingInput!) {
+  shareCRMEntity(entityId: $entityId, sharing: $sharing) {
+    success
+    entity {
+      _id
+      name
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Estructura de Compartición para CRM
+input LeadSharingInput {
+  userIds: [String!]!    # IDs de usuarios para compartir
+  groupIds: [String!]!   # IDs de grupos para compartir
+  permissions: [String!]! # Permisos específicos
+}
+
+input ContactSharingInput {
+  userIds: [String!]!
+  groupIds: [String!]!
+  permissions: [String!]!
+}
+
+input EntitySharingInput {
+  userIds: [String!]!
+  groupIds: [String!]!
+  permissions: [String!]!
+}</code></pre>
+
+                        <h6>👥 Sistema de Grupos y Permisos</h6>
+                        <pre><code class="language-graphql"># Modelo de Grupo con permisos implementado
+type CRM_Group {
+  _id: ID!
+  name: String!                    # Nombre del grupo
+  description: String!             # Descripción del grupo
+  business: ID!                    # Negocio asociado (ObjectId)
+  members: [String!]!              # Array de Firebase UIDs
+  
+  # Permisos del grupo
+  permissions: CRM_GroupPermissions! {
+    canView: Boolean!              # Ver recursos
+    canEdit: Boolean!              # Editar recursos
+    canDelete: Boolean!            # Eliminar recursos
+    canShare: Boolean!             # Compartir recursos
+    canManageMembers: Boolean!     # Gestionar miembros
+  }
+  
+  # Configuración del grupo
+  isActive: Boolean!               # Si el grupo está activo
+  createdBy: String!               # Firebase UID del creador
+  createdAt: DateTime!             # Fecha de creación
+  updatedAt: DateTime!             # Fecha de actualización
+  
+  # Filtros asociados al grupo
+  filters: [ID!]                   # Array de ObjectIds de filtros
+}
+
+# Permisos del grupo
+type CRM_GroupPermissions {
+  canView: Boolean!                # Ver recursos
+  canEdit: Boolean!                # Editar recursos
+  canDelete: Boolean!              # Eliminar recursos
+  canShare: Boolean!               # Compartir recursos
+  canManageMembers: Boolean!       # Gestionar miembros del grupo
+}</code></pre>
+
+                        <h6>📊 Diagramas Visuales del Sistema</h6>
+                        
+                        <h7>🏗️ Arquitectura Multi-Tenant</h7>
+                        <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                    SISTEMA CRM MULTI-TENANT                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   DEVELOPER 1   │    │   DEVELOPER 2   │    │   DEVELOPER │ │
+│  │  "bodasdehoy"   │    │"eventosorganiz"│    │      3      │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│           │                       │                    │        │
+│           │                       │                    │        │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   WHITELABEL    │    │   WHITELABEL    │    │   WHITELABEL│ │
+│  │   CONFIG        │    │   CONFIG        │    │   CONFIG    │ │
+│  │                 │    │                 │    │             │ │
+│  │ • Features      │    │ • Features      │    │ • Features  │ │
+│  │ • Limits        │    │ • Limits        │    │ • Limits    │ │
+│  │ • Settings      │    │ • Settings      │    │ • Settings  │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│           │                       │                    │        │
+│           │                       │                    │        │
+│  ┌─────────────────┐    ┌─────────────────┐    ┌─────────────┐ │
+│  │   BASE DE       │    │   BASE DE       │    │   BASE DE   │ │
+│  │   DATOS         │    │   DATOS         │    │   DATOS     │ │
+│  │                 │    │                 │    │             │ │
+│  │ • crm_leads     │    │ • crm_leads     │    │ • crm_leads │ │
+│  │ • crm_contacts  │    │ • crm_contacts  │    │ • crm_contacts│
+│  │ • crm_entities  │    │ • crm_entities  │    │ • crm_entities│
+│  │ • eventos       │    │ • eventos       │    │ • eventos   │ │
+│  └─────────────────┘    └─────────────────┘    └─────────────┘ │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    SHARED INFRASTRUCTURE                    │ │
+│  │  • MongoDB Atlas Cluster                                   │ │
+│  │  • Firebase Authentication                                 │ │
+│  │  • GraphQL API Server                                      │ │
+│  │  • Nginx Reverse Proxy                                     │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+
+                        <h7>🔐 Sistema de Ownership y Compartición</h7>
+                        <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                SISTEMA DE OWNERSHIP Y COMPARTICIÓN               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    RECURSO CRM                              │ │
+│  │  (Lead, Contact, Entity, Event)                            │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                              │                                  │
+│                              │                                  │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    OWNERSHIP                                │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │ │
+│  │  │ PRIMARY OWNER   │  │ SHARED USERS    │  │ SHARED      │ │ │
+│  │  │                 │  │                 │  │ GROUPS      │ │ │
+│  │  │ • user_id       │  │ • [user_id_1]   │  │ • [group_1] │ │ │
+│  │  │ • name          │  │ • [user_id_2]   │  │ • [group_2] │ │ │
+│  │  │ • permissions   │  │ • [user_id_3]   │  │ • [group_3] │ │ │
+│  │  │   FULL_ACCESS   │  │ • permissions   │  │ • permissions│ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────┘ │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                              │                                  │
+│                              │                                  │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │                    PERMISOS POR ROL                         │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │ │
+│  │  │   OWNER         │  │   SHARED USER   │  │   GROUP     │ │ │
+│  │  │                 │  │                 │  │   MEMBER    │ │ │
+│  │  │ • Ver todo      │  │ • Ver limitado  │  │ • Ver según │ │ │
+│  │  │ • Editar todo   │  │ • Editar según  │  │   permisos  │ │ │
+│  │  │ • Eliminar      │  │   permisos      │  │ • Editar    │ │ │
+│  │  │ • Compartir     │  │ • No eliminar   │  │   según     │ │ │
+│  │  │ • Gestionar     │  │ • No compartir  │  │   permisos  │ │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────┘ │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────┘</code></pre>
+
+                        <h6>🔄 Flujo de Compartición y Validaciones</h6>
+                        <pre><code class="language-graphql"># Validaciones de Seguridad Implementadas
+export function validateDevelopmentAccess(
+  context: CRMContext,
+  development: string
+) {
+  if (context.user.development !== development) {
+    throw new Error('No tienes acceso a este development');
+  }
+}
+
+# Validación de ownership y permisos compartidos
+export function validateOwnership(
+  document: any,
+  userId: string,
+  allowShared: boolean = true
+) {
+  const isOwner = document.ownership?.primary_owner?.user_id === userId;
+  const isShared = allowShared && 
+    document.ownership?.shared_with_users?.includes(userId);
+
+  if (!isOwner && !isShared) {
+    throw new Error('No tienes permisos para acceder a este recurso');
+  }
+
+  return { isOwner, isShared };
+}
+
+# Flujo completo de compartición
+type CRM_SharingFlow {
+  # Paso 1: Verificar propiedad del recurso
+  checkOwnership: Boolean! {
+    document.ownership.primary_owner.user_id === currentUser.uid
+  }
+  
+  # Paso 2: Validar acceso al development
+  validateDevelopment: Boolean! {
+    context.user.development === document.development
+  }
+  
+  # Paso 3: Aplicar permisos de compartición
+  applySharing: Boolean! {
+    updateSharedUsers() && updateSharedGroups()
+  }
+  
+  # Paso 4: Validar límites de compartición
+  validateLimits: Boolean! {
+    maxSharedUsers <= 50 && maxSharedGroups <= 20
+  }
+  
+  # Paso 5: Registrar auditoría
+  logAudit: Boolean! {
+    recordSharingAction(userId, resourceId, permissions)
+  }
+}</code></pre>
+                        <pre><code class="language-graphql"># Flujo de Compartición de Evento
+type EventSharingFlow {
+  # Paso 1: Verificar Propiedad
+  checkOwnership: Boolean! {
+    event.usuario_id === currentUser.uid
+  }
+  
+  # Paso 2: Validar Usuario Destino
+  validateTargetUser: Boolean! {
+    userExists && userActive && userInSameDevelopment
+  }
+  
+  # Paso 3: Aplicar Permisos
+  applyPermissions: SharePermissionsInput! {
+    canViewBudget: Boolean!
+    canViewGuests: Boolean!
+    canEditEvent: Boolean!
+    canInviteGuests: Boolean!
+  }
+  
+  # Paso 4: Actualizar Base de Datos
+  updateDatabase: Boolean! {
+    event.compartido_array.push(userId)
+    event.detalles_compartidos_array.push(shareDetail)
+  }
+  
+  # Paso 5: Notificar Usuario
+  notifyUser: Boolean! {
+    sendEmailNotification || sendPushNotification
+  }
+}
+
+# Validaciones de Seguridad
+type SecurityValidations {
+  # Verificar que solo el propietario puede compartir
+  ownerOnlySharing: Boolean!
+  
+  # Verificar que el usuario no se comparte a sí mismo
+  noSelfSharing: Boolean!
+  
+  # Verificar límites de compartición
+  sharingLimits: Boolean! {
+    maxSharedUsers <= 50
+    maxPermissionsPerUser <= 10
+  }
+  
+  # Verificar permisos heredados
+  inheritedPermissions: Boolean! {
+    sharedUser.cannotHaveMorePermissionsThanOwner
+  }
+}</code></pre>
+
+                        <h5>🎯 Casos de Uso y Escenarios Reales</h5>
+                        <pre><code class="language-graphql"># Escenario 1: Organizador de Boda Comparte con Proveedores
+type WeddingSharingScenario {
+  # Organizador (CREADOR) comparte con:
+  photographer: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false       # No editar evento
+      canInviteGuests: false    # No invitar gente
+    }
+  }
+  
+  caterer: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true       # Para saber cuántos comensales
+      canViewItinerary: true    # Para horarios de comida
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false
+    }
+  }
+  
+  weddingPlanner: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: true       # Ver presupuesto para planificar
+      canEditEvent: true        # Editar detalles del evento
+      canInviteGuests: true     # Invitar gente
+      canShareEvent: false      # No compartir con otros
+    }
+  }
+}
+
+# Escenario 2: Empresa Comparte Evento Corporativo
+type CorporateEventSharingScenario {
+  # CEO (CREADOR) comparte con:
+  marketingTeam: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: true
+      canViewItinerary: true
+      canViewBudget: true
+      canEditEvent: true
+      canInviteGuests: true
+      canShareEvent: false
+    }
+  }
+  
+  financeTeam: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: false      # No ver invitados
+      canViewItinerary: false   # No ver itinerario
+      canViewBudget: true       # Solo ver presupuesto
+      canEditEvent: false
+      canInviteGuests: false
+    }
+  }
+  
+  attendees: ShareDetail! {
+    permissions: {
+      canViewEvent: true
+      canViewGuests: false      # No ver otros invitados
+      canViewItinerary: true    # Ver agenda del evento
+      canViewBudget: false      # No ver presupuesto
+      canEditEvent: false
+      canInviteGuests: false
+    }
+  }
+}</code></pre>
+
+                        <h5>📋 Resumen del Sistema de Permisos y Mejores Prácticas</h5>
+                        <pre><code class="language-graphql"># Resumen de Funcionalidades Implementadas
+type PermissionsSystemSummary {
+  # Sistema de Roles
+  roles: [String!]! {
+    "CREADOR"      # Acceso completo - Propietario
+    "COMPARTIDO"   # Acceso básico - Usuario compartido  
+    "INVITADO"     # Acceso limitado - Usuario invitado
+    "SIN_ACCESO"   # Sin acceso - Sin permisos
+  }
+  
+  # Permisos Granulares
+  permissions: [String!]! {
+    "Visualización"    # Ver presupuesto, invitados, itinerarios
+    "Edición"          # Editar evento, invitar gente
+    "Administración"   # Compartir, eliminar, gestionar
+  }
+  
+  # Recursos Compartibles
+  shareableResources: [String!]! {
+    "Eventos"          # EVT_Event con sistema completo
+    "Leads"            # CRM_Lead con ownership
+    "Contactos"        # CRM_Contact con permisos
+    "Entidades"        # CRM_Entity con acceso
+  }
+  
+  # Servicios Implementados
+  services: [String!]! {
+    "EventPermissionService"           # Servicio principal
+    "EnhancedEventPermissionService"   # Servicio mejorado
+    "EventPermissionModel"            # Modelo de BD
+  }
+}
+
+# Mejores Prácticas de Seguridad
+type SecurityBestPractices {
+  # Principio de Mínimo Privilegio
+  leastPrivilege: String! {
+    "Solo dar permisos necesarios para la tarea"
+  }
+  
+  # Verificación de Propiedad
+  ownershipVerification: String! {
+    "Solo el propietario puede compartir recursos"
+  }
+  
+  # Auditoría de Accesos
+  accessAudit: String! {
+    "Registrar todas las acciones de compartición"
+  }
+  
+  # Límites de Compartición
+  sharingLimits: String! {
+    "Máximo 50 usuarios compartidos por recurso"
+  }
+  
+  # Permisos Heredados
+  inheritedPermissions: String! {
+    "Usuario compartido no puede tener más permisos que el propietario"
+  }
+}</code></pre>
+                    </div>
+
+                    <h4>🏢 Sistema CRM de Compartición y Ownership</h4>
+                    <div class="crm-system-section">
+                        <h5>🔐 Arquitectura Multi-Tenant y Sistema de Permisos</h5>
+                        
+                        <h6>🏗️ Estructura del Sistema Multi-Developer</h6>
+                        <pre><code class="language-graphql"># Sistema de Marca Blanca (Whitelabel) Implementado
+type Whitelabel {
+  id: ID!
+  name: String!                    # Nombre de la marca
+  whiteLabelDomain: String!        # Dominio personalizado
+  development: String!             # ID único del developer
+  slug: String!                    # Slug de la marca
+  
+  # Configuración del Developer
+  developer: WhitelabelDeveloper! {
+    id: String!                    # ID del desarrollador
+    name: String!                  # Nombre del desarrollador
+    email: String!                 # Email del desarrollador
+    permissions: [String!]!        # Permisos del developer
+    isEnabled: Boolean!            # Si está habilitado
+    apiKey: String                 # API key para integraciones
+    webhookUrl: String             # URL para webhooks
+    rateLimit: Int                 # Límite de rate limiting
+  }
+  
+  # Features Habilitados por Tenant
+  features: WhitelabelFeatures! {
+    events: Boolean!               # Módulo de eventos
+    users: Boolean!                # Gestión de usuarios
+    business: Boolean!             # Gestión de negocios
+    posts: Boolean!                # Sistema de posts
+    categories: Boolean!           # Categorías
+    filters: Boolean!              # Filtros
+    groups: Boolean!               # Sistema de grupos
+    viewConfig: Boolean!           # Configuración de vistas
+    analytics: Boolean!            # Analytics
+    notifications: Boolean!        # Notificaciones
+    payments: Boolean!             # Pagos
+    integrations: Boolean!         # Integraciones
+    customBranding: Boolean!       # Branding personalizado
+    multiLanguage: Boolean!        # Multi-idioma
+  }
+  
+  # Límites por Tenant
+  limits: WhitelabelLimits! {
+    users: Int                     # Máximo de usuarios
+    events: Int                    # Máximo de eventos
+    storage: Int                   # Almacenamiento máximo (bytes)
+    apiCalls: Int                  # Llamadas API máximas por día
+    customizations: Int            # Personalizaciones máximas
+  }
+  
+  # Configuración de Seguridad
+  settings: WhitelabelSettings! {
+    theme: JSON                    # Tema personalizado
+    branding: JSON                 # Branding específico
+    notifications: JSON            # Configuración de notificaciones
+    security: JSON                 # Configuración de seguridad
+    performance: JSON              # Configuración de performance
+  }
+}</code></pre>
+
+                        <h6>🔐 Sistema de Ownership y Compartición</h6>
+                        <pre><code class="language-graphql"># Estructura de Ownership implementada en TODOS los módulos CRM
+type CRM_Ownership {
+  # Propietario principal del recurso
+  primary_owner: CRM_OwnerInfo! {
+    user_id: String!               # Firebase UID del propietario
+    name: String!                  # Nombre/Email del propietario
+  }
+  
+  # Usuarios con acceso compartido (individual)
+  shared_with_users: [String!]!    # Array de Firebase UIDs
+  
+  # Grupos con acceso compartido
+  shared_with_groups: [ID!]!       # Array de ObjectIds de grupos
+}
+
+# Información del propietario
+type CRM_OwnerInfo {
+  user_id: String!                 # Firebase UID
+  name: String!                    # Nombre o email
+}
+
+# Sistema de compartición implementado en:
+# - CRM_Lead (crm_leads collection)
+# - CRM_Contact (crm_contacts collection)  
+# - CRM_Entity (crm_entities collection)
+# - EVT_Event (eventos collection)
+
+# Campos de compartición en cada registro
+type CRM_SharingFields {
+  development: String!              # ID del developer/tenant
+  ownership: CRM_Ownership!        # Sistema de ownership
+  
+  # Información de marca blanca
+  whitelabel_info: CRM_WhitelabelInfo! {
+    whitelabel_id: String!         # ID de la marca blanca
+    name: String!                  # Nombre de la marca
+    domain: String!                # Dominio de la marca
+    developer_uid: String!         # UID del developer
+  }
+}</code></pre>
+
+                        <h6>🤝 Sistema de Compartición Multi-Nivel</h6>
+                        <pre><code class="language-graphql"># Compartir Lead con usuarios y grupos
+mutation ShareCRMLead($leadId: ID!, $sharing: LeadSharingInput!) {
+  shareCRMLead(leadId: $leadId, sharing: $sharing) {
+    success
+    lead {
+      ownership {
+        shared_with_users    # Usuarios individuales
+        shared_with_groups   # Grupos de usuarios
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Contacto
+mutation ShareCRMContact($contactId: ID!, $sharing: ContactSharingInput!) {
+  shareCRMContact(contactId: $contactId, sharing: $sharing) {
+    success
+    contact {
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Compartir Entidad
+mutation ShareCRMEntity($entityId: ID!, $sharing: EntitySharingInput!) {
+  shareCRMEntity(entityId: $entityId, sharing: $sharing) {
+    success
+    entity {
+      ownership {
+        shared_with_users
+        shared_with_groups
+      }
+    }
+    errors
+  }
+}
+
+# Estructuras de compartición
+input LeadSharingInput {
+  userIds: [String!]!    # IDs de usuarios para compartir
+  groupIds: [ID!]!       # IDs de grupos para compartir
+  permissions: [String!]! # Permisos específicos
+}
+
+input ContactSharingInput {
+  userIds: [String!]!
+  groupIds: [ID!]!
+  permissions: [String!]!
+}
+
+input EntitySharingInput {
+  userIds: [String!]!
+  groupIds: [ID!]!
+  permissions: [String!]!
+}</code></pre>
+                    </div>
+
+                    <h4>🚀 Módulo de Campañas (BUSN)</h4>
+                    <div class="campaigns-section">
+                        <h5>Gestión Integral de Campañas</h5>
+                        <pre><code class="language-graphql">type CRM_Campaign {
+  _id: ID!
+  name: String!
+  description: String
+  type: CampaignType!
+  status: CampaignStatus!
+  
+  # Objetivos y KPIs
+  objectives: [CampaignObjective!]!
+  kpis: [CampaignKPI!]!
+  targetMetrics: CampaignMetrics!
+  
+  # Audiencia y Segmentación
+  targetAudience: TargetAudience!
+  segments: [AudienceSegment!]
+  filters: AudienceFilters
+  
+  # Canales y Contenido
+  channels: [CampaignChannel!]!
+  content: [CampaignContent!]
+  creative: CreativeAssets
+  
+  # Programación y Automatización
+  schedule: CampaignSchedule!
+  automation: AutomationRules
+  triggers: [Trigger!]
+  
+  # Presupuesto y ROI
+  budget: CampaignBudget!
+  roi: ROIMetrics!
+  performance: PerformanceMetrics!
+  
+  # Metadatos
+  tags: [String!]
+  customFields: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}</code></pre>
+                    </div>
+
+                    <h4>🔧 Enums y Tipos Especializados</h4>
+                    <div class="enum-section">
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> LeadStatus</h6>
+                            <pre><code class="language-graphql">enum LeadStatus {
+  NUEVO
+  CONTACTADO
+  CALIFICADO
+  PROPUESTA
+  NEGOCIACION
+  GANADO
+  PERDIDO
+  RECHAZADO
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> LeadSource</h6>
+                            <pre><code class="language-graphql">enum LeadSource {
+  WEB
+  PHONE
+  REFERRAL
+  SOCIAL
+  EVENT
+  EMAIL
+  COLD_CALL
+  PARTNER
+  ADVERTISING
+  OTHER
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> Priority</h6>
+                            <pre><code class="language-graphql">enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}</code></pre>
+                        </div>
+
+                        <div class="enum-card">
+                            <h6><i class="fas fa-list"></i> EventType</h6>
+                            <pre><code class="language-graphql">enum EventType {
+  CONFERENCE
+  SEMINAR
+  WORKSHOP
+  NETWORKING
+  PRODUCT_LAUNCH
+  TRAINING
+  MEETING
+  PRESENTATION
+  DEMO
+  WEBINAR
+  HACKATHON
+  COMPETITION
+  EXHIBITION
+  TRADE_SHOW
+  AWARDS
+  GALA
+  PARTY
+  CELEBRATION
+  TEAM_BUILDING
+  CORPORATE_EVENT
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>🔍 Queries y Mutations Principales</h4>
+                    <div class="query-section">
+                        <div class="query-card">
+                            <h6><i class="fas fa-search"></i> Obtener Leads con Filtros</h6>
+                            <pre><code class="language-graphql">query GetLeads(
+  $filters: LeadFilterInput
+  $pagination: PaginationInput
+  $sort: LeadSortInput
+) {
+  getCRMLeads(
+    filters: $filters
+    pagination: $pagination
+    sort: $sort
+  ) {
+    leads {
+      _id
+      name
+      email
+      company
+      status
+      source
+      value
+      probability
+      assignedTo
+      tags
+      nextFollowUp
+      lastContact
+      createdAt
+      updatedAt
+    }
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="query-card">
+                            <h6><i class="fas fa-search"></i> Obtener Contactos</h6>
+                            <pre><code class="language-graphql">query GetContacts(
+  $filters: ContactFilterInput
+  $pagination: PaginationInput
+) {
+  getCRMContacts(
+    filters: $filters
+    pagination: $pagination
+  ) {
+    contacts {
+      _id
+      firstName
+      lastName
+      email
+      phone
+      company
+      jobTitle
+      status
+      assignedTo
+      tags
+      lastContact
+      nextFollowUp
+      createdAt
+      updatedAt
+    }
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="mutation-section">
+                        <div class="mutation-card">
+                            <h6><i class="fas fa-plus"></i> Crear Lead</h6>
+                            <pre><code class="language-graphql">mutation CreateLead($input: LeadInput!) {
+  createCRMLead(input: $input) {
+    _id
+    name
+    email
+    company
+    status
+    source
+    value
+    probability
+    assignedTo
+    tags
+    description
+    nextFollowUp
+    createdAt
+    updatedAt
+    validation {
+      isValid
+      errors {
+        field
+        message
+        code
+      }
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="mutation-card">
+                            <h6><i class="fas fa-edit"></i> Actualizar Lead</h6>
+                            <pre><code class="language-graphql">mutation UpdateLead($id: ID!, $input: LeadUpdateInput!) {
+  updateCRMLead(id: $id, input: $input) {
+    _id
+    name
+    email
+    company
+    status
+    source
+    value
+    probability
+    assignedTo
+    tags
+    description
+    nextFollowUp
+    lastContact
+    updatedAt
+    changeHistory {
+      field
+      oldValue
+      newValue
+      changedBy
+      changedAt
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>📊 Métricas y Analytics</h4>
+                    <div class="metrics-section">
+                        <div class="metrics-card">
+                            <h6><i class="fas fa-chart-line"></i> Dashboard de Leads</h6>
+                            <pre><code class="language-graphql">query GetLeadAnalytics($dateRange: DateRangeInput) {
+  getLeadAnalytics(dateRange: $dateRange) {
+    overview {
+      totalLeads
+      newLeads
+      convertedLeads
+      conversionRate
+      totalValue
+      averageValue
+      averageTimeToConvert
+    }
+    
+    byStatus {
+      status
+      count
+      value
+      percentage
+    }
+    
+    bySource {
+      source
+      count
+      conversionRate
+      averageValue
+    }
+    
+    trends {
+      date
+      newLeads
+      convertedLeads
+      conversionRate
+    }
+    
+    performance {
+      assignedTo
+      leadsAssigned
+      leadsConverted
+      conversionRate
+      totalValue
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <h4>⚠️ Manejo de Errores y Códigos de Estado</h4>
+                    <div class="error-section">
+                        <div class="error-card">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Códigos de Error Comunes</h6>
+                            <pre><code class="language-json">{
+  "errors": [
+    {
+      "message": "Validation failed",
+      "extensions": {
+        "code": "VALIDATION_ERROR",
+        "field": "email",
+        "details": "Invalid email format"
+      }
+    }
+  ]
+}</code></pre>
+                        </div>
+
+                        <div class="error-card">
+                            <h6><i class="fas fa-shield-alt"></i> Códigos de Estado HTTP</h6>
+                            <ul>
+                                <li><strong>200 OK:</strong> Operación exitosa</li>
+                                <li><strong>201 Created:</strong> Recurso creado exitosamente</li>
+                                <li><strong>400 Bad Request:</strong> Error de validación o datos incorrectos</li>
+                                <li><strong>401 Unauthorized:</strong> Token de autenticación inválido o expirado</li>
+                                <li><strong>403 Forbidden:</strong> Sin permisos para acceder al recurso</li>
+                                <li><strong>404 Not Found:</strong> Recurso no encontrado</li>
+                                <li><strong>429 Too Many Requests:</strong> Límite de rate limiting excedido</li>
+                                <li><strong>500 Internal Server Error:</strong> Error interno del servidor</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🔐 Seguridad y Permisos</h4>
+                    <div class="security-section">
+                        <div class="security-card">
+                            <h6><i class="fas fa-lock"></i> Autenticación JWT</h6>
+                            <p>La API utiliza tokens JWT para autenticación. Cada request debe incluir:</p>
+                            <ul>
+                                <li><strong>Authorization:</strong> Bearer token válido</li>
+                                <li><strong>X-User-ID:</strong> ID del usuario autenticado</li>
+                                <li><strong>X-Development:</strong> ID del desarrollo/empresa</li>
+                            </ul>
+                        </div>
+
+                        <div class="security-card">
+                            <h6><i class="fas fa-user-shield"></i> Control de Acceso</h6>
+                            <p>El sistema implementa control de acceso basado en roles (RBAC):</p>
+                            <ul>
+                                <li><strong>Admin:</strong> Acceso completo a todos los recursos</li>
+                                <li><strong>Manager:</strong> Acceso a leads y contactos de su equipo</li>
+                                <li><strong>Sales:</strong> Acceso solo a sus leads asignados</li>
+                                <li><strong>Viewer:</strong> Acceso de solo lectura</li>
+                            </ul>
+                        </div>
+
+                        <div class="security-card">
+                            <h6><i class="fas fa-shield-alt"></i> Rate Limiting</h6>
+                            <p>Protección contra abuso de la API:</p>
+                            <ul>
+                                <li><strong>Límite por usuario:</strong> 1000 requests por hora</li>
+                                <li><strong>Límite por IP:</strong> 5000 requests por hora</li>
+                                <li><strong>Límite por endpoint:</strong> 100 requests por minuto</li>
+                                <li><strong>Headers de respuesta:</strong> X-RateLimit-*</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🧪 Testing y Sandbox</h4>
+                    <div class="testing-section">
+                        <div class="testing-card">
+                            <h6><i class="fas fa-flask"></i> Entorno de Testing</h6>
+                            <p>Utiliza el endpoint de test para desarrollo y pruebas:</p>
+                            <pre><code class="language-bash"># Endpoint de testing
+https://testapi2.eventosorganizador.com/graphql
+
+# Base de datos separada para testing
+# No afecta datos de producción
+# Ideal para desarrollo e integración</code></pre>
+                        </div>
+
+                        <div class="testing-card">
+                            <h6><i class="fas fa-tools"></i> Herramientas Recomendadas</h6>
+                            <ul>
+                                <li><strong>GraphQL Playground:</strong> IDE integrado en la API</li>
+                                <li><strong>Insomnia:</strong> Cliente REST/GraphQL avanzado</li>
+                                <li><strong>Postman:</strong> Testing de APIs completo</li>
+                                <li><strong>cURL:</strong> Línea de comandos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>🎯 Próximos Pasos</h4>
+                    <div class="next-steps-section">
+                        <div class="next-steps-card">
+                            <h6><i class="fas fa-rocket"></i> Implementación</h6>
+                            <ol>
+                                <li>Configurar autenticación JWT</li>
+                                <li>Implementar cliente GraphQL</li>
+                                <li>Crear componentes de UI</li>
+                                <li>Configurar manejo de errores</li>
+                                <li>Implementar cache y optimizaciones</li>
+                            </ol>
+                        </div>
+
+                        <div class="next-steps-card">
+                            <h6><i class="fas fa-book"></i> Recursos Adicionales</h6>
+                            <ul>
+                                <li><strong>Documentación GraphQL:</strong> <a href="https://graphql.org/learn/" target="_blank">graphql.org</a></li>
+                                <li><strong>Apollo Client:</strong> <a href="https://www.apollographql.com/docs/react/" target="_blank">apollographql.com</a></li>
+                                <li><strong>React TypeScript:</strong> <a href="https://react-typescript-cheatsheet.netlify.app/" target="_blank">Cheat Sheet</a></li>
+                                <li><strong>MongoDB Atlas:</strong> <a href="https://docs.atlas.mongodb.com/" target="_blank">docs.atlas.mongodb.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frontend Setup Section -->
+        <section id="frontend" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-laptop-code"></i> Frontend Setup</h3>
+                    <p>Configuración de React + TypeScript + Apollo Client</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>⚙️ Configuración Inicial</h4>
+                    <div class="setup-steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h5>Instalación de Dependencias</h5>
+                                <pre><code class="language-bash">npm install @apollo/client graphql react react-dom typescript
+npm install --save-dev @types/react @types/react-dom</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h5>Configuración de Apollo Client</h5>
+                                <pre><code class="language-typescript">import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: 'https://api2.eventosorganizador.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('jwt_token');
+  const userId = localStorage.getItem('user_uid');
+  const developmentId = localStorage.getItem('development_id');
+  
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+      'X-User-ID': userId || "",
+      'X-Development': developmentId || "",
+    }
+  }
+});
+
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🎣 Hooks Personalizados</h4>
+                    <div class="hooks-example">
+                        <p><strong>Hook para Leads:</strong></p>
+                        <pre><code class="language-typescript">export const useLeads = (filter?: any, pagination?: any) => {
+  const { data, loading, error, refetch } = useQuery(GET_LEADS, {
+    variables: { filter, pagination },
+    fetchPolicy: 'cache-and-network'
+  });
+
+  const [createLead] = useMutation(CREATE_LEAD, {
+    onCompleted: () => {
+      refetch();
+    }
+  });
+
+  return {
+    leads: data?.getCRMLeads?.leads || [],
+    totalCount: data?.getCRMLeads?.totalCount || 0,
+    pageInfo: data?.getCRMLeads?.pageInfo,
+    loading,
+    error,
+    createLead,
+    refetch
+  };
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section id="examples" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-lightbulb"></i> Ejemplos</h3>
+                    <p>Casos de uso prácticos e implementaciones</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🎯 Ejemplos de Implementación</h4>
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <h5><i class="fas fa-user-plus"></i> Crear un Nuevo Lead</h5>
+                            <p>Formulario completo para captura de prospectos con validaciones y manejo de errores.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                        <div class="example-card">
+                            <h5><i class="fas fa-list"></i> Lista de Leads con Filtros</h5>
+                            <p>Componente de listado con filtros avanzados, paginación y búsqueda en tiempo real.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                        <div class="example-card">
+                            <h5><i class="fas fa-chart-bar"></i> Dashboard de Resumen</h5>
+                            <p>Panel de control con estadísticas, gráficos y actividad reciente del CRM.</p>
+                            <a href="#" class="btn btn-outline">Ver Código</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deployment Section -->
+        <section id="deployment" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h3><i class="fas fa-rocket"></i> Deployment</h3>
+                    <p>Configuración de producción y despliegue</p>
+                </div>
+                
+                <div class="content-card">
+                    <h4>🌐 Configuración del Entorno</h4>
+                    <div class="env-example">
+                        <p><strong>Variables de Entorno:</strong></p>
+                        <pre><code class="language-bash"># Configuración de la base de datos
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/crm_production
+
+# Configuración de Firebase
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY=your-private-key
+FIREBASE_CLIENT_EMAIL=your-client-email
+
+# Configuración del servidor
+PORT=4000
+NODE_ENV=production
+JWT_SECRET=your-super-secret-jwt-key</code></pre>
+                    </div>
+
+                    <h4>🐳 Configuración de Docker</h4>
+                    <div class="docker-example">
+                        <p><strong>Dockerfile:</strong></p>
+                        <pre><code class="language-dockerfile">FROM node:18-alpine
+
+WORKDIR /app
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm ci --only=production
+
+# Copiar código fuente
+COPY . .
+
+# Compilar TypeScript
+RUN npm run build
+
+# Exponer puerto
+EXPOSE 4000
+
+# Comando de inicio
+CMD ["npm", "start"]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CRM Marketing Soluciones</h4>
+                    <p>Sistema completo de gestión de relaciones con clientes</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#api">API GraphQL</a></li>
+                        <li><a href="#frontend">Frontend</a></li>
+                        <li><a href="#examples">Ejemplos</a></li>
+                        <li><a href="#deployment">Deployment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Equipo de Desarrollo</p>
+                    <p>Marketing Soluciones</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CRM Marketing Soluciones. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
