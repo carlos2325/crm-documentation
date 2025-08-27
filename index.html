@@ -20,49 +20,8 @@
             
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link active">🏠 Home</a>
-                
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">
-                        🔌 API & Desarrollo
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="nav-dropdown-content">
-                        <div class="dropdown-section">
-                            <h4>🔌 API GraphQL</h4>
-                            <a href="#api">Tipos y Esquemas</a>
-                            <a href="#frontend">Frontend React</a>
-                            <a href="#examples">Ejemplos de Uso</a>
-                        </div>
-                        <div class="dropdown-section">
-                            <h4>🚀 Deployment</h4>
-                            <a href="#deployment">Configuración</a>
-                            <a href="#monitoring">Monitoreo</a>
-                            <a href="#monitoring-detailed">Alertas</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">
-                        🎯 CRM & Negocios
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="nav-dropdown-content">
-                        <div class="dropdown-section">
-                            <h4>📊 Gestión CRM</h4>
-                            <a href="#campaigns">Campañas</a>
-                            <a href="#events">Eventos</a>
-                            <a href="#permissions">Permisos</a>
-                        </div>
-                        <div class="dropdown-section">
-                            <h4>🎯 Sistemas</h4>
-                            <a href="#complete-systems">Compartición</a>
-                            <a href="#whitelabel">Whitelabel</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="#monitoring" class="nav-link">📊 Monitoreo</a>
+                <a href="#api" class="nav-link">🔌 API</a>
+                <a href="#docs" class="nav-link">📚 Documentación</a>
             </div>
             
             <div class="nav-actions">
@@ -126,25 +85,6 @@
                             con GraphQL API, sistema multi-tenant, y herramientas de marketing automation
                         </p>
                         
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <div class="stat-number">91</div>
-                                <div class="stat-label">Queries</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">155</div>
-                                <div class="stat-label">Mutations</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">100+</div>
-                                <div class="stat-label">Tipos</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">1</div>
-                                <div class="stat-label">Subscription</div>
-                            </div>
-                        </div>
-                        
                         <div class="hero-actions">
                             <a href="#api" class="btn btn-primary">
                                 <i class="fas fa-rocket"></i>
@@ -159,38 +99,77 @@
                                 Quick Start
                             </button>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- Home Grid Layout - 3 Columnas -->
+                <div class="home-grid">
+                    <!-- Columna 1: Estadísticas -->
+                    <div class="home-column">
+                        <div class="home-card">
+                            <h3>📊 Estadísticas del Sistema</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">91</div>
+                                    <div class="stat-label">Queries</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">155</div>
+                                    <div class="stat-label">Mutations</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">100+</div>
+                                    <div class="stat-label">Tipos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">1</div>
+                                    <div class="stat-label">Subscription</div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <div class="hero-features">
-                            <div class="feature-tag">
-                                <i class="fas fa-shield-alt"></i>
-                                Seguro
-                            </div>
-                            <div class="feature-tag">
-                                <i class="fas fa-bolt"></i>
-                                Rápido
-                            </div>
-                            <div class="feature-tag">
-                                <i class="fas fa-mobile-alt"></i>
-                                Responsive
+                        <div class="home-card">
+                            <h3>🏷️ Características</h3>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Seguro y Confiable</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Alto Rendimiento</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>100% Responsive</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-cloud"></i>
+                                    <span>Multi-Tenant</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="hero-visual">
-                        <div class="hero-card">
-                            <div class="card-header">
-                                <h3>🛠️ Stack Tecnológico</h3>
-                            </div>
-                            <div class="tech-stack">
+                    <!-- Columna 2: Stack Tecnológico -->
+                    <div class="home-column">
+                        <div class="home-card">
+                            <h3>🛠️ Stack Tecnológico</h3>
+                            <div class="tech-grid">
                                 <div class="tech-item">
                                     <i class="fab fa-node-js"></i>
                                     <span>Node.js</span>
-                                    <small>Backend</small>
+                                    <small>Backend API</small>
                                 </div>
                                 <div class="tech-item">
                                     <i class="fab fa-react"></i>
                                     <span>React</span>
-                                    <small>Frontend</small>
+                                    <small>Frontend UI</small>
+                                </div>
+                                <div class="tech-item">
+                                    <i class="fab fa-graphql"></i>
+                                    <span>GraphQL</span>
+                                    <small>API Layer</small>
                                 </div>
                                 <div class="tech-item">
                                     <i class="fas fa-database"></i>
@@ -201,6 +180,62 @@
                                     <i class="fab fa-firebase"></i>
                                     <span>Firebase</span>
                                     <small>Auth & Storage</small>
+                                </div>
+                                <div class="tech-item">
+                                    <i class="fab fa-docker"></i>
+                                    <span>Docker</span>
+                                    <small>Containerización</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna 3: Accesos Rápidos -->
+                    <div class="home-column">
+                        <div class="home-card">
+                            <h3>🚀 Accesos Rápidos</h3>
+                            <div class="quick-links">
+                                <a href="#api" class="quick-link">
+                                    <i class="fas fa-code"></i>
+                                    <span>API GraphQL</span>
+                                    <small>Esquemas y Tipos</small>
+                                </a>
+                                <a href="#examples" class="quick-link">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <span>Ejemplos</span>
+                                    <small>Código de Referencia</small>
+                                </a>
+                                <a href="#deployment" class="quick-link">
+                                    <i class="fas fa-server"></i>
+                                    <span>Deployment</span>
+                                    <small>Configuración</small>
+                                </a>
+                                <a href="#monitoring" class="quick-link">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Monitoreo</span>
+                                    <small>Estado del Sistema</small>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="home-card">
+                            <h3>📚 Recursos</h3>
+                            <div class="resources-list">
+                                <div class="resource-item">
+                                    <i class="fas fa-book"></i>
+                                    <span>Documentación Completa</span>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-video"></i>
+                                    <span>Tutoriales en Video</span>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Comunidad Activa</span>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-headset"></i>
+                                    <span>Soporte 24/7</span>
                                 </div>
                             </div>
                         </div>
