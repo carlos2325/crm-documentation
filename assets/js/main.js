@@ -349,177 +349,655 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 CRM Documentation loaded successfully!');
 });
 
-// ===== BÚSQUEDA FLOTANTE =====
-class FloatingSearch {
+// ===== SISTEMA DE BÚSQUEDA INTELIGENTE =====
+
+class IntelligentSearch {
     constructor() {
-        this.searchBtn = document.getElementById('nav-search-btn');
-        this.floatingSearch = document.getElementById('floating-search');
-        this.searchInput = document.getElementById('floating-search-input');
-        this.clearBtn = document.getElementById('floating-clear-search');
-        this.filters = {
-            types: document.getElementById('floating-filter-types'),
-            queries: document.getElementById('floating-filter-queries'),
-            mutations: document.getElementById('floating-filter-mutations'),
-            fields: document.getElementById('floating-filter-fields')
-        };
-        this.searchResults = document.getElementById('floating-search-results');
-        this.searchData = this.initializeSearchData();
+        this.searchInput = document.getElementById('search-input');
+        this.searchResults = document.getElementById('search-results');
+        this.searchOverlay = document.getElementById('search-overlay');
+        this.searchIndex = this.buildSearchIndex();
+        this.currentResults = [];
+        this.debounceTimer = null;
+        
         this.init();
     }
-    
+
     init() {
-        if (!this.searchBtn || !this.floatingSearch) return;
+        if (!this.searchInput) return;
         
-        this.searchBtn.addEventListener('click', () => this.toggleSearch());
-        this.searchInput.addEventListener('input', () => this.performSearch());
-        this.clearBtn.addEventListener('click', () => this.clearSearch());
+        // Event listeners
+        this.searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+        this.searchInput.addEventListener('focus', () => this.showResults());
+        this.searchInput.addEventListener('keydown', (e) => this.handleKeydown(e));
         
-        // Atajo de teclado Ctrl+K
+        // Click outside to close
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                this.hideResults();
+            }
+        });
+
+        // Global search shortcut (Ctrl/Cmd + K)
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                this.toggleSearch();
+                this.searchInput.focus();
             }
         });
+    }
+
+    buildSearchIndex() {
+        const sections = document.querySelectorAll('.section');
+        const index = [];
+
+        sections.forEach(section => {
+            const sectionId = section.id;
+            const sectionTitle = section.querySelector('.section-title')?.textContent?.trim() || '';
+            const sectionContent = section.textContent?.trim() || '';
+            
+            // Extraer palabras clave del título
+            const titleKeywords = this.extractKeywords(sectionTitle);
+            
+            // Extraer palabras clave del contenido
+            const contentKeywords = this.extractKeywords(sectionContent);
+            
+            // Extraer enlaces y referencias
+            const links = Array.from(section.querySelectorAll('a')).map(a => ({
+                text: a.textContent.trim(),
+                href: a.href,
+                type: 'link'
+            }));
+
+            // Extraer ejemplos de código
+            const codeExamples = Array.from(section.querySelectorAll('pre code')).map(code => ({
+                text: code.textContent.trim(),
+                language: code.className.replace('language-', ''),
+                type: 'code'
+            }));
+
+            index.push({
+                id: sectionId,
+                title: sectionTitle,
+                content: sectionContent,
+                keywords: [...titleKeywords, ...contentKeywords],
+                links: links,
+                codeExamples: codeExamples,
+                type: 'section'
+            });
+        });
+
+        return index;
+    }
+
+    extractKeywords(text) {
+        if (!text) return [];
         
-        // Cerrar al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!this.floatingSearch.contains(e.target) && !this.searchBtn.contains(e.target)) {
-                this.hideSearch();
-            }
-        });
+        // Limpiar texto y extraer palabras relevantes
+        return text
+            .toLowerCase()
+            .replace(/[^\w\s]/g, ' ')
+            .split(/\s+/)
+            .filter(word => word.length > 2)
+            .filter(word => !this.isStopWord(word))
+            .slice(0, 20); // Limitar a 20 palabras clave
     }
-    
-    toggleSearch() {
-        if (this.floatingSearch.classList.contains('active')) {
-            this.hideSearch();
-        } else {
-            this.showSearch();
-        }
+
+    isStopWord(word) {
+        const stopWords = [
+            'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+            'of', 'with', 'by', 'from', 'up', 'about', 'into', 'through', 'during',
+            'before', 'after', 'above', 'below', 'between', 'among', 'within',
+            'this', 'that', 'these', 'those', 'is', 'are', 'was', 'were', 'be',
+            'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will',
+            'would', 'could', 'should', 'may', 'might', 'can', 'must', 'shall'
+        ];
+        return stopWords.includes(word);
     }
-    
-    showSearch() {
-        this.floatingSearch.classList.add('active');
-        this.searchInput.focus();
-        this.searchBtn.style.background = 'var(--primary-dark)';
-    }
-    
-    hideSearch() {
-        this.floatingSearch.classList.remove('active');
-        this.searchBtn.style.background = 'var(--primary-color)';
-        this.clearSearch();
-    }
-    
-    performSearch() {
-        const query = this.searchInput.value.trim().toLowerCase();
-        if (query.length < 2) {
+
+    handleSearch(query) {
+        if (!query || query.length < 2) {
             this.hideResults();
             return;
         }
-        
-        const results = this.searchData.filter(item => {
-            const matchesQuery = item.title.toLowerCase().includes(query) ||
-                               item.description.toLowerCase().includes(query) ||
-                               item.type.toLowerCase().includes(query);
-            
-            const matchesFilter = this.filters[item.category].checked;
-            
-            return matchesQuery && matchesFilter;
-        });
-        
-        this.displayResults(results);
+
+        // Debounce para mejorar performance
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => {
+            this.performSearch(query);
+        }, 300);
     }
-    
-    displayResults(results) {
-        if (results.length === 0) {
-            this.searchResults.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
-            this.searchResults.style.display = 'block';
-            return;
+
+    performSearch(query) {
+        const results = this.searchIndex
+            .map(item => {
+                const score = this.calculateRelevanceScore(item, query);
+                return { ...item, score };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10); // Top 10 resultados
+
+        this.currentResults = results;
+        this.displayResults(results, query);
+    }
+
+    calculateRelevanceScore(item, query) {
+        const queryLower = query.toLowerCase();
+        let score = 0;
+
+        // Búsqueda en título (peso alto)
+        if (item.title.toLowerCase().includes(queryLower)) {
+            score += 100;
         }
-        
-        this.searchResults.innerHTML = results.slice(0, 8).map(item => `
-            <div class="search-result-item" onclick="scrollToSection('${item.section}')">
-                <div class="search-result-title">${item.title}</div>
-                <div class="search-result-type">${item.type}</div>
-                <div class="search-result-description">${item.description}</div>
+
+        // Búsqueda en palabras clave (peso medio)
+        const keywordMatches = item.keywords.filter(keyword => 
+            keyword.includes(queryLower)
+        ).length;
+        score += keywordMatches * 10;
+
+        // Búsqueda en contenido (peso bajo)
+        if (item.content.toLowerCase().includes(queryLower)) {
+            score += 5;
+        }
+
+        // Búsqueda en enlaces
+        const linkMatches = item.links.filter(link => 
+            link.text.toLowerCase().includes(queryLower)
+        ).length;
+        score += linkMatches * 8;
+
+        // Búsqueda en código
+        const codeMatches = item.codeExamples.filter(code => 
+            code.text.toLowerCase().includes(queryLower)
+        ).length;
+        score += codeMatches * 15;
+
+        return score;
+    }
+
+    displayResults(results, query) {
+        if (!this.searchResults) return;
+
+        if (results.length === 0) {
+            this.searchResults.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <p>No se encontraron resultados para "${query}"</p>
+                    <small>Intenta con términos más específicos</small>
+                </div>
+            `;
+        } else {
+            const resultsHTML = results.map(result => this.renderResultItem(result, query)).join('');
+            this.searchResults.innerHTML = resultsHTML;
+        }
+
+        this.showResults();
+    }
+
+    renderResultItem(result, query) {
+        const highlightedTitle = this.highlightText(result.title, query);
+        const highlightedContent = this.highlightText(
+            result.content.substring(0, 200) + '...',
+            query
+        );
+
+        let badges = '';
+        if (result.links.length > 0) {
+            badges += `<span class="badge badge-links">${result.links.length} enlaces</span>`;
+        }
+        if (result.codeExamples.length > 0) {
+            badges += `<span class="badge badge-code">${result.codeExamples.length} ejemplos</span>`;
+        }
+
+        return `
+            <div class="search-result-item" data-section="${result.id}">
+                <div class="result-header">
+                    <h4 class="result-title">
+                        <a href="#${result.id}">${highlightedTitle}</a>
+                    </h4>
+                    <div class="result-badges">
+                        ${badges}
+                    </div>
+                </div>
+                <p class="result-content">${highlightedContent}</p>
+                <div class="result-meta">
+                    <span class="result-type">${result.type}</span>
+                    <span class="result-score">Relevancia: ${Math.round(result.score)}</span>
+                </div>
             </div>
-        `).join('');
+        `;
+    }
+
+    highlightText(text, query) {
+        if (!query) return text;
         
-        this.searchResults.style.display = 'block';
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
     }
-    
+
+    handleKeydown(e) {
+        if (e.key === 'Escape') {
+            this.hideResults();
+            this.searchInput.blur();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (this.currentResults.length > 0) {
+                this.navigateToFirstResult();
+            }
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            this.navigateResults('down');
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            this.navigateResults('up');
+        }
+    }
+
+    navigateResults(direction) {
+        const currentActive = this.searchResults.querySelector('.search-result-item.active');
+        const items = this.searchResults.querySelectorAll('.search-result-item');
+        
+        if (items.length === 0) return;
+
+        let nextIndex = 0;
+        if (currentActive) {
+            const currentIndex = Array.from(items).indexOf(currentActive);
+            if (direction === 'down') {
+                nextIndex = (currentIndex + 1) % items.length;
+            } else {
+                nextIndex = currentIndex === 0 ? items.length - 1 : currentIndex - 1;
+            }
+        }
+
+        // Remover clase activa anterior
+        if (currentActive) {
+            currentActive.classList.remove('active');
+        }
+
+        // Activar nuevo elemento
+        items[nextIndex].classList.add('active');
+        items[nextIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    navigateToFirstResult() {
+        if (this.currentResults.length > 0) {
+            const firstResult = this.currentResults[0];
+            this.navigateToSection(firstResult.id);
+            this.hideResults();
+        }
+    }
+
+    navigateToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Resaltar sección temporalmente
+            section.classList.add('highlighted');
+            setTimeout(() => {
+                section.classList.remove('highlighted');
+            }, 2000);
+        }
+    }
+
+    showResults() {
+        if (this.searchResults && this.searchOverlay) {
+            this.searchResults.style.display = 'block';
+            this.searchOverlay.style.display = 'block';
+        }
+    }
+
     hideResults() {
-        this.searchResults.style.display = 'none';
-    }
-    
-    clearSearch() {
-        this.searchInput.value = '';
-        this.hideResults();
-    }
-    
-    initializeSearchData() {
-        return [
-            { title: 'CRM_Lead', type: 'Tipo', description: 'Gestión de leads y pipeline', category: 'types', section: 'crm-leads' },
-            { title: 'CRM_Contact', type: 'Tipo', description: 'Gestión de contactos', category: 'types', section: 'crm-contacts' },
-            { title: 'getLeads', type: 'Query', description: 'Obtener lista de leads', category: 'queries', section: 'crm-leads' },
-            { title: 'createLead', type: 'Mutation', description: 'Crear nuevo lead', category: 'mutations', section: 'crm-leads' },
-            { title: 'name', type: 'Campo', description: 'Nombre del lead', category: 'fields', section: 'crm-leads' },
-            { title: 'email', type: 'Campo', description: 'Email del lead', category: 'fields', section: 'crm-leads' },
-            { title: 'EVT_Event', type: 'Tipo', description: 'Gestión de eventos', category: 'types', section: 'evt-events' },
-            { title: 'getEvents', type: 'Query', description: 'Obtener eventos', category: 'queries', section: 'evt-events' }
-        ];
+        if (this.searchResults && this.searchOverlay) {
+            this.searchResults.style.display = 'none';
+            this.searchOverlay.style.display = 'none';
+        }
     }
 }
 
-// ===== MENÚ MÓVIL =====
-class MobileMenu {
+// ===== SISTEMA DE NAVEGACIÓN INTELIGENTE =====
+
+class SmartNavigation {
     constructor() {
-        this.toggle = document.getElementById('nav-toggle');
-        this.menu = document.getElementById('nav-menu');
+        this.sections = document.querySelectorAll('.section');
+        this.navItems = document.querySelectorAll('.nav-item');
+        this.currentSection = null;
+        
         this.init();
     }
-    
-    init() {
-        if (!this.toggle || !this.menu) return;
-        
-        this.toggle.addEventListener('click', () => this.toggleMenu());
-    }
-    
-    toggleMenu() {
-        this.menu.classList.toggle('active');
-        this.toggle.classList.toggle('active');
-    }
-}
 
-// ===== FUNCIÓN GLOBAL PARA SCROLL =====
-function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Cerrar búsqueda flotante
-        const floatingSearch = document.getElementById('floating-search');
-        if (floatingSearch) {
-            floatingSearch.classList.remove('active');
+    init() {
+        // Intersection Observer para detectar sección activa
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.setActiveSection(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        this.sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                this.scrollToSection(targetId);
+            });
+        });
+    }
+
+    setActiveSection(sectionId) {
+        if (this.currentSection === sectionId) return;
+        
+        this.currentSection = sectionId;
+        
+        // Actualizar navegación
+        this.navItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link && link.getAttribute('href') === `#${sectionId}`) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+
+        // Actualizar breadcrumb si existe
+        this.updateBreadcrumb(sectionId);
+    }
+
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+            const targetPosition = section.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    updateBreadcrumb(sectionId) {
+        const breadcrumb = document.querySelector('.breadcrumb');
+        if (!breadcrumb) return;
+
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const title = section.querySelector('.section-title')?.textContent?.trim() || sectionId;
+            breadcrumb.innerHTML = `
+                <a href="#home">Inicio</a>
+                <span class="separator">/</span>
+                <span class="current">${title}</span>
+            `;
         }
     }
 }
 
-// ===== INICIALIZAR NUEVAS FUNCIONALIDADES =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar búsqueda flotante
-    new FloatingSearch();
-    
-    // Inicializar menú móvil
-    new MobileMenu();
-    
-    // Inicializar botón Quick Start
-    const quickStartBtn = document.getElementById('quick-start-btn');
-    if (quickStartBtn) {
-        quickStartBtn.addEventListener('click', () => {
-            const apiSection = document.getElementById('api');
-            if (apiSection) {
-                apiSection.scrollIntoView({ behavior: 'smooth' });
-            }
+// ===== SISTEMA DE FILTROS AVANZADOS =====
+
+class AdvancedFilters {
+    constructor() {
+        this.filterContainer = document.querySelector('.filter-container');
+        this.filterButtons = document.querySelectorAll('.filter-btn');
+        this.filteredSections = new Set();
+        
+        this.init();
+    }
+
+    init() {
+        if (!this.filterContainer) return;
+
+        this.filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.toggleFilter(btn);
+                this.applyFilters();
+            });
         });
     }
+
+    toggleFilter(button) {
+        button.classList.toggle('active');
+    }
+
+    applyFilters() {
+        const activeFilters = Array.from(this.filterButtons)
+            .filter(btn => btn.classList.contains('active'))
+            .map(btn => btn.dataset.filter);
+
+        if (activeFilters.length === 0) {
+            // Mostrar todas las secciones
+            this.sections.forEach(section => {
+                section.style.display = 'block';
+            });
+            return;
+        }
+
+        // Filtrar secciones
+        this.sections.forEach(section => {
+            const sectionTags = this.getSectionTags(section);
+            const shouldShow = activeFilters.some(filter => 
+                sectionTags.includes(filter)
+            );
+            
+            section.style.display = shouldShow ? 'block' : 'none';
+        });
+
+        // Actualizar contador de resultados
+        this.updateResultsCount();
+    }
+
+    getSectionTags(section) {
+        const tags = [];
+        const tagElements = section.querySelectorAll('[data-tags]');
+        
+        tagElements.forEach(element => {
+            const elementTags = element.dataset.tags.split(',').map(tag => tag.trim());
+            tags.push(...elementTags);
+        });
+
+        return [...new Set(tags)]; // Eliminar duplicados
+    }
+
+    updateResultsCount() {
+        const visibleSections = document.querySelectorAll('.section[style*="block"], .section:not([style*="none"])');
+        const countElement = document.querySelector('.filter-results-count');
+        
+        if (countElement) {
+            countElement.textContent = `${visibleSections.length} secciones encontradas`;
+        }
+    }
+}
+
+// ===== SISTEMA DE PERFORMANCE Y OPTIMIZACIÓN =====
+
+class PerformanceOptimizer {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        // Lazy loading para imágenes
+        this.setupLazyLoading();
+        
+        // Preload de recursos críticos
+        this.preloadCriticalResources();
+        
+        // Optimización de scroll
+        this.optimizeScroll();
+        
+        // Service Worker para cache
+        this.setupServiceWorker();
+    }
+
+    setupLazyLoading() {
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    }
+
+    preloadCriticalResources() {
+        // Preload de fuentes críticas
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'preload';
+        fontLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+        fontLink.as = 'style';
+        document.head.appendChild(fontLink);
+
+        // Preload de CSS crítico
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'preload';
+        cssLink.href = 'assets/css/style.css';
+        cssLink.as = 'style';
+        document.head.appendChild(cssLink);
+    }
+
+    optimizeScroll() {
+        let ticking = false;
+        
+        const updateScroll = () => {
+            // Actualizar elementos que dependen del scroll
+            this.updateScrollDependentElements();
+            ticking = false;
+        };
+
+        const requestTick = () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScroll);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', requestTick, { passive: true });
+    }
+
+    updateScrollDependentElements() {
+        // Actualizar scroll to top button
+        const scrollTopBtn = document.getElementById('scroll-top');
+        if (scrollTopBtn) {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Actualizar header sticky
+        const header = document.querySelector('header');
+        if (header) {
+            if (window.pageYOffset > 100) {
+                header.classList.add('sticky');
+            } else {
+                header.classList.remove('sticky');
+            }
+        }
+    }
+
+    async setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registration = await navigator.serviceWorker.register('/sw.js');
+                console.log('Service Worker registrado:', registration);
+            } catch (error) {
+                console.log('Error al registrar Service Worker:', error);
+            }
+        }
+    }
+}
+
+// ===== SISTEMA DE TEMAS Y PERSONALIZACIÓN =====
+
+class ThemeManager {
+    constructor() {
+        this.currentTheme = localStorage.getItem('theme') || 'light';
+        this.init();
+    }
+
+    init() {
+        this.applyTheme(this.currentTheme);
+        this.setupThemeToggle();
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.currentTheme = theme;
+    }
+
+    setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+                this.applyTheme(newTheme);
+            });
+        }
+    }
+}
+
+// ===== INICIALIZACIÓN =====
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar todos los sistemas
+    new IntelligentSearch();
+    new SmartNavigation();
+    new AdvancedFilters();
+    new PerformanceOptimizer();
+    new ThemeManager();
+
+    // Scroll to top functionality
+    const scrollTopBtn = document.getElementById('scroll-top');
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Smooth reveal animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.section, .feature-card, .component-card').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    console.log('🚀 CRM Documentation System inicializado correctamente');
 });

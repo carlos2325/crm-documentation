@@ -1,0 +1,212 @@
+{
+  "name": "CRM Documentation - Marketing Soluciones",
+  "short_name": "CRM Docs",
+  "description": "Documentación técnica completa del Sistema CRM con GraphQL, React, TypeScript y más",
+  "version": "2.0.0",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": [
+    "productivity",
+    "business",
+    "developer",
+    "documentation"
+  ],
+  "icons": [
+    {
+      "src": "/assets/images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Vista de escritorio de la documentación CRM"
+    },
+    {
+      "src": "/assets/images/screenshot-mobile.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista móvil de la documentación CRM"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "API GraphQL",
+      "short_name": "API",
+      "description": "Acceso rápido a la documentación de la API GraphQL",
+      "url": "/#api",
+      "icons": [
+        {
+          "src": "/assets/images/shortcut-api.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Frontend React",
+      "short_name": "Frontend",
+      "description": "Documentación del frontend en React y TypeScript",
+      "url": "/#frontend",
+      "icons": [
+        {
+          "src": "/assets/images/shortcut-frontend.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Sistema Whitelabel",
+      "short_name": "Whitelabel",
+      "description": "Documentación del sistema multi-tenant",
+      "url": "/#whitelabel",
+      "icons": [
+        {
+          "src": "/assets/images/shortcut-whitelabel.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Deployment",
+      "short_name": "Deploy",
+      "description": "Guía de despliegue y configuración",
+      "url": "/#deployment",
+      "icons": [
+        {
+          "src": "/assets/images/shortcut-deploy.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://carlos2325.github.io/crm-documentation/"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+crm",
+      "url": "/?protocol=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/",
+      "accept": {
+        "text/markdown": [".md"],
+        "application/json": [".json"],
+        "text/plain": [".txt"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "permissions": [
+    "notifications",
+    "background-sync",
+    "storage"
+  ],
+  "features": [
+    "Cross Platform",
+    "Offline Support",
+    "Search Functionality",
+    "Dark Mode",
+    "Responsive Design",
+    "GraphQL API",
+    "React Components",
+    "TypeScript Support"
+  ],
+  "author": {
+    "name": "Marketing Soluciones",
+    "email": "equipo@marketingsoluciones.com",
+    "url": "https://marketingsoluciones.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlos2325/crm-documentation.git"
+  },
+  "keywords": [
+    "CRM",
+    "GraphQL",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "MongoDB",
+    "Documentation",
+    "API",
+    "Frontend",
+    "Backend",
+    "Whitelabel",
+    "Multi-tenant"
+  ]
+}
