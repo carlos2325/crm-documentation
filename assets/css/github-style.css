@@ -548,3 +548,142 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== CTA TERTIARY BUTTON ===== */
+.cta-tertiary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid #d1d9e0;
+    color: #656d76;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.cta-tertiary:hover {
+    background: #f6f8fa;
+    border-color: #8c959f;
+    color: #24292f;
+}
+
+.cta-tertiary i {
+    font-size: 14px;
+}
+
+/* ===== HERO CTA GROUP IMPROVEMENTS ===== */
+.hero-cta-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+    .hero-cta-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .cta-primary,
+    .cta-secondary,
+    .cta-tertiary {
+        justify-content: center;
+    }
+}
+
+/* ===== TEST ENVIRONMENT HIGHLIGHT ===== */
+.test-environment-highlight {
+    margin-top: 32px;
+    padding: 0;
+}
+
+.test-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f6f8fa 0%, #eef2f5 100%);
+    border: 1px solid #d1d9e0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.test-banner i.fa-flask {
+    font-size: 24px;
+    color: #0969da;
+    flex-shrink: 0;
+}
+
+.test-content {
+    flex: 1;
+}
+
+.test-content strong {
+    display: block;
+    color: #24292f;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.test-content p {
+    color: #656d76;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.test-content a {
+    color: #0969da;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.test-content a:hover {
+    text-decoration: underline;
+}
+
+.test-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #0969da;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.test-btn:hover {
+    background: #0860ca;
+}
+
+.test-btn i {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .test-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .test-content strong {
+        font-size: 15px;
+    }
+    
+    .test-content p {
+        font-size: 13px;
+    }
+}
