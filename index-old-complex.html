@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM API Documentation | Marketing Soluciones</title>
+    <link rel="stylesheet" href="assets/css/documentation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- HEADER DOCUMENTACION -->
+    <header class="doc-header">
+        <div class="header-container">
+            <div class="doc-brand">
+                <i class="fas fa-book-open"></i>
+                <span class="brand-title">CRM API Documentation</span>
+                <span class="version-badge">v2.0</span>
+            </div>
+            
+            <!-- BUSQUEDA FUNCIONAL -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar endpoints, queries, mutations..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+                <div id="search-results" class="search-results"></div>
+            </div>
+            
+            <div class="header-actions">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank" class="api-link">
+                    <i class="fas fa-external-link-alt"></i>
+                    GraphQL Playground
+                </a>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR NAVEGACION -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Contenido</h3>
+            <button id="sidebar-toggle" class="sidebar-toggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <h4>Inicio</h4>
+                <ul>
+                    <li><a href="#overview">Resumen General</a></li>
+                    <li><a href="#quick-start">Inicio Rápido</a></li>
+                    <li><a href="#authentication">Autenticación</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h4>API GraphQL</h4>
+                <ul>
+                    <li><a href="#queries">Queries (91)</a></li>
+                    <li><a href="#mutations">Mutations (155)</a></li>
+                    <li><a href="#types">Types (100+)</a></li>
+                    <li><a href="#subscriptions">Subscriptions</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h4>Módulos</h4>
+                <ul>
+                    <li><a href="#crm">CRM Core</a></li>
+                    <li><a href="#leads">Gestión de Leads</a></li>
+                    <li><a href="#contacts">Contactos</a></li>
+                    <li><a href="#entities">Entidades</a></li>
+                    <li><a href="#campaigns">Campañas</a></li>
+                    <li><a href="#events">Eventos</a></li>
+                    <li><a href="#whitelabel">Whitelabel</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h4>Ejemplos</h4>
+                <ul>
+                    <li><a href="#examples-queries">Queries Comunes</a></li>
+                    <li><a href="#examples-mutations">Mutations Típicas</a></li>
+                    <li><a href="#examples-integration">Integración</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h4>Deployment</h4>
+                <ul>
+                    <li><a href="#environment">Entornos</a></li>
+                    <li><a href="#production">Producción</a></li>
+                    <li><a href="#monitoring">Monitoreo</a></li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="content-container">
+            
+            <!-- RESUMEN GENERAL -->
+            <section id="overview" class="content-section">
+                <header class="section-header">
+                    <h1>CRM API Documentation</h1>
+                    <p class="section-description">
+                        API GraphQL completa para gestión de CRM, marketing y eventos. 
+                        Sistema multi-tenant con funcionalidades avanzadas.
+                    </p>
+                </header>
+
+                <!-- QUICK INFO TABLE -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-server"></i>
+                            <h3>Endpoints</h3>
+                        </div>
+                        <table class="info-table">
+                            <tr><td>Producción</td><td><code>api2.eventosorganizador.com/graphql</code></td></tr>
+                            <tr><td>Test</td><td><code>testapi2.eventosorganizador.com/graphql</code></td></tr>
+                            <tr><td>MCP Tools</td><td><code>api2.eventosorganizador.com/tools</code></td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>Estadísticas</h3>
+                        </div>
+                        <table class="info-table">
+                            <tr><td>Queries</td><td><span class="badge">91</span></td></tr>
+                            <tr><td>Mutations</td><td><span class="badge">155</span></td></tr>
+                            <tr><td>Types</td><td><span class="badge">100+</span></td></tr>
+                            <tr><td>Subscriptions</td><td><span class="badge">1</span></td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Autenticación</h3>
+                        </div>
+                        <table class="info-table">
+                            <tr><td>Método</td><td>JWT + Firebase</td></tr>
+                            <tr><td>Header</td><td><code>Authorization: Bearer</code></td></tr>
+                            <tr><td>Whitelabel</td><td><code>x-whitelabel-id</code></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INICIO RAPIDO -->
+            <section id="quick-start" class="content-section">
+                <header class="section-header">
+                    <h2>Inicio Rápido</h2>
+                    <p>Configuración básica para empezar a usar la API</p>
+                </header>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Configurar Headers</h3>
+                            <pre><code class="language-javascript">const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer YOUR_JWT_TOKEN',
+  'x-whitelabel-id': 'YOUR_WHITELABEL_ID'
+};</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Primera Query</h3>
+                            <pre><code class="language-graphql">query GetLeads {
+  crmLeads {
+    id
+    name
+    email
+    status
+    createdAt
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Ejecutar Request</h3>
+                            <pre><code class="language-javascript">const response = await fetch('https://api2.eventosorganizador.com/graphql', {
+  method: 'POST',
+  headers,
+  body: JSON.stringify({ query })
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUTENTICACION -->
+            <section id="authentication" class="content-section">
+                <header class="section-header">
+                    <h2>Autenticación</h2>
+                    <p>Sistema de autenticación JWT + Firebase con soporte multi-tenant</p>
+                </header>
+
+                <div class="auth-grid">
+                    <div class="auth-method">
+                        <h3><i class="fas fa-key"></i> JWT Token</h3>
+                        <p>Token de autenticación principal</p>
+                        <div class="code-example">
+                            <h4>Header requerido:</h4>
+                            <pre><code>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-method">
+                        <h3><i class="fas fa-fire"></i> Firebase Auth</h3>
+                        <p>Integración con Firebase Authentication</p>
+                        <div class="code-example">
+                            <h4>Obtener token:</h4>
+                            <pre><code class="language-javascript">const token = await firebase.auth().currentUser.getIdToken();</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-method">
+                        <h3><i class="fas fa-tags"></i> Whitelabel</h3>
+                        <p>Identificador de inquilino</p>
+                        <div class="code-example">
+                            <h4>Header obligatorio:</h4>
+                            <pre><code>x-whitelabel-id: your-tenant-id</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- MOBILE MENU TOGGLE -->
+    <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/documentation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-graphql.min.js"></script>
+</body>
+</html>

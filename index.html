@@ -4,181 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRM API Documentation | Marketing Soluciones</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
+    <link rel="stylesheet" href="assets/css/github-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 <body>
-    <!-- HEADER DOCUMENTACION -->
-    <header class="doc-header">
+    <!-- HEADER SIMPLE -->
+    <header class="header">
         <div class="header-container">
-            <div class="doc-brand">
-                <i class="fas fa-book-open"></i>
-                <span class="brand-title">CRM API Documentation</span>
-                <span class="version-badge">v2.0</span>
+            <div class="header-brand">
+                <i class="fas fa-code"></i>
+                <span>CRM API Documentation</span>
             </div>
-            
-            <!-- BUSQUEDA FUNCIONAL -->
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Buscar endpoints, queries, mutations..." class="search-input">
-                <i class="fas fa-search search-icon"></i>
-                <div id="search-results" class="search-results"></div>
+            <div class="header-search">
+                <input type="text" placeholder="Buscar documentación..." id="search-input">
+                <i class="fas fa-search"></i>
             </div>
-            
-            <div class="header-actions">
-                <a href="https://api2.eventosorganizador.com/graphql" target="_blank" class="api-link">
-                    <i class="fas fa-external-link-alt"></i>
-                    GraphQL Playground
-                </a>
-                <button id="theme-toggle" class="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
+            <div class="header-links">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">GraphQL Playground</a>
             </div>
         </div>
     </header>
 
-    <!-- SIDEBAR NAVEGACION -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h3>Contenido</h3>
-            <button id="sidebar-toggle" class="sidebar-toggle">
-                <i class="fas fa-times"></i>
-            </button>
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <a href="#home">Home</a>
+            <span class="separator">></span>
+            <span class="current">API GraphQL</span>
         </div>
-        
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <h4>Inicio</h4>
-                <ul>
-                    <li><a href="#overview">Resumen General</a></li>
-                    <li><a href="#quick-start">Inicio Rápido</a></li>
-                    <li><a href="#authentication">Autenticación</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <h4>API GraphQL</h4>
-                <ul>
-                    <li><a href="#queries">Queries (91)</a></li>
-                    <li><a href="#mutations">Mutations (155)</a></li>
-                    <li><a href="#types">Types (100+)</a></li>
-                    <li><a href="#subscriptions">Subscriptions</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <h4>Módulos</h4>
-                <ul>
-                    <li><a href="#crm">CRM Core</a></li>
-                    <li><a href="#leads">Gestión de Leads</a></li>
-                    <li><a href="#contacts">Contactos</a></li>
-                    <li><a href="#entities">Entidades</a></li>
-                    <li><a href="#campaigns">Campañas</a></li>
-                    <li><a href="#events">Eventos</a></li>
-                    <li><a href="#whitelabel">Whitelabel</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <h4>Ejemplos</h4>
-                <ul>
-                    <li><a href="#examples-queries">Queries Comunes</a></li>
-                    <li><a href="#examples-mutations">Mutations Típicas</a></li>
-                    <li><a href="#examples-integration">Integración</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <h4>Deployment</h4>
-                <ul>
-                    <li><a href="#environment">Entornos</a></li>
-                    <li><a href="#production">Producción</a></li>
-                    <li><a href="#monitoring">Monitoreo</a></li>
-                </ul>
-            </div>
-        </nav>
-    </aside>
+    </nav>
 
     <!-- MAIN CONTENT -->
-    <main class="main-content">
-        <div class="content-container">
+    <main class="main">
+        <div class="container">
             
-            <!-- RESUMEN GENERAL -->
-            <section id="overview" class="content-section">
-                <header class="section-header">
-                    <h1>CRM API Documentation</h1>
-                    <p class="section-description">
-                        API GraphQL completa para gestión de CRM, marketing y eventos. 
-                        Sistema multi-tenant con funcionalidades avanzadas.
-                    </p>
-                </header>
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1>API GraphQL</h1>
+                <p class="hero-description">
+                    Para crear integraciones, recuperar datos y automatizar tus flujos de trabajo, utiliza la API GraphQL del CRM. 
+                    Ofrece consultas más precisas y flexibles que las APIs tradicionales.
+                </p>
+            </section>
 
-                <!-- QUICK INFO TABLE -->
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-server"></i>
-                            <h3>Endpoints</h3>
+            <!-- INFORMACIÓN GENERAL -->
+            <section class="content-section">
+                <h2>Información general</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3><a href="#quick-start">Comience aquí</a></h3>
+                        <div class="card-links">
+                            <div class="card-link">
+                                <a href="#authentication">Autenticación con GraphQL</a>
+                                <p>Aprende cómo autenticarte en la API GraphQL, y luego cómo crear y ejecutar consultas y mutaciones.</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#graphql-intro">Introducción a GraphQL</a>
+                                <p>Aprende terminología y conceptos útiles para utilizar la API GraphQL del CRM.</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#clients">Usando clientes GraphQL</a>
+                                <p>Puedes ejecutar consultas con datos reales usando varios clientes y librerías GraphQL.</p>
+                            </div>
                         </div>
-                        <table class="info-table">
-                            <tr><td>Producción</td><td><code>api2.eventosorganizador.com/graphql</code></td></tr>
-                            <tr><td>Test</td><td><code>testapi2.eventosorganizador.com/graphql</code></td></tr>
-                            <tr><td>MCP Tools</td><td><code>api2.eventosorganizador.com/tools</code></td></tr>
-                        </table>
                     </div>
                     
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-chart-bar"></i>
-                            <h3>Estadísticas</h3>
+                    <div class="card">
+                        <h3>Popular</h3>
+                        <div class="card-links">
+                            <div class="card-link">
+                                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">Explorador GraphQL</a>
+                            </div>
+                            <div class="card-link">
+                                <a href="#schema">Schema público</a>
+                                <p>Descarga el schema público para la API GraphQL del CRM.</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#pagination">Uso de paginación</a>
+                                <p>Aprende a recorrer conjuntos de datos mediante paginación basada en cursores con GraphQL.</p>
+                            </div>
                         </div>
-                        <table class="info-table">
-                            <tr><td>Queries</td><td><span class="badge">91</span></td></tr>
-                            <tr><td>Mutations</td><td><span class="badge">155</span></td></tr>
-                            <tr><td>Types</td><td><span class="badge">100+</span></td></tr>
-                            <tr><td>Subscriptions</td><td><span class="badge">1</span></td></tr>
-                        </table>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-header">
-                            <i class="fas fa-shield-alt"></i>
-                            <h3>Autenticación</h3>
-                        </div>
-                        <table class="info-table">
-                            <tr><td>Método</td><td>JWT + Firebase</td></tr>
-                            <tr><td>Header</td><td><code>Authorization: Bearer</code></td></tr>
-                            <tr><td>Whitelabel</td><td><code>x-whitelabel-id</code></td></tr>
-                        </table>
                     </div>
                 </div>
             </section>
 
-            <!-- INICIO RAPIDO -->
-            <section id="quick-start" class="content-section">
-                <header class="section-header">
-                    <h2>Inicio Rápido</h2>
-                    <p>Configuración básica para empezar a usar la API</p>
-                </header>
+            <!-- REFERENCIA -->
+            <section class="content-section">
+                <h2>Referencia</h2>
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><a href="#queries">Consultas</a></h3>
+                        <p>91 consultas disponibles</p>
+                        <div class="popular-items">
+                            <a href="#crm-leads">crmLeads</a>
+                            <a href="#crm-contacts">crmContacts</a>
+                            <a href="#crm-entities">crmEntities</a>
+                            <a href="#events-list">eventsList</a>
+                        </div>
+                    </div>
+                    
+                    <div class="reference-item">
+                        <h3><a href="#mutations">Mutaciones</a></h3>
+                        <p>155 mutaciones disponibles</p>
+                        <div class="popular-items">
+                            <a href="#create-lead">createLead</a>
+                            <a href="#update-contact">updateContact</a>
+                            <a href="#send-campaign">sendCampaign</a>
+                            <a href="#create-event">createEvent</a>
+                        </div>
+                    </div>
+                    
+                    <div class="reference-item">
+                        <h3><a href="#types">Tipos</a></h3>
+                        <p>100+ tipos de datos</p>
+                        <div class="popular-items">
+                            <a href="#lead-type">Lead</a>
+                            <a href="#contact-type">Contact</a>
+                            <a href="#entity-type">Entity</a>
+                            <a href="#campaign-type">Campaign</a>
+                        </div>
+                    </div>
+                    
+                    <div class="reference-item">
+                        <h3><a href="#subscriptions">Subscripciones</a></h3>
+                        <p>Actualizaciones en tiempo real</p>
+                        <div class="popular-items">
+                            <a href="#lead-updates">leadUpdates</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                <div class="steps-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3>Configurar Headers</h3>
-                            <pre><code class="language-javascript">const headers = {
+            <!-- GUÍAS -->
+            <section class="content-section">
+                <h2>Guías</h2>
+                <div class="guides-grid">
+                    <div class="guide-item">
+                        <h3><a href="#migration">Migrar desde REST hacia GraphQL</a></h3>
+                        <p>Aprende las mejores prácticas y consideraciones para migrar desde APIs REST hacia GraphQL.</p>
+                    </div>
+                    
+                    <div class="guide-item">
+                        <h3><a href="#multi-tenant">Administrar cuentas multi-tenant</a></h3>
+                        <p>Puedes administrar múltiples inquilinos y organizaciones con la API GraphQL.</p>
+                    </div>
+                    
+                    <div class="guide-item">
+                        <h3><a href="#whitelabel">Utilizar sistema Whitelabel</a></h3>
+                        <p>Configura y personaliza la marca blanca para diferentes clientes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TODOS LOS DOCUMENTOS -->
+            <section class="content-section">
+                <h2>Todos los documentos de la API GraphQL</h2>
+                <div class="docs-structure">
+                    <div class="docs-column">
+                        <h3>Información general</h3>
+                        <ul>
+                            <li><a href="#about">Acerca de la API GraphQL</a></li>
+                            <li><a href="#schema">Schema público</a></li>
+                            <li><a href="#changelog">Registro de cambios</a></li>
+                            <li><a href="#explorer">Explorador</a></li>
+                            <li><a href="#limits">Límites de velocidad y consulta</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="docs-column">
+                        <h3>Referencia</h3>
+                        <ul>
+                            <li><a href="#queries">Consultas</a></li>
+                            <li><a href="#mutations">Mutaciones</a></li>
+                            <li><a href="#types">Tipos</a></li>
+                            <li><a href="#interfaces">Interfaces</a></li>
+                            <li><a href="#enums">Enumeraciones</a></li>
+                            <li><a href="#unions">Uniones</a></li>
+                            <li><a href="#inputs">Objetos de entrada</a></li>
+                            <li><a href="#scalars">Escalares</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="docs-column">
+                        <h3>Guías</h3>
+                        <ul>
+                            <li><a href="#intro">Introducción a GraphQL</a></li>
+                            <li><a href="#calls">Formar llamadas con GraphQL</a></li>
+                            <li><a href="#global-ids">Utilizar ID de nodo global</a></li>
+                            <li><a href="#migration">Migrar desde REST a GraphQL</a></li>
+                            <li><a href="#clients">Usar clientes GraphQL</a></li>
+                            <li><a href="#pagination">Paginación</a></li>
+                            <li><a href="#campaigns">Uso de GraphQL para campañas</a></li>
+                            <li><a href="#events">GraphQL para eventos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- QUICK START CONTENT -->
+            <section id="quick-start" class="content-section">
+                <h2>Autenticación con GraphQL</h2>
+                <p>Aprende cómo autenticarte en la API GraphQL, y luego cómo crear y ejecutar consultas y mutaciones.</p>
+                
+                <h3>Configurar Headers</h3>
+                <div class="code-block">
+                    <pre><code>const headers = {
   'Content-Type': 'application/json',
   'Authorization': 'Bearer YOUR_JWT_TOKEN',
   'x-whitelabel-id': 'YOUR_WHITELABEL_ID'
 };</code></pre>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3>Primera Query</h3>
-                            <pre><code class="language-graphql">query GetLeads {
+                </div>
+                
+                <h3>Primera Query</h3>
+                <div class="code-block">
+                    <pre><code>query GetLeads {
   crmLeads {
     id
     name
@@ -187,56 +226,68 @@
     createdAt
   }
 }</code></pre>
-                        </div>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>Ejecutar Request</h3>
-                            <pre><code class="language-javascript">const response = await fetch('https://api2.eventosorganizador.com/graphql', {
+                </div>
+                
+                <h3>Ejecutar Request</h3>
+                <div class="code-block">
+                    <pre><code>const response = await fetch('https://api2.eventosorganizador.com/graphql', {
   method: 'POST',
   headers,
   body: JSON.stringify({ query })
 });</code></pre>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            <!-- AUTENTICACION -->
-            <section id="authentication" class="content-section">
-                <header class="section-header">
-                    <h2>Autenticación</h2>
-                    <p>Sistema de autenticación JWT + Firebase con soporte multi-tenant</p>
-                </header>
+            <!-- ENDPOINTS INFO -->
+            <section class="content-section">
+                <h2>Endpoints</h2>
+                <table class="endpoints-table">
+                    <thead>
+                        <tr>
+                            <th>Entorno</th>
+                            <th>URL</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Producción</strong></td>
+                            <td><code>api2.eventosorganizador.com/graphql</code></td>
+                            <td>Endpoint principal para producción</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Test</strong></td>
+                            <td><code>testapi2.eventosorganizador.com/graphql</code></td>
+                            <td>Endpoint para pruebas y desarrollo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MCP Tools</strong></td>
+                            <td><code>api2.eventosorganizador.com/tools</code></td>
+                            <td>Herramientas adicionales y utilidades</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
-                <div class="auth-grid">
-                    <div class="auth-method">
-                        <h3><i class="fas fa-key"></i> JWT Token</h3>
-                        <p>Token de autenticación principal</p>
-                        <div class="code-example">
-                            <h4>Header requerido:</h4>
-                            <pre><code>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
-                        </div>
+            <!-- ESTADÍSTICAS -->
+            <section class="content-section">
+                <h2>Estadísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">91</div>
+                        <div class="stat-label">Queries</div>
                     </div>
-                    
-                    <div class="auth-method">
-                        <h3><i class="fas fa-fire"></i> Firebase Auth</h3>
-                        <p>Integración con Firebase Authentication</p>
-                        <div class="code-example">
-                            <h4>Obtener token:</h4>
-                            <pre><code class="language-javascript">const token = await firebase.auth().currentUser.getIdToken();</code></pre>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-number">155</div>
+                        <div class="stat-label">Mutations</div>
                     </div>
-                    
-                    <div class="auth-method">
-                        <h3><i class="fas fa-tags"></i> Whitelabel</h3>
-                        <p>Identificador de inquilino</p>
-                        <div class="code-example">
-                            <h4>Header obligatorio:</h4>
-                            <pre><code>x-whitelabel-id: your-tenant-id</code></pre>
-                        </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Types</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Subscriptions</div>
                     </div>
                 </div>
             </section>
@@ -244,15 +295,13 @@
         </div>
     </main>
 
-    <!-- MOBILE MENU TOGGLE -->
-    <button id="mobile-menu-toggle" class="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CRM Marketing Soluciones. Documentación API GraphQL.</p>
+        </div>
+    </footer>
 
-    <!-- SCRIPTS -->
-    <script src="assets/js/documentation.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-graphql.min.js"></script>
+    <script src="assets/js/github-style.js"></script>
 </body>
 </html>
