@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queries GraphQL | CRM API Documentation</title>
+    <link rel="stylesheet" href="assets/css/github-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fas fa-code"></i>
+                <span>CRM API Documentation</span>
+            </div>
+            <div class="header-search">
+                <input type="text" placeholder="Buscar queries..." id="search-input">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header-links">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">GraphQL Playground</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">></span>
+            <a href="index.html#api">API GraphQL</a>
+            <span class="separator">></span>
+            <span class="current">Queries</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1>Queries GraphQL</h1>
+                <p class="hero-description">
+                    Consultas de lectura disponibles en la API GraphQL. 91 queries organizadas por módulos 
+                    para obtener datos de CRM, eventos, campañas y configuración de whitelabel.
+                </p>
+            </section>
+
+            <!-- QUICK STATS -->
+            <section class="content-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">32</div>
+                        <div class="stat-label">Queries CRM</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Queries Eventos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">11</div>
+                        <div class="stat-label">Queries Whitelabel</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Queries Campañas</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRM QUERIES -->
+            <section class="content-section">
+                <h2>CRM Queries</h2>
+                <p>Consultas para gestión de leads, contactos, entidades y relaciones comerciales.</p>
+                
+                <div class="reference-grid">
+                    <!-- LEADS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-user-plus"></i> Leads</h3>
+                        <div class="popular-items">
+                            <a href="#getCRMLeads">getCRMLeads</a>
+                            <a href="#getCRMLead">getCRMLead</a>
+                            <a href="#searchCRMLeads">searchCRMLeads</a>
+                            <a href="#getCRMLeadsByStatus">getCRMLeadsByStatus</a>
+                            <a href="#getCRMLeadsByAssignee">getCRMLeadsByAssignee</a>
+                            <a href="#getCRMLeadsByPriority">getCRMLeadsByPriority</a>
+                            <a href="#getCRMLeadsPipeline">getCRMLeadsPipeline</a>
+                            <a href="#getCRMLeadStats">getCRMLeadStats</a>
+                            <a href="#getCRMLeadsRequiringFollowUp">getCRMLeadsRequiringFollowUp</a>
+                            <a href="#getCRMLeadsClosingSoon">getCRMLeadsClosingSoon</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CONTACTS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-address-book"></i> Contactos</h3>
+                        <div class="popular-items">
+                            <a href="#getCRMContacts">getCRMContacts</a>
+                            <a href="#getCRMContact">getCRMContact</a>
+                            <a href="#searchCRMContacts">searchCRMContacts</a>
+                            <a href="#getCRMStarredContacts">getCRMStarredContacts</a>
+                            <a href="#getCRMContactsByEntity">getCRMContactsByEntity</a>
+                            <a href="#getCRMContactStats">getCRMContactStats</a>
+                        </div>
+                    </div>
+                    
+                    <!-- ENTITIES -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-building"></i> Entidades</h3>
+                        <div class="popular-items">
+                            <a href="#getCRMEntities">getCRMEntities</a>
+                            <a href="#getCRMEntity">getCRMEntity</a>
+                            <a href="#searchCRMEntities">searchCRMEntities</a>
+                            <a href="#getCRMStarredEntities">getCRMStarredEntities</a>
+                            <a href="#getCRMEntitiesByIndustry">getCRMEntitiesByIndustry</a>
+                            <a href="#getCRMEntitiesBySize">getCRMEntitiesBySize</a>
+                            <a href="#getCRMEntityStats">getCRMEntityStats</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CAMPAIGNS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-bullhorn"></i> Campañas</h3>
+                        <div class="popular-items">
+                            <a href="#getCRMCampaigns">getCRMCampaigns</a>
+                            <a href="#getCRMCampaign">getCRMCampaign</a>
+                            <a href="#getCRMEmailTemplates">getCRMEmailTemplates</a>
+                            <a href="#getCRMEmailTemplate">getCRMEmailTemplate</a>
+                            <a href="#getCRMWhatsAppTemplates">getCRMWhatsAppTemplates</a>
+                            <a href="#getCRMWhatsAppTemplate">getCRMWhatsAppTemplate</a>
+                            <a href="#getCRMContactLists">getCRMContactLists</a>
+                            <a href="#getCRMContactList">getCRMContactList</a>
+                            <a href="#getCRMCampaignStats">getCRMCampaignStats</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENTS QUERIES -->
+            <section class="content-section">
+                <h2>Eventos Queries</h2>
+                <p>Consultas para gestión de eventos, invitados, presupuestos e itinerarios.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-calendar"></i> Eventos</h3>
+                        <div class="popular-items">
+                            <a href="#getEvent">getEvent</a>
+                            <a href="#getEventsByBrand">getEventsByBrand</a>
+                            <a href="#getAllUserRelatedEvents">getAllUserRelatedEvents</a>
+                            <a href="#getAllUserRelatedEventsByPhone">getAllUserRelatedEventsByPhone</a>
+                            <a href="#getAllUserRelatedEventsByEmail">getAllUserRelatedEventsByEmail</a>
+                            <a href="#getEventDataForAI">getEventDataForAI</a>
+                            <a href="#getUserCompleteEventSummary">getUserCompleteEventSummary</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WHITELABEL QUERIES -->
+            <section class="content-section">
+                <h2>Whitelabel Queries</h2>
+                <p>Consultas para gestión de configuración multi-tenant y marca blanca.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-tags"></i> Marca Blanca</h3>
+                        <div class="popular-items">
+                            <a href="#getWhitelabels">getWhitelabels</a>
+                            <a href="#getWhitelabel">getWhitelabel</a>
+                            <a href="#getWhitelabelBySlug">getWhitelabelBySlug</a>
+                            <a href="#getWhitelabelByDomain">getWhitelabelByDomain</a>
+                            <a href="#getWhitelabelStats">getWhitelabelStats</a>
+                            <a href="#checkSlugAvailability">checkSlugAvailability</a>
+                            <a href="#getActiveWhitelabels">getActiveWhitelabels</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DETAILED QUERY DOCUMENTATION -->
+            <section class="content-section">
+                <h2>Documentación Detallada</h2>
+                
+                <!-- getCRMLeads -->
+                <div id="getCRMLeads" class="query-detail">
+                    <h3>getCRMLeads</h3>
+                    <p>Obtiene una lista paginada de leads del CRM con filtros opcionales.</p>
+                    
+                    <h4>Parámetros</h4>
+                    <table class="endpoints-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Tipo</th>
+                                <th>Requerido</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>filters</code></td>
+                                <td>CRM_LeadFilters</td>
+                                <td>No</td>
+                                <td>Filtros para búsqueda por status, prioridad, source, etc.</td>
+                            </tr>
+                            <tr>
+                                <td><code>pagination</code></td>
+                                <td>CRM_PaginationInput</td>
+                                <td>No</td>
+                                <td>Configuración de paginación (page, limit)</td>
+                            </tr>
+                            <tr>
+                                <td><code>sort</code></td>
+                                <td>CRM_SortInput</td>
+                                <td>No</td>
+                                <td>Ordenamiento por campo y dirección</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>query GetLeads {
+  getCRMLeads(
+    filters: {
+      status: [NEW, CONTACTED]
+      priority: [HIGH, URGENT]
+      search: "tech company"
+    }
+    pagination: {
+      page: 1
+      limit: 20
+    }
+    sort: {
+      field: "createdAt"
+      direction: DESC
+    }
+  ) {
+    success
+    leads {
+      id
+      name
+      email
+      phone
+      company
+      status
+      priority
+      value
+      probability
+      createdAt
+    }
+    pagination {
+      totalItems
+      totalPages
+      currentPage
+      hasNextPage
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+
+                    <h4>Headers requeridos</h4>
+                    <div class="code-block">
+                        <pre><code>{
+  "Authorization": "Bearer YOUR_JWT_TOKEN",
+  "x-whitelabel-id": "YOUR_WHITELABEL_ID",
+  "Content-Type": "application/json"
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- getCRMEntities -->
+                <div id="getCRMEntities" class="query-detail">
+                    <h3>getCRMEntities</h3>
+                    <p>Obtiene una lista paginada de entidades/organizaciones del CRM.</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>query GetEntities {
+  getCRMEntities(
+    filters: {
+      type: [COMPANY, ORGANIZATION]
+      industry: ["Technology", "Healthcare"]
+      size: [MEDIUM, LARGE]
+      hasContacts: true
+    }
+    pagination: { page: 1, limit: 10 }
+  ) {
+    success
+    entities {
+      id
+      name
+      type
+      industry
+      size
+      website
+      email
+      phone
+      contactsCount
+      status
+      createdAt
+    }
+    pagination {
+      totalItems
+      currentPage
+      totalPages
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- getEvent -->
+                <div id="getEvent" class="query-detail">
+                    <h3>getEvent</h3>
+                    <p>Obtiene un evento específico con toda su información detallada.</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>query GetEvent($eventId: ID!) {
+  getEvent(eventId: $eventId) {
+    _id
+    nombre
+    tipo
+    fecha
+    poblacion
+    pais
+    estatus
+    usuario_id
+    usuario_nombre
+    invitados_array {
+      _id
+      nombre
+      correo
+      telefono
+      asistencia
+      grupo_relacion
+    }
+    presupuesto_objeto {
+      coste_estimado
+      coste_final
+      pagado
+      currency
+      categorias_array {
+        nombre
+        coste_estimado
+        coste_final
+        gastos_array {
+          nombre
+          coste_final
+          estatus
+        }
+      }
+    }
+    itinerarios_array {
+      title
+      tipo
+      estatus
+      tasks {
+        fecha
+        hora
+        descripcion
+        responsable
+        estatus
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- getWhitelabels -->
+                <div id="getWhitelabels" class="query-detail">
+                    <h3>getWhitelabels</h3>
+                    <p>Obtiene lista de configuraciones de marca blanca con filtros y paginación.</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>query GetWhitelabels {
+  getWhitelabels(
+    page: 1
+    limit: 10
+    isActive: true
+    hasDeveloper: true
+  ) {
+    success
+    whitelabels {
+      id
+      name
+      slug
+      domain
+      isActive
+      features {
+        events
+        users
+        analytics
+        payments
+        customBranding
+      }
+      developer {
+        isEnabled
+        apiKey
+        rateLimit
+        features
+      }
+      stats {
+        totalUsers
+        totalEvents
+        activeUsers
+        apiCallsToday
+      }
+      createdAt
+    }
+    total
+    page
+    limit
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CRM Marketing Soluciones. Documentación API GraphQL.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/github-style.js"></script>
+</body>
+</html>

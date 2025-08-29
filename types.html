@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Types GraphQL | CRM API Documentation</title>
+    <link rel="stylesheet" href="assets/css/github-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fas fa-code"></i>
+                <span>CRM API Documentation</span>
+            </div>
+            <div class="header-search">
+                <input type="text" placeholder="Buscar types..." id="search-input">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header-links">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">GraphQL Playground</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">></span>
+            <a href="index.html#api">API GraphQL</a>
+            <span class="separator">></span>
+            <span class="current">Types</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1>Types GraphQL</h1>
+                <p class="hero-description">
+                    Tipos de datos y estructuras disponibles en la API GraphQL. 100+ tipos organizados 
+                    por módulos con campos detallados, enums y interfaces.
+                </p>
+            </section>
+
+            <!-- QUICK STATS -->
+            <section class="content-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">25</div>
+                        <div class="stat-label">Types CRM</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Types Eventos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Types Whitelabel</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Enums</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRM TYPES -->
+            <section class="content-section">
+                <h2>CRM Types</h2>
+                <p>Tipos de datos para gestión de relaciones comerciales, leads y campañas.</p>
+                
+                <div class="reference-grid">
+                    <!-- LEAD TYPES -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-user-plus"></i> Lead Types</h3>
+                        <div class="popular-items">
+                            <a href="#CRM_Lead">CRM_Lead</a>
+                            <a href="#CRM_LeadInput">CRM_LeadInput</a>
+                            <a href="#CRM_LeadResponse">CRM_LeadResponse</a>
+                            <a href="#CRM_LeadsResponse">CRM_LeadsResponse</a>
+                            <a href="#CRM_LeadsPipeline">CRM_LeadsPipeline</a>
+                            <a href="#CRM_LeadStats">CRM_LeadStats</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CONTACT TYPES -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-address-book"></i> Contact Types</h3>
+                        <div class="popular-items">
+                            <a href="#CRM_Contact">CRM_Contact</a>
+                            <a href="#CRM_ContactInput">CRM_ContactInput</a>
+                            <a href="#CRM_ContactResponse">CRM_ContactResponse</a>
+                            <a href="#CRM_ContactsResponse">CRM_ContactsResponse</a>
+                            <a href="#CRM_ContactStats">CRM_ContactStats</a>
+                        </div>
+                    </div>
+                    
+                    <!-- ENTITY TYPES -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-building"></i> Entity Types</h3>
+                        <div class="popular-items">
+                            <a href="#CRM_Entity">CRM_Entity</a>
+                            <a href="#CRM_EntityInput">CRM_EntityInput</a>
+                            <a href="#CRM_EntityResponse">CRM_EntityResponse</a>
+                            <a href="#CRM_EntitiesResponse">CRM_EntitiesResponse</a>
+                            <a href="#CRM_EntityStats">CRM_EntityStats</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CAMPAIGN TYPES -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-bullhorn"></i> Campaign Types</h3>
+                        <div class="popular-items">
+                            <a href="#CRM_Campaign">CRM_Campaign</a>
+                            <a href="#CRM_EmailTemplate">CRM_EmailTemplate</a>
+                            <a href="#CRM_WhatsAppTemplate">CRM_WhatsAppTemplate</a>
+                            <a href="#CRM_ContactList">CRM_ContactList</a>
+                            <a href="#CRM_CampaignStats">CRM_CampaignStats</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENTS TYPES -->
+            <section class="content-section">
+                <h2>Eventos Types</h2>
+                <p>Tipos de datos para gestión de eventos, invitados y presupuestos.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-calendar"></i> Event Types</h3>
+                        <div class="popular-items">
+                            <a href="#EVT_Event">EVT_Event</a>
+                            <a href="#EVT_Invitado">EVT_Invitado</a>
+                            <a href="#EVT_Presupuesto">EVT_Presupuesto</a>
+                            <a href="#EVT_CategoriaPresupuesto">EVT_CategoriaPresupuesto</a>
+                            <a href="#EVT_Itinerario">EVT_Itinerario</a>
+                            <a href="#EVT_Task">EVT_Task</a>
+                            <a href="#EVT_UserEventSummary">EVT_UserEventSummary</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WHITELABEL TYPES -->
+            <section class="content-section">
+                <h2>Whitelabel Types</h2>
+                <p>Tipos para configuración multi-tenant y marca blanca.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-tags"></i> Whitelabel Types</h3>
+                        <div class="popular-items">
+                            <a href="#Whitelabel">Whitelabel</a>
+                            <a href="#WhitelabelDeveloper">WhitelabelDeveloper</a>
+                            <a href="#WhitelabelFirebase">WhitelabelFirebase</a>
+                            <a href="#WhitelabelFeatures">WhitelabelFeatures</a>
+                            <a href="#WhitelabelSettings">WhitelabelSettings</a>
+                            <a href="#WhitelabelStats">WhitelabelStats</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DETAILED TYPES DOCUMENTATION -->
+            <section class="content-section">
+                <h2>Documentación Detallada</h2>
+                
+                <!-- CRM_Lead -->
+                <div id="CRM_Lead" class="query-detail">
+                    <h3>CRM_Lead</h3>
+                    <p>Tipo principal para leads del sistema CRM con toda la información comercial.</p>
+                    
+                    <h4>Campos</h4>
+                    <table class="endpoints-table">
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>ID!</td><td>Identificador único del lead</td></tr>
+                            <tr><td><code>name</code></td><td>String!</td><td>Nombre completo del lead</td></tr>
+                            <tr><td><code>email</code></td><td>String</td><td>Email de contacto</td></tr>
+                            <tr><td><code>phone</code></td><td>String</td><td>Teléfono de contacto</td></tr>
+                            <tr><td><code>company</code></td><td>String</td><td>Empresa del lead</td></tr>
+                            <tr><td><code>position</code></td><td>String</td><td>Puesto en la empresa</td></tr>
+                            <tr><td><code>source</code></td><td>CRM_LeadSource!</td><td>Origen del lead</td></tr>
+                            <tr><td><code>status</code></td><td>CRM_LeadStatus!</td><td>Estado en el pipeline</td></tr>
+                            <tr><td><code>priority</code></td><td>CRM_Priority!</td><td>Prioridad (LOW, MEDIUM, HIGH, URGENT)</td></tr>
+                            <tr><td><code>value</code></td><td>Float</td><td>Valor estimado del negocio</td></tr>
+                            <tr><td><code>probability</code></td><td>Int!</td><td>Probabilidad de cierre (0-100%)</td></tr>
+                            <tr><td><code>expectedCloseDate</code></td><td>DateTime</td><td>Fecha esperada de cierre</td></tr>
+                            <tr><td><code>tags</code></td><td>[String!]!</td><td>Etiquetas de clasificación</td></tr>
+                            <tr><td><code>assignedTo</code></td><td>String</td><td>ID del usuario asignado</td></tr>
+                            <tr><td><code>assignedUser</code></td><td>User</td><td>Usuario asignado (resolved)</td></tr>
+                            <tr><td><code>notes</code></td><td>[CRM_Note!]!</td><td>Notas del lead</td></tr>
+                            <tr><td><code>reminders</code></td><td>[CRM_Reminder!]!</td><td>Recordatorios programados</td></tr>
+                            <tr><td><code>sentiment</code></td><td>CRM_Sentiment!</td><td>Sentimiento del lead</td></tr>
+                            <tr><td><code>ownership</code></td><td>CRM_Ownership!</td><td>Sistema de compartición</td></tr>
+                            <tr><td><code>development</code></td><td>String!</td><td>ID de desarrollo</td></tr>
+                            <tr><td><code>custom_fields</code></td><td>JSON</td><td>Campos personalizados</td></tr>
+                            <tr><td><code>createdAt</code></td><td>DateTime!</td><td>Fecha de creación</td></tr>
+                            <tr><td><code>updatedAt</code></td><td>DateTime!</td><td>Fecha de actualización</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Ejemplo de estructura</h4>
+                    <div class="code-block">
+                        <pre><code>{
+  "id": "lead_123456",
+  "name": "Juan Pérez García",
+  "email": "juan.perez@empresa.com",
+  "phone": "+34 600 123 456",
+  "company": "Tech Solutions SL",
+  "position": "CEO",
+  "source": "WEBSITE",
+  "status": "QUALIFIED",
+  "priority": "HIGH",
+  "value": 50000.0,
+  "probability": 75,
+  "expectedCloseDate": "2024-03-15T00:00:00Z",
+  "tags": ["enterprise", "technology", "hot-lead"],
+  "assignedTo": "user_789",
+  "assignedUser": {
+    "id": "user_789",
+    "name": "Ana García",
+    "email": "ana.garcia@empresa.com"
+  },
+  "sentiment": "POSITIVE",
+  "custom_fields": {
+    "budget_range": "50k-100k",
+    "decision_timeframe": "Q1 2024",
+    "competitors": ["Competitor A", "Competitor B"]
+  },
+  "createdAt": "2024-01-15T10:30:00Z",
+  "updatedAt": "2024-01-20T14:45:00Z"
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- EVT_Event -->
+                <div id="EVT_Event" class="query-detail">
+                    <h3>EVT_Event</h3>
+                    <p>Tipo principal para eventos con gestión completa de invitados, presupuesto e itinerarios.</p>
+                    
+                    <h4>Campos principales</h4>
+                    <table class="endpoints-table">
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>_id</code></td><td>ID!</td><td>Identificador único del evento</td></tr>
+                            <tr><td><code>nombre</code></td><td>String</td><td>Nombre del evento</td></tr>
+                            <tr><td><code>tipo</code></td><td>String</td><td>Tipo de evento (BODA, CUMPLEANOS, etc.)</td></tr>
+                            <tr><td><code>fecha</code></td><td>String</td><td>Fecha del evento</td></tr>
+                            <tr><td><code>poblacion</code></td><td>String</td><td>Ciudad del evento</td></tr>
+                            <tr><td><code>pais</code></td><td>String</td><td>País del evento</td></tr>
+                            <tr><td><code>usuario_id</code></td><td>String</td><td>ID del organizador</td></tr>
+                            <tr><td><code>usuario_nombre</code></td><td>String</td><td>Nombre del organizador</td></tr>
+                            <tr><td><code>invitados_array</code></td><td>[EVT_Invitado]</td><td>Lista de invitados</td></tr>
+                            <tr><td><code>presupuesto_objeto</code></td><td>EVT_Presupuesto</td><td>Gestión financiera del evento</td></tr>
+                            <tr><td><code>itinerarios_array</code></td><td>[EVT_Itinerario]</td><td>Programación y tareas</td></tr>
+                            <tr><td><code>estatus</code></td><td>String</td><td>Estado del evento</td></tr>
+                            <tr><td><code>compartido_array</code></td><td>[String]</td><td>Usuarios con acceso</td></tr>
+                            <tr><td><code>invitados_count</code></td><td>Int</td><td>Número total de invitados</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Whitelabel -->
+                <div id="Whitelabel" class="query-detail">
+                    <h3>Whitelabel</h3>
+                    <p>Configuración principal de marca blanca para sistema multi-tenant.</p>
+                    
+                    <h4>Campos principales</h4>
+                    <table class="endpoints-table">
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td>ID!</td><td>Identificador único</td></tr>
+                            <tr><td><code>name</code></td><td>String!</td><td>Nombre de la marca blanca</td></tr>
+                            <tr><td><code>slug</code></td><td>String!</td><td>Slug único para URLs</td></tr>
+                            <tr><td><code>domain</code></td><td>String</td><td>Dominio personalizado</td></tr>
+                            <tr><td><code>isActive</code></td><td>Boolean!</td><td>Estado activo/inactivo</td></tr>
+                            <tr><td><code>developer</code></td><td>WhitelabelDeveloper</td><td>Configuración de desarrollador</td></tr>
+                            <tr><td><code>firebase</code></td><td>WhitelabelFirebase</td><td>Configuración Firebase</td></tr>
+                            <tr><td><code>features</code></td><td>WhitelabelFeatures</td><td>Características habilitadas</td></tr>
+                            <tr><td><code>settings</code></td><td>WhitelabelSettings</td><td>Configuraciones personalizadas</td></tr>
+                            <tr><td><code>limits</code></td><td>WhitelabelLimits</td><td>Límites de uso</td></tr>
+                            <tr><td><code>stats</code></td><td>WhitelabelStats</td><td>Estadísticas de uso</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ENUMS SECTION -->
+                <div class="content-section">
+                    <h2>Enums Principales</h2>
+                    
+                    <div class="reference-grid">
+                        <div class="reference-item">
+                            <h3>CRM_LeadStatus</h3>
+                            <div class="popular-items">
+                                <span>NEW</span>
+                                <span>CONTACTED</span>
+                                <span>QUALIFIED</span>
+                                <span>PROPOSAL</span>
+                                <span>NEGOTIATION</span>
+                                <span>WON</span>
+                                <span>LOST</span>
+                            </div>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <h3>CRM_Priority</h3>
+                            <div class="popular-items">
+                                <span>LOW</span>
+                                <span>MEDIUM</span>
+                                <span>HIGH</span>
+                                <span>URGENT</span>
+                            </div>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <h3>CRM_CampaignType</h3>
+                            <div class="popular-items">
+                                <span>EMAIL</span>
+                                <span>WHATSAPP</span>
+                                <span>SMS</span>
+                            </div>
+                        </div>
+                        
+                        <div class="reference-item">
+                            <h3>CRM_EntityType</h3>
+                            <div class="popular-items">
+                                <span>COMPANY</span>
+                                <span>ORGANIZATION</span>
+                                <span>STARTUP</span>
+                                <span>AGENCY</span>
+                                <span>NONPROFIT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CRM Marketing Soluciones. Documentación API GraphQL.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/github-style.js"></script>
+</body>
+</html>

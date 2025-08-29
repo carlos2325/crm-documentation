@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutations GraphQL | CRM API Documentation</title>
+    <link rel="stylesheet" href="assets/css/github-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fas fa-code"></i>
+                <span>CRM API Documentation</span>
+            </div>
+            <div class="header-search">
+                <input type="text" placeholder="Buscar mutations..." id="search-input">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header-links">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">GraphQL Playground</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">></span>
+            <a href="index.html#api">API GraphQL</a>
+            <span class="separator">></span>
+            <span class="current">Mutations</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1>Mutations GraphQL</h1>
+                <p class="hero-description">
+                    Operaciones de escritura disponibles en la API GraphQL. 155 mutations para crear, 
+                    actualizar y eliminar datos en CRM, eventos, campañas y configuración.
+                </p>
+            </section>
+
+            <!-- QUICK STATS -->
+            <section class="content-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">40</div>
+                        <div class="stat-label">Mutations CRM</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Mutations Eventos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">13</div>
+                        <div class="stat-label">Mutations Whitelabel</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">16</div>
+                        <div class="stat-label">Mutations Campañas</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRM MUTATIONS -->
+            <section class="content-section">
+                <h2>CRM Mutations</h2>
+                <p>Operaciones de escritura para gestión de leads, contactos, entidades y campañas.</p>
+                
+                <div class="reference-grid">
+                    <!-- LEADS MUTATIONS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-user-plus"></i> Leads</h3>
+                        <div class="popular-items">
+                            <a href="#createCRMLead">createCRMLead</a>
+                            <a href="#updateCRMLead">updateCRMLead</a>
+                            <a href="#deleteCRMLead">deleteCRMLead</a>
+                            <a href="#moveCRMLeadToNextStage">moveCRMLeadToNextStage</a>
+                            <a href="#moveCRMLeadToStage">moveCRMLeadToStage</a>
+                            <a href="#markCRMLeadAsWon">markCRMLeadAsWon</a>
+                            <a href="#markCRMLeadAsLost">markCRMLeadAsLost</a>
+                            <a href="#assignCRMLead">assignCRMLead</a>
+                            <a href="#convertCRMLeadToContact">convertCRMLeadToContact</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CONTACTS MUTATIONS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-address-book"></i> Contactos</h3>
+                        <div class="popular-items">
+                            <a href="#createCRMContact">createCRMContact</a>
+                            <a href="#updateCRMContact">updateCRMContact</a>
+                            <a href="#deleteCRMContact">deleteCRMContact</a>
+                            <a href="#addCRMContactNote">addCRMContactNote</a>
+                            <a href="#toggleCRMContactStar">toggleCRMContactStar</a>
+                            <a href="#shareCRMContact">shareCRMContact</a>
+                        </div>
+                    </div>
+                    
+                    <!-- ENTITIES MUTATIONS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-building"></i> Entidades</h3>
+                        <div class="popular-items">
+                            <a href="#createCRMEntity">createCRMEntity</a>
+                            <a href="#updateCRMEntity">updateCRMEntity</a>
+                            <a href="#deleteCRMEntity">deleteCRMEntity</a>
+                            <a href="#addCRMEntityContact">addCRMEntityContact</a>
+                            <a href="#addCRMEntityNote">addCRMEntityNote</a>
+                            <a href="#toggleCRMEntityStar">toggleCRMEntityStar</a>
+                        </div>
+                    </div>
+                    
+                    <!-- CAMPAIGNS MUTATIONS -->
+                    <div class="reference-item">
+                        <h3><i class="fas fa-bullhorn"></i> Campañas</h3>
+                        <div class="popular-items">
+                            <a href="#createCRMCampaign">createCRMCampaign</a>
+                            <a href="#startCRMCampaign">startCRMCampaign</a>
+                            <a href="#pauseCRMCampaign">pauseCRMCampaign</a>
+                            <a href="#createCRMEmailTemplate">createCRMEmailTemplate</a>
+                            <a href="#createCRMWhatsAppTemplate">createCRMWhatsAppTemplate</a>
+                            <a href="#createCRMContactList">createCRMContactList</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENTS MUTATIONS -->
+            <section class="content-section">
+                <h2>Eventos Mutations</h2>
+                <p>Operaciones para crear y gestionar eventos, invitados y presupuestos.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-calendar"></i> Eventos</h3>
+                        <div class="popular-items">
+                            <a href="#createEvent">createEvent</a>
+                            <a href="#updateEventBasicInfo">updateEventBasicInfo</a>
+                            <a href="#shareEvent">shareEvent</a>
+                            <a href="#addGuest">addGuest</a>
+                            <a href="#updateGuestAttendance">updateGuestAttendance</a>
+                            <a href="#addBudgetCategory">addBudgetCategory</a>
+                            <a href="#addExpense">addExpense</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WHITELABEL MUTATIONS -->
+            <section class="content-section">
+                <h2>Whitelabel Mutations</h2>
+                <p>Operaciones para gestión de configuración multi-tenant.</p>
+                
+                <div class="reference-grid">
+                    <div class="reference-item">
+                        <h3><i class="fas fa-tags"></i> Marca Blanca</h3>
+                        <div class="popular-items">
+                            <a href="#createWhitelabel">createWhitelabel</a>
+                            <a href="#updateWhitelabel">updateWhitelabel</a>
+                            <a href="#deleteWhitelabel">deleteWhitelabel</a>
+                            <a href="#toggleWhitelabelStatus">toggleWhitelabelStatus</a>
+                            <a href="#configureDeveloper">configureDeveloper</a>
+                            <a href="#configureFirebase">configureFirebase</a>
+                            <a href="#regenerateApiKey">regenerateApiKey</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DETAILED MUTATIONS DOCUMENTATION -->
+            <section class="content-section">
+                <h2>Documentación Detallada</h2>
+                
+                <!-- createCRMLead -->
+                <div id="createCRMLead" class="query-detail">
+                    <h3>createCRMLead</h3>
+                    <p>Crea un nuevo lead en el sistema CRM.</p>
+                    
+                    <h4>Parámetros</h4>
+                    <table class="endpoints-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro</th>
+                                <th>Tipo</th>
+                                <th>Requerido</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>input</code></td>
+                                <td>CRM_LeadInput!</td>
+                                <td>Sí</td>
+                                <td>Datos del lead a crear</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>mutation CreateLead {
+  createCRMLead(input: {
+    firstName: "Juan"
+    lastName: "Pérez"
+    email: "juan.perez@empresa.com"
+    phone: "+34 600 123 456"
+    company: "Tech Solutions SL"
+    position: "CEO"
+    source: "WEBSITE"
+    status: NEW
+    priority: HIGH
+    estimatedValue: 50000.0
+    assignedTo: "user-id-123"
+    tags: ["enterprise", "tech", "hot-lead"]
+    notes: "Lead cualificado desde el formulario web"
+    customFields: {
+      industry: "Technology"
+      employees: "50-100"
+      budget: "high"
+    }
+  }) {
+    success
+    lead {
+      id
+      name
+      email
+      company
+      status
+      priority
+      value
+      assignedTo
+      assignedUser {
+        id
+        name
+        email
+      }
+      createdAt
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- createEvent -->
+                <div id="createEvent" class="query-detail">
+                    <h3>createEvent</h3>
+                    <p>Crea un nuevo evento en el sistema.</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>mutation CreateEvent {
+  createEvent(input: {
+    nombre: "Boda de Juan y María"
+    tipo: "BODA"
+    fecha: "2024-06-15"
+    poblacion: "Madrid"
+    pais: "España"
+    usuario_id: "user-123"
+    usuario_nombre: "Organizador Pro"
+    color: ["#FF6B6B", "#4ECDC4"]
+  }) {
+    _id
+    nombre
+    tipo
+    fecha
+    poblacion
+    pais
+    usuario_id
+    usuario_nombre
+    color
+    estatus
+    fecha_creacion
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- createCRMCampaign -->
+                <div id="createCRMCampaign" class="query-detail">
+                    <h3>createCRMCampaign</h3>
+                    <p>Crea una nueva campaña de marketing (Email/WhatsApp/SMS).</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>mutation CreateCampaign {
+  createCRMCampaign(input: {
+    name: "Newsletter Diciembre 2024"
+    type: EMAIL
+    templateId: "template-123"
+    recipientLists: ["list-1", "list-2"]
+    scheduledAt: "2024-12-01T10:00:00Z"
+    settings: {
+      sendImmediately: false
+      timezone: "Europe/Madrid"
+      trackOpens: true
+      trackClicks: true
+      unsubscribeLink: true
+      throttle: 100
+    }
+  }) {
+    success
+    campaign {
+      id
+      name
+      type
+      status
+      templateId
+      totalRecipients
+      scheduledAt
+      settings {
+        trackOpens
+        trackClicks
+        timezone
+      }
+      createdAt
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- createWhitelabel -->
+                <div id="createWhitelabel" class="query-detail">
+                    <h3>createWhitelabel</h3>
+                    <p>Crea una nueva configuración de marca blanca para multi-tenancy.</p>
+                    
+                    <h4>Ejemplo de uso</h4>
+                    <div class="code-block">
+                        <pre><code>mutation CreateWhitelabel {
+  createWhitelabel(input: {
+    name: "Cliente Enterprise"
+    slug: "cliente-enterprise"
+    domain: "cliente.misistema.com"
+    isActive: true
+    features: {
+      events: true
+      users: true
+      analytics: true
+      payments: true
+      customBranding: true
+      multiLanguage: false
+    }
+    developer: {
+      isEnabled: true
+      rateLimit: 10000
+      features: ["full-api", "webhooks"]
+    }
+    limits: {
+      users: 1000
+      events: 5000
+      storage: 10737418240
+      apiCalls: 100000
+    }
+    firebase: {
+      projectId: "cliente-firebase-project"
+      apiKey: "AIzaSyXXXXXXXXXXXXXXXXXX"
+      authDomain: "cliente-firebase-project.firebaseapp.com"
+    }
+  }) {
+    success
+    whitelabel {
+      id
+      name
+      slug
+      domain
+      isActive
+      features {
+        events
+        customBranding
+        analytics
+      }
+      developer {
+        isEnabled
+        apiKey
+        rateLimit
+      }
+      createdAt
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CRM Marketing Soluciones. Documentación API GraphQL.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/github-style.js"></script>
+</body>
+</html>
