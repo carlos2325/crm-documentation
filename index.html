@@ -800,6 +800,10 @@
                                     <i class="fas fa-comment-dots"></i>
                                     <span>Chat en Tiempo Real</span>
                                 </a>
+                                <a href="#whatsapp-business" class="link-item">
+                                    <i class="fas fa-whatsapp"></i>
+                                    <span>WhatsApp Business API</span>
+                                </a>
                                 <a href="#token-tracking" class="link-item">
                                     <i class="fas fa-coins"></i>
                                     <span>Tracking de Tokens</span>
@@ -834,6 +838,10 @@
                             <a href="#chat-system" class="nav-btn">
                                 <i class="fas fa-comments"></i>
                                 <span>Chat</span>
+                            </a>
+                            <a href="#whatsapp-business" class="nav-btn">
+                                <i class="fas fa-whatsapp"></i>
+                                <span>WhatsApp</span>
                             </a>
                             <a href="#token-tracking" class="nav-btn">
                                 <i class="fas fa-coins"></i>
@@ -1833,6 +1841,285 @@ mutation ShareEntity($entityId: ID!, $userId: ID!, $permissions: [String!]!) {
             </div>
         </section>
 
+        <!-- WhatsApp Business API Section -->
+        <section id="whatsapp-business" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-whatsapp"></i>
+                    📱 WhatsApp Business API - Integración Completa
+                </h2>
+
+                <div class="whatsapp-overview">
+                    <h3>🚀 FUNCIONALIDADES DE WHATSAPP BUSINESS API</h3>
+                    <p>El sistema implementa una integración completa con WhatsApp Business API, permitiendo a cada marca blanca gestionar múltiples números de WhatsApp con configuración avanzada de webhooks, plantillas y tracking.</p>
+                    
+                    <div class="whatsapp-features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-phone"></i></div>
+                            <h4>Múltiples Números</h4>
+                            <p>Cada marca blanca puede tener varios números de WhatsApp</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-webhook"></i></div>
+                            <h4>Webhooks Avanzados</h4>
+                            <p>Configuración completa de webhooks para recibir mensajes</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+                            <h4>Plantillas de Mensajes</h4>
+                            <p>Gestión de plantillas aprobadas por WhatsApp</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                            <h4>Integración N8N</h4>
+                            <p>Configuración automática con workflows de N8N</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whatsapp-structure">
+                    <h3>🏗️ Estructura de Datos</h3>
+                    
+                    <div class="structure-example">
+                        <h4>Configuración de Número de WhatsApp</h4>
+                        <pre><code class="language-json">{
+  "id": "whatsapp_001",
+  "phoneNumber": "+1234567890",
+  "phoneNumberId": "123456789012345",
+  "displayName": "Ventas ABC",
+  "verifiedName": "ABC Company",
+  "qualityRating": "GREEN",
+  "status": "CONNECTED",
+  "isActive": true,
+  "isDefault": true,
+  "description": "Número principal para ventas",
+  
+  "accessToken": "EAAxxxxxxxxxxxx",
+  "webhookUrl": "https://api.example.com/webhook/whatsapp",
+  "webhookVerifyToken": "verify_token_123",
+  "webhookSecret": "webhook_secret_456",
+  "webhookEvents": ["messages", "message_deliveries", "message_reads"],
+  
+  "messageTemplates": [
+    {
+      "templateId": "welcome_template",
+      "templateName": "Bienvenida",
+      "category": "UTILITY",
+      "language": "es",
+      "status": "APPROVED",
+      "parameters": ["name", "company"]
+    }
+  ],
+  
+  "rateLimits": {
+    "messagesPerSecond": 1,
+    "messagesPerDay": 1000,
+    "messagesPerMonth": 10000
+  },
+  
+  "tracking": {
+    "deliveryReports": true,
+    "readReceipts": true,
+    "typingIndicators": false,
+    "messageStatus": true
+  },
+  
+  "n8nIntegration": {
+    "webhookUrl": "https://n8n.example.com/webhook/whatsapp",
+    "workflowId": "whatsapp_workflow_123",
+    "isEnabled": true
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="whatsapp-api-section">
+                    <h3>🔧 API GraphQL para WhatsApp</h3>
+                    
+                    <div class="api-category">
+                        <h4>📥 Queries Disponibles</h4>
+                        <div class="code-examples">
+                            <div class="code-example">
+                                <h5>Obtener números de WhatsApp de una marca blanca</h5>
+                                <pre><code class="language-graphql">query GetWhitelabelWhatsAppNumbers($whitelabelId: ID!) {
+  getWhitelabelWhatsAppNumbers(whitelabelId: $whitelabelId) {
+    id
+    phoneNumber
+    phoneNumberId
+    displayName
+    verifiedName
+    qualityRating
+    status
+    isActive
+    isDefault
+    description
+    webhookUrl
+    webhookEvents
+    messageTemplates {
+      templateId
+      templateName
+      category
+      language
+      status
+    }
+    rateLimits {
+      messagesPerSecond
+      messagesPerDay
+      messagesPerMonth
+    }
+    tracking {
+      deliveryReports
+      readReceipts
+      typingIndicators
+      messageStatus
+    }
+    n8nIntegration {
+      webhookUrl
+      workflowId
+      isEnabled
+    }
+  }
+}</code></pre>
+                            </div>
+                            
+                            <div class="code-example">
+                                <h5>Obtener número por teléfono</h5>
+                                <pre><code class="language-graphql">query GetWhatsAppNumberByPhone($phoneNumber: String!) {
+  getWhatsAppNumberByPhone(phoneNumber: $phoneNumber) {
+    success
+    message
+    whatsappNumber {
+      id
+      phoneNumber
+      displayName
+      status
+      isActive
+      webhookUrl
+    }
+    errors
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="api-category">
+                        <h4>📤 Mutaciones Disponibles</h4>
+                        <div class="code-examples">
+                            <div class="code-example">
+                                <h5>Agregar número de WhatsApp</h5>
+                                <pre><code class="language-graphql">mutation AddWhatsAppNumber($whitelabelId: ID!, $input: WhatsAppNumberInput!) {
+  addWhatsAppNumber(whitelabelId: $whitelabelId, input: $input) {
+    success
+    message
+    whatsappNumber {
+      id
+      phoneNumber
+      displayName
+      status
+      isActive
+    }
+    errors
+  }
+}</code></pre>
+                            </div>
+                            
+                            <div class="code-example">
+                                <h5>Configurar webhook de WhatsApp</h5>
+                                <pre><code class="language-graphql">mutation ConfigureWhatsAppWebhook(
+  $whitelabelId: ID!
+  $numberId: ID!
+  $webhookUrl: String!
+  $webhookVerifyToken: String!
+  $webhookSecret: String!
+  $webhookEvents: [String!]!
+) {
+  configureWhatsAppWebhook(
+    whitelabelId: $whitelabelId
+    numberId: $numberId
+    webhookUrl: $webhookUrl
+    webhookVerifyToken: $webhookVerifyToken
+    webhookSecret: $webhookSecret
+    webhookEvents: $webhookEvents
+  ) {
+    success
+    message
+    webhookUrl
+    webhookEvents
+    errors
+  }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whatsapp-integration-section">
+                    <h3>🔗 Integración con N8N</h3>
+                    <p>El sistema se integra automáticamente con N8N para procesar mensajes de WhatsApp:</p>
+                    
+                    <div class="integration-flow">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Recepción de Mensaje</h4>
+                                <p>WhatsApp envía mensaje al webhook configurado</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Procesamiento N8N</h4>
+                                <p>N8N procesa el mensaje y genera respuesta con IA</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Envió de Respuesta</h4>
+                                <p>Respuesta se envía de vuelta a WhatsApp</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Tracking de Costos</h4>
+                                <p>Se registran tokens y costos automáticamente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whatsapp-storage-section">
+                    <h3>🗄️ Almacenamiento de Configuración</h3>
+                    
+                    <div class="storage-info">
+                        <div class="storage-card">
+                            <h4>📊 Base de Datos Principal</h4>
+                            <p><strong>MongoDB Atlas:</strong> <code>api-directorio-bodas</code></p>
+                            <ul>
+                                <li><strong>Colección:</strong> <code>whitelabels</code> - Configuración de WhatsApp por marca blanca</li>
+                                <li><strong>Campo:</strong> <code>whatsapp.numbers</code> - Array de números de WhatsApp</li>
+                                <li><strong>Campo:</strong> <code>whatsapp.businessAccount</code> - Cuenta de negocio de Meta</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="storage-card">
+                            <h4>📊 Configuración por Número</h4>
+                            <p>Cada número de WhatsApp incluye:</p>
+                            <ul>
+                                <li><strong>API Configuration:</strong> Tokens, webhooks, eventos</li>
+                                <li><strong>Message Templates:</strong> Plantillas aprobadas por WhatsApp</li>
+                                <li><strong>Rate Limits:</strong> Límites de envío por período</li>
+                                <li><strong>Tracking:</strong> Configuración de seguimiento</li>
+                                <li><strong>N8N Integration:</strong> URLs y workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Token Tracking Section -->
         <section id="token-tracking" class="section">
             <div class="container">
@@ -2064,7 +2351,7 @@ mutation ShareEntity($entityId: ID!, $userId: ID!, $permissions: [String!]!) {
 
                 <div class="systems-overview">
                     <h3>📋 RESUMEN EJECUTIVO DE TODOS LOS SISTEMAS</h3>
-                    <p>El sistema implementa <strong>9 sistemas diferentes</strong>, cada uno con su propia lógica y estructura:</p>
+                    <p>El sistema implementa <strong>10 sistemas diferentes</strong>, cada uno con su propia lógica y estructura:</p>
                     
                     <div class="systems-grid">
                         <div class="system-card">
@@ -2145,6 +2432,15 @@ mutation ShareEntity($entityId: ID!, $userId: ID!, $permissions: [String!]!) {
                                 <li>Tracking de costos de IA</li>
                                 <li>Facturación automática</li>
                                 <li>Integración con N8N</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="system-card">
+                            <h4>📱 WhatsApp Business API</h4>
+                            <ul>
+                                <li>Múltiples números por marca blanca</li>
+                                <li>Webhooks y plantillas</li>
+                                <li>Integración completa con N8N</li>
                             </ul>
                         </div>
                     </div>
