@@ -2110,6 +2110,215 @@ export const client = new ApolloClient({
             </div>
         </section>
 
+        <!-- Whitelabel Section -->
+        <section id="whitelabel" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-building"></i>
+                    🏢 Sistema Whitelabel y Multi-Tenant
+                </h2>
+
+                <div class="whitelabel-overview">
+                    <h3>🌐 Arquitectura Multi-Tenant</h3>
+                    <p>El sistema implementa una arquitectura completa de marca blanca que permite a diferentes desarrolladores tener sus propios entornos personalizados.</p>
+                </div>
+
+                <div class="whitelabel-components">
+                    <h3>🏗️ Componentes del Sistema</h3>
+                    
+                    <div class="component-card">
+                        <h4>👨‍💻 WhitelabelDeveloper</h4>
+                        <div class="component-content">
+                            <h5>Campos Principales:</h5>
+                            <ul>
+                                <li><strong>id</strong> - Identificador único del desarrollador</li>
+                                <li><strong>name</strong> - Nombre del desarrollador/empresa</li>
+                                <li><strong>email</strong> - Email de contacto</li>
+                                <li><strong>permissions</strong> - Array de permisos específicos</li>
+                                <li><strong>status</strong> - Estado activo/inactivo</li>
+                                <li><strong>created_at</strong> - Fecha de creación</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>🏷️ WhitelabelInfo</h4>
+                        <div class="component-content">
+                            <h5>Campos Principales:</h5>
+                            <ul>
+                                <li><strong>whitelabel_id</strong> - ID único de la marca blanca</li>
+                                <li><strong>brand_name</strong> - Nombre de la marca</li>
+                                <li><strong>logo_url</strong> - URL del logo personalizado</li>
+                                <li><strong>color_scheme</strong> - Esquema de colores</li>
+                                <li><strong>custom_domain</strong> - Dominio personalizado</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="component-card">
+                        <h4>⚙️ Development</h4>
+                        <div class="component-content">
+                            <h5>Campos Principales:</h5>
+                            <ul>
+                                <li><strong>development_id</strong> - ID del entorno</li>
+                                <li><strong>title</strong> - Título del development</li>
+                                <li><strong>permissions</strong> - Permisos del entorno</li>
+                                <li><strong>role</strong> - Rol del usuario en el development</li>
+                                <li><strong>status</strong> - Estado del development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whitelabel-queries">
+                    <h3>🔍 Queries de Whitelabel</h3>
+                    
+                    <div class="query-examples">
+                        <h4>Consultas Principales:</h4>
+                        <pre><code class="language-graphql"># Obtener desarrollador por ID
+query GetWhitelabelDeveloper($developerId: ID!) {
+  getWhitelabelDeveloper(developerId: $developerId) {
+    id
+    name
+    email
+    permissions
+    status
+    created_at
+    whitelabel_info {
+      whitelabel_id
+      brand_name
+      logo_url
+      color_scheme
+      custom_domain
+    }
+  }
+}
+
+# Obtener información de marca blanca
+query GetWhitelabelInfo($whitelabelId: ID!) {
+  getWhitelabelInfo(whitelabelId: $whitelabelId) {
+    whitelabel_id
+    brand_name
+    logo_url
+    color_scheme
+    custom_domain
+    features {
+      crm_enabled
+      events_enabled
+      campaigns_enabled
+      analytics_enabled
+    }
+    limits {
+      max_users
+      max_storage
+      max_api_calls
+    }
+  }
+}
+
+# Obtener development por usuario
+query GetUserDevelopment($userId: ID!) {
+  getUserDevelopment(userId: $userId) {
+    development_id
+    title
+    permissions
+    role
+    status
+    whitelabel_info {
+      brand_name
+      logo_url
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="whitelabel-mutations">
+                    <h3>⚙️ Mutations de Whitelabel</h3>
+                    
+                    <div class="mutation-examples">
+                        <h4>Operaciones Principales:</h4>
+                        <pre><code class="language-graphql"># Crear nuevo desarrollador
+mutation CreateWhitelabelDeveloper($developer: WhitelabelDeveloperInput!) {
+  createWhitelabelDeveloper(developer: $developer) {
+    success
+    developer {
+      id
+      name
+      email
+      status
+    }
+    errors
+  }
+}
+
+# Actualizar información de marca blanca
+mutation UpdateWhitelabelInfo($whitelabelId: ID!, $updates: WhitelabelInfoInput!) {
+  updateWhitelabelInfo(whitelabelId: $whitelabelId, updates: $updates) {
+    success
+    whitelabel_info {
+      whitelabel_id
+      brand_name
+      logo_url
+      color_scheme
+    }
+    errors
+  }
+}
+
+# Asignar usuario a development
+mutation AssignUserToDevelopment($userId: ID!, $developmentId: ID!, $role: String!) {
+  assignUserToDevelopment(userId: $userId, developmentId: $developmentId, role: $role) {
+    success
+    user {
+      uid
+      email
+      development
+      role
+    }
+    errors
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="whitelabel-use-cases">
+                    <h3>🎯 Casos de Uso del Sistema</h3>
+                    
+                    <div class="use-case-card">
+                        <h4>1. 🏢 Empresa que Vende Software como Servicio</h4>
+                        <div class="use-case-content">
+                            <h5>Escenario:</h5>
+                            <p>Una empresa vende el CRM a diferentes clientes, cada uno con su propia marca y configuración.</p>
+                            <h5>Implementación:</h5>
+                            <ul>
+                                <li>Crear WhitelabelDeveloper para cada cliente</li>
+                                <li>Configurar WhitelabelInfo con logo y colores</li>
+                                <li>Asignar usuarios al Development correspondiente</li>
+                                <li>Configurar permisos específicos por cliente</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="use-case-card">
+                        <h4>2. 🎨 Agencia de Marketing con Múltiples Clientes</h4>
+                        <div class="use-case-content">
+                            <h5>Escenario:</h5>
+                            <p>Una agencia usa el sistema para gestionar campañas de diferentes clientes.</p>
+                            <h5>Implementación:</h5>
+                            <ul>
+                                <li>Development por cliente con su propia marca</li>
+                                <li>Usuarios de la agencia con acceso a múltiples developments</li>
+                                <li>Permisos granulares por cliente y funcionalidad</li>
+                                <li>Reportes separados por development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Examples Section -->
         <section id="examples" class="section">
             <div class="container">
