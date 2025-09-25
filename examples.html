@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples | CRM API Documentation</title>
+    <link rel="stylesheet" href="assets/css/github-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-brand">
+                <i class="fas fa-code"></i>
+                <span>CRM API Documentation</span>
+            </div>
+            <div class="header-search">
+                <input type="text" placeholder="Buscar ejemplos..." id="search-input">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header-links">
+                <a href="https://api2.eventosorganizador.com/graphql" target="_blank">GraphQL Playground</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMBS -->
+    <nav class="breadcrumbs">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span class="separator">></span>
+            <a href="index.html#api">API GraphQL</a>
+            <span class="separator">></span>
+            <span class="current">Examples</span>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1>Ejemplos de Código</h1>
+                <p class="hero-description">
+                    Ejemplos prácticos de uso de la API GraphQL con código real, respuestas de ejemplo 
+                    y casos de uso comunes para integración rápida.
+                </p>
+            </section>
+
+            <!-- CATEGORIAS -->
+            <section class="content-section">
+                <h2>Categorías de Ejemplos</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3><a href="#authentication">Autenticación</a></h3>
+                        <div class="card-links">
+                            <div class="card-link">
+                                <a href="#jwt-auth">Autenticación JWT</a>
+                                <p>Configurar headers y obtener tokens de acceso</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#firebase-auth">Firebase Auth</a>
+                                <p>Integración con Firebase Authentication</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#whitelabel-headers">Headers Whitelabel</a>
+                                <p>Configuración multi-tenant</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><a href="#crm-examples">CRM Operations</a></h3>
+                        <div class="card-links">
+                            <div class="card-link">
+                                <a href="#lead-management">Gestión de Leads</a>
+                                <p>CRUD completo de leads con pipeline</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#contact-management">Gestión de Contactos</a>
+                                <p>Operaciones con contactos y entidades</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#campaign-management">Campañas Marketing</a>
+                                <p>Email, WhatsApp y SMS automatizados</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3><a href="#events-examples">Eventos</a></h3>
+                        <div class="card-links">
+                            <div class="card-link">
+                                <a href="#event-creation">Creación de Eventos</a>
+                                <p>Setup completo de eventos con invitados</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#guest-management">Gestión de Invitados</a>
+                                <p>Confirmaciones y seguimiento de asistencia</p>
+                            </div>
+                            <div class="card-link">
+                                <a href="#budget-management">Presupuestos</a>
+                                <p>Control financiero y gastos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUTHENTICATION EXAMPLES -->
+            <section id="authentication" class="content-section">
+                <h2>Autenticación</h2>
+                
+                <div id="jwt-auth" class="query-detail">
+                    <h3>Configuración JWT Básica</h3>
+                    <p>Configuración de headers para autenticación JWT con whitelabel.</p>
+                    
+                    <h4>JavaScript/Node.js</h4>
+                    <div class="code-block">
+                        <pre><code>// Configuración de cliente GraphQL
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: 'https://api2.eventosorganizador.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // Obtener token JWT (desde localStorage, cookies, etc.)
+  const token = localStorage.getItem('jwt_token');
+  const whitelabelId = localStorage.getItem('whitelabel_id');
+  
+  return {
+    headers: {
+      ...headers,
+      'Authorization': token ? `Bearer ${token}` : "",
+      'x-whitelabel-id': whitelabelId || 'default',
+      'Content-Type': 'application/json',
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+
+export default client;</code></pre>
+                    </div>
+
+                    <h4>cURL Example</h4>
+                    <div class="code-block">
+                        <pre><code>curl -X POST https://api2.eventosorganizador.com/graphql \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "x-whitelabel-id: your-tenant-id" \
+  -d '{
+    "query": "query { getCRMLeads(pagination: {limit: 5}) { success leads { id name email } } }"
+  }'</code></pre>
+                    </div>
+                </div>
+
+                <div id="firebase-auth" class="query-detail">
+                    <h3>Firebase Authentication</h3>
+                    <p>Integración con Firebase Auth para obtener tokens JWT.</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Firebase Auth integration
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+// Configuración Firebase (desde whitelabel)
+const firebaseConfig = {
+  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXX",
+  authDomain: "tu-proyecto.firebaseapp.com",
+  projectId: "tu-proyecto"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Función de login
+async function loginAndGetToken(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // Obtener token JWT de Firebase
+    const idToken = await user.getIdToken();
+    
+    // Guardar token para uso con GraphQL
+    localStorage.setItem('jwt_token', idToken);
+    localStorage.setItem('user_id', user.uid);
+    
+    console.log('Usuario autenticado:', user.email);
+    return idToken;
+    
+  } catch (error) {
+    console.error('Error de autenticación:', error.message);
+    throw error;
+  }
+}
+
+// Uso
+loginAndGetToken('usuario@empresa.com', 'password123')
+  .then(token => {
+    console.log('Token obtenido:', token);
+    // Ahora puedes hacer calls a GraphQL
+  });</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CRM EXAMPLES -->
+            <section id="crm-examples" class="content-section">
+                <h2>Ejemplos CRM</h2>
+                
+                <div id="lead-management" class="query-detail">
+                    <h3>Gestión Completa de Leads</h3>
+                    <p>Flujo completo desde creación hasta conversión de leads.</p>
+                    
+                    <h4>1. Crear Lead</h4>
+                    <div class="code-block">
+                        <pre><code>// Mutation para crear lead
+const CREATE_LEAD = gql`
+  mutation CreateLead($input: CRM_LeadInput!) {
+    createCRMLead(input: $input) {
+      success
+      lead {
+        id
+        name
+        email
+        company
+        status
+        priority
+        value
+        assignedUser {
+          name
+          email
+        }
+        createdAt
+      }
+      errors
+    }
+  }
+`;
+
+// Variables
+const leadData = {
+  firstName: "Carlos",
+  lastName: "González",
+  email: "carlos.gonzalez@startup.com",
+  phone: "+34 600 987 654",
+  company: "Startup Innovadora SL",
+  position: "CTO",
+  source: "REFERRAL",
+  priority: "HIGH",
+  estimatedValue: 75000.0,
+  assignedTo: "user_456",
+  tags: ["technology", "startup", "urgent"],
+  notes: "Lead cualificado desde LinkedIn",
+  customFields: {
+    industry: "SaaS",
+    employees: "10-50",
+    budget_confirmed: true,
+    timeline: "Q2 2024"
+  }
+};
+
+// Ejecutar mutation
+const { data } = await client.mutate({
+  mutation: CREATE_LEAD,
+  variables: { input: leadData }
+});
+
+console.log('Lead creado:', data.createCRMLead.lead);</code></pre>
+                    </div>
+
+                    <h4>2. Buscar y Filtrar Leads</h4>
+                    <div class="code-block">
+                        <pre><code>// Query con filtros avanzados
+const GET_LEADS = gql`
+  query GetLeads($filters: CRM_LeadFilters, $pagination: CRM_PaginationInput) {
+    getCRMLeads(filters: $filters, pagination: $pagination) {
+      success
+      leads {
+        id
+        name
+        email
+        company
+        status
+        priority
+        value
+        probability
+        assignedUser {
+          name
+        }
+        tags
+        lastContact
+        createdAt
+      }
+      pagination {
+        totalItems
+        currentPage
+        totalPages
+        hasNextPage
+      }
+    }
+  }
+`;
+
+// Filtros específicos
+const filters = {
+  status: ["QUALIFIED", "PROPOSAL"],
+  priority: ["HIGH", "URGENT"],
+  assignedTo: ["user_456"],
+  estimatedValue: {
+    min: 50000,
+    max: 200000
+  },
+  createdDate: {
+    from: "2024-01-01T00:00:00Z",
+    to: "2024-12-31T23:59:59Z"
+  }
+};
+
+const { data } = await client.query({
+  query: GET_LEADS,
+  variables: {
+    filters,
+    pagination: { page: 1, limit: 20 }
+  }
+});
+
+console.log(`Encontrados ${data.getCRMLeads.pagination.totalItems} leads`);</code></pre>
+                    </div>
+
+                    <h4>3. Pipeline de Ventas</h4>
+                    <div class="code-block">
+                        <pre><code>// Mover lead a siguiente etapa
+const MOVE_LEAD_STAGE = gql`
+  mutation MoveLeadStage($leadId: ID!, $status: CRM_LeadStatus!) {
+    moveCRMLeadToStage(leadId: $leadId, status: $status) {
+      success
+      lead {
+        id
+        name
+        status
+        probability
+        updatedAt
+      }
+      errors
+    }
+  }
+`;
+
+// Cerrar como ganado
+const MARK_LEAD_WON = gql`
+  mutation MarkLeadWon($leadId: ID!, $finalValue: Float) {
+    markCRMLeadAsWon(leadId: $leadId, finalValue: $finalValue) {
+      success
+      lead {
+        id
+        name
+        status
+        value
+        probability
+      }
+      errors
+    }
+  }
+`;
+
+// Workflow de pipeline
+async function processLead(leadId) {
+  // 1. Mover a propuesta
+  await client.mutate({
+    mutation: MOVE_LEAD_STAGE,
+    variables: { leadId, status: "PROPOSAL" }
+  });
+  
+  // 2. Actualizar probabilidad
+  await client.mutate({
+    mutation: gql`
+      mutation UpdateProbability($leadId: ID!, $probability: Int!) {
+        updateCRMLeadProbability(leadId: $leadId, probability: $probability) {
+          success
+          lead { id probability }
+        }
+      }
+    `,
+    variables: { leadId, probability: 80 }
+  });
+  
+  // 3. Si se confirma, marcar como ganado
+  const finalValue = 85000.0;
+  const result = await client.mutate({
+    mutation: MARK_LEAD_WON,
+    variables: { leadId, finalValue }
+  });
+  
+  return result.data.markCRMLeadAsWon.lead;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div id="campaign-management" class="query-detail">
+                    <h3>Campañas de Marketing</h3>
+                    <p>Crear y gestionar campañas multi-canal (Email, WhatsApp, SMS).</p>
+                    
+                    <h4>1. Crear Lista de Contactos</h4>
+                    <div class="code-block">
+                        <pre><code>const CREATE_CONTACT_LIST = gql`
+  mutation CreateContactList($input: CRM_ContactListInput!) {
+    createCRMContactList(input: $input) {
+      success
+      contactList {
+        id
+        name
+        totalContacts
+        isActive
+        dynamicCriteria {
+          enabled
+          filters {
+            tags
+            sentiment
+          }
+        }
+      }
+      errors
+    }
+  }
+`;
+
+// Lista dinámica basada en criterios
+const listData = {
+  name: "Leads Cualificados Tech",
+  description: "Leads del sector tecnológico con alta prioridad",
+  isActive: true,
+  dynamicCriteria: {
+    enabled: true,
+    filters: {
+      tags: ["technology", "qualified"],
+      sentiment: ["POSITIVE", "NEUTRAL"],
+      lastContactAfter: "2024-01-01T00:00:00Z"
+    }
+  },
+  tags: ["tech-sector", "qualified-leads"]
+};
+
+const { data } = await client.mutate({
+  mutation: CREATE_CONTACT_LIST,
+  variables: { input: listData }
+});</code></pre>
+                    </div>
+
+                    <h4>2. Crear Plantilla de Email</h4>
+                    <div class="code-block">
+                        <pre><code>const CREATE_EMAIL_TEMPLATE = gql`
+  mutation CreateEmailTemplate($input: CRM_EmailTemplateInput!) {
+    createCRMEmailTemplate(input: $input) {
+      success
+      template {
+        id
+        name
+        subject
+        content
+        variables
+        category
+      }
+      errors
+    }
+  }
+`;
+
+const templateData = {
+  name: "Newsletter Tecnología Q1",
+  subject: "🚀 Novedades Tecnológicas - {{MONTH}} {{YEAR}}",
+  content: `
+    <h1>Hola {{FIRST_NAME}},</h1>
+    
+    <p>Esperamos que estés teniendo un excelente {{MONTH}}. 
+    Te traemos las últimas novedades de nuestro CRM:</p>
+    
+    <ul>
+      <li>Nueva integración con WhatsApp Business</li>
+      <li>Dashboard de analytics mejorado</li>
+      <li>API GraphQL con 246+ operaciones</li>
+    </ul>
+    
+    <p>¿Te interesa una demo personalizada para {{COMPANY}}?</p>
+    
+    <a href="{{DEMO_LINK}}" style="background: #667eea; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
+      Solicitar Demo
+    </a>
+    
+    <p>Saludos,<br>
+    Equipo de {{SENDER_NAME}}</p>
+  `,
+  htmlContent: `<!-- Version HTML completa -->`,
+  previewText: "Descubre las novedades de nuestro CRM",
+  variables: ["FIRST_NAME", "COMPANY", "MONTH", "YEAR", "DEMO_LINK", "SENDER_NAME"],
+  category: "NEWSLETTER",
+  isActive: true
+};
+
+const { data } = await client.mutate({
+  mutation: CREATE_EMAIL_TEMPLATE,
+  variables: { input: templateData }
+});</code></pre>
+                    </div>
+
+                    <h4>3. Crear y Lanzar Campaña</h4>
+                    <div class="code-block">
+                        <pre><code>const CREATE_CAMPAIGN = gql`
+  mutation CreateCampaign($input: CRM_CampaignInput!) {
+    createCRMCampaign(input: $input) {
+      success
+      campaign {
+        id
+        name
+        type
+        status
+        totalRecipients
+        scheduledAt
+        settings {
+          trackOpens
+          trackClicks
+        }
+      }
+      errors
+    }
+  }
+`;
+
+// Programar campaña para envío
+const campaignData = {
+  name: "Newsletter Tech Q1 2024",
+  type: "EMAIL",
+  templateId: "template_123",
+  recipientLists: ["list_456"], // Lista creada anteriormente
+  scheduledAt: "2024-03-01T09:00:00Z",
+  settings: {
+    sendImmediately: false,
+    timezone: "Europe/Madrid",
+    trackOpens: true,
+    trackClicks: true,
+    unsubscribeLink: true,
+    throttle: 200 // Emails por hora
+  }
+};
+
+// Crear campaña
+const { data } = await client.mutate({
+  mutation: CREATE_CAMPAIGN,
+  variables: { input: campaignData }
+});
+
+const campaignId = data.createCRMCampaign.campaign.id;
+
+// Iniciar campaña programada
+const START_CAMPAIGN = gql`
+  mutation StartCampaign($id: ID!) {
+    startCRMCampaign(id: $id) {
+      success
+      campaign {
+        id
+        status
+        sentAt
+        stats {
+          totalSent
+          delivered
+          opened
+          clicked
+        }
+      }
+    }
+  }
+`;
+
+// Cuando llegue el momento programado
+const result = await client.mutate({
+  mutation: START_CAMPAIGN,
+  variables: { id: campaignId }
+});
+
+console.log('Campaña iniciada:', result.data.startCRMCampaign.campaign);</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EVENTS EXAMPLES -->
+            <section id="events-examples" class="content-section">
+                <h2>Ejemplos de Eventos</h2>
+                
+                <div id="event-creation" class="query-detail">
+                    <h3>Creación Completa de Evento</h3>
+                    <p>Setup completo de evento con invitados, presupuesto e itinerarios.</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// 1. Crear evento base
+const CREATE_EVENT = gql`
+  mutation CreateEvent($input: EVT_EventInput!) {
+    createEvent(input: $input) {
+      _id
+      nombre
+      tipo
+      fecha
+      poblacion
+      usuario_id
+      estatus
+      fecha_creacion
+    }
+  }
+`;
+
+const eventData = {
+  nombre: "Boda de Ana y Carlos",
+  tipo: "BODA",
+  fecha: "2024-07-20",
+  poblacion: "Sevilla",
+  pais: "España",
+  usuario_id: "user_789",
+  usuario_nombre: "Wedding Planner Pro",
+  color: ["#FF6B9D", "#4ECDC4"]
+};
+
+const { data: eventResult } = await client.mutate({
+  mutation: CREATE_EVENT,
+  variables: { input: eventData }
+});
+
+const eventId = eventResult.createEvent._id;
+
+// 2. Añadir invitados
+const ADD_GUEST = gql`
+  mutation AddGuest($eventId: ID!, $nombre: String!, $correo: String, $telefono: String) {
+    addGuest(eventId: $eventId, nombre: $nombre, correo: $correo, telefono: $telefono) {
+      _id
+      nombre
+      correo
+      asistencia
+    }
+  }
+`;
+
+const guests = [
+  { nombre: "María García", correo: "maria@email.com", telefono: "+34 600 111 222" },
+  { nombre: "Juan López", correo: "juan@email.com", telefono: "+34 600 333 444" },
+  { nombre: "Carmen Ruiz", correo: "carmen@email.com", telefono: "+34 600 555 666" }
+];
+
+// Añadir invitados en paralelo
+const guestPromises = guests.map(guest => 
+  client.mutate({
+    mutation: ADD_GUEST,
+    variables: { eventId, ...guest }
+  })
+);
+
+const guestResults = await Promise.all(guestPromises);
+console.log(`${guestResults.length} invitados añadidos`);
+
+// 3. Configurar presupuesto
+const ADD_BUDGET_CATEGORY = gql`
+  mutation AddBudgetCategory($eventId: ID!, $nombre: String!, $coste_estimado: Float!) {
+    addBudgetCategory(eventId: $eventId, nombre: $nombre, coste_estimado: $coste_estimado) {
+      _id
+      nombre
+      coste_estimado
+    }
+  }
+`;
+
+const budgetCategories = [
+  { nombre: "Catering", coste_estimado: 5000.0 },
+  { nombre: "Decoración", coste_estimado: 2000.0 },
+  { nombre: "Música", coste_estimado: 1500.0 },
+  { nombre: "Fotografía", coste_estimado: 2500.0 }
+];
+
+for (const category of budgetCategories) {
+  await client.mutate({
+    mutation: ADD_BUDGET_CATEGORY,
+    variables: { eventId, ...category }
+  });
+}
+
+console.log('Evento creado completamente:', eventId);</code></pre>
+                    </div>
+                </div>
+
+                <div id="guest-management" class="query-detail">
+                    <h3>Gestión de Confirmaciones</h3>
+                    <p>Sistema de confirmación de asistencia y seguimiento.</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Query para obtener evento con invitados
+const GET_EVENT_WITH_GUESTS = gql`
+  query GetEventWithGuests($eventId: ID!) {
+    getEvent(eventId: $eventId) {
+      _id
+      nombre
+      fecha
+      invitados_array {
+        _id
+        nombre
+        correo
+        telefono
+        asistencia
+        grupo_relacion
+        alergenos
+      }
+      invitados_count
+    }
+  }
+`;
+
+// Función para procesar confirmaciones
+async function processGuestConfirmations(eventId) {
+  const { data } = await client.query({
+    query: GET_EVENT_WITH_GUESTS,
+    variables: { eventId }
+  });
+  
+  const event = data.getEvent;
+  const pendingGuests = event.invitados_array.filter(
+    guest => !guest.asistencia || guest.asistencia === 'pendiente'
+  );
+  
+  console.log(`Evento: ${event.nombre}`);
+  console.log(`Total invitados: ${event.invitados_count}`);
+  console.log(`Pendientes de confirmar: ${pendingGuests.length}`);
+  
+  return {
+    event,
+    pendingGuests,
+    confirmed: event.invitados_array.filter(g => g.asistencia === 'confirmado'),
+    declined: event.invitados_array.filter(g => g.asistencia === 'no_asiste')
+  };
+}
+
+// Actualizar confirmación de asistencia
+const UPDATE_GUEST_ATTENDANCE = gql`
+  mutation UpdateGuestAttendance($eventId: ID!, $guestId: ID!, $asistencia: String!) {
+    updateGuestAttendance(eventId: $eventId, guestId: $guestId, asistencia: $asistencia) {
+      _id
+      nombre
+      asistencia
+    }
+  }
+`;
+
+// Confirmar asistencia específica
+async function confirmGuestAttendance(eventId, guestId, attending = true) {
+  const asistencia = attending ? 'confirmado' : 'no_asiste';
+  
+  const { data } = await client.mutate({
+    mutation: UPDATE_GUEST_ATTENDANCE,
+    variables: { eventId, guestId, asistencia }
+  });
+  
+  console.log(`${data.updateGuestAttendance.nombre}: ${asistencia}`);
+  return data.updateGuestAttendance;
+}
+
+// Uso completo
+const eventId = "event_123";
+const confirmations = await processGuestConfirmations(eventId);
+
+// Confirmar algunos invitados
+await confirmGuestAttendance(eventId, "guest_1", true);
+await confirmGuestAttendance(eventId, "guest_2", false);</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ERROR HANDLING -->
+            <section class="content-section">
+                <h2>Manejo de Errores</h2>
+                
+                <div class="query-detail">
+                    <h3>Estrategias de Error Handling</h3>
+                    <p>Patrones para manejar errores comunes y timeouts.</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Cliente Apollo con error handling
+import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+import { RetryLink } from '@apollo/client/link/retry';
+
+// Error Link
+const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      console.error(`GraphQL error: ${message}`);
+      
+      // Errores específicos
+      if (message.includes('Authentication failed')) {
+        // Redirigir a login
+        window.location.href = '/login';
+      }
+      
+      if (message.includes('Whitelabel not found')) {
+        console.error('Configuración de tenant incorrecta');
+      }
+    });
+  }
+
+  if (networkError) {
+    console.error(`Network error: ${networkError}`);
+    
+    // Reintento automático para errores de red
+    if (networkError.statusCode === 500) {
+      return forward(operation);
+    }
+  }
+});
+
+// Retry Link para reconexión automática
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true
+  },
+  attempts: {
+    max: 5,
+    retryIf: (error, _operation) => !!error
+  }
+});
+
+// Cliente con error handling
+const client = new ApolloClient({
+  link: from([errorLink, retryLink, authLink, httpLink]),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      errorPolicy: 'all'
+    },
+    query: {
+      errorPolicy: 'all'
+    }
+  }
+});
+
+// Wrapper para queries con try-catch
+async function safeQuery(query, variables = {}) {
+  try {
+    const { data, errors } = await client.query({
+      query,
+      variables,
+      fetchPolicy: 'network-only'
+    });
+    
+    // Verificar errores de negocio
+    if (errors && errors.length > 0) {
+      console.warn('GraphQL errors:', errors);
+    }
+    
+    return { data, errors: errors || [] };
+    
+  } catch (error) {
+    console.error('Query failed:', error);
+    
+    // Errores específicos de Apollo
+    if (error.networkError) {
+      return { 
+        data: null, 
+        errors: [{ message: 'Error de conexión. Verifica tu internet.' }] 
+      };
+    }
+    
+    return { 
+      data: null, 
+      errors: [{ message: error.message }] 
+    };
+  }
+}
+
+// Ejemplo de uso
+async function getLeadsWithErrorHandling() {
+  const GET_LEADS = gql`
+    query GetLeads {
+      getCRMLeads(pagination: {limit: 10}) {
+        success
+        leads {
+          id
+          name
+          email
+        }
+        errors
+      }
+    }
+  `;
+  
+  const { data, errors } = await safeQuery(GET_LEADS);
+  
+  if (data && data.getCRMLeads.success) {
+    return data.getCRMLeads.leads;
+  } else {
+    const allErrors = [
+      ...errors,
+      ...(data?.getCRMLeads?.errors || [])
+    ];
+    throw new Error(`Failed to get leads: ${allErrors.join(', ')}`);
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 CRM Marketing Soluciones. Documentación API GraphQL.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/github-style.js"></script>
+</body>
+</html>
