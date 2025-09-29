@@ -1,8 +1,8 @@
 # 🚀 API Eventos Organizador - Sistema Completo con CRM Avanzado
 
-**Versión:** 2.1.0  
+**Versión:** 2.2.0  
 **Estado:** ✅ 100% Operativo  
-**Última actualización:** 16 de septiembre de 2025  
+**Última actualización:** 29 de septiembre de 2025  
 
 ---
 
@@ -40,6 +40,20 @@ Sistema completo de gestión de eventos con funcionalidades avanzadas de CRM, Wh
 - **Test:** `https://testapi2.eventosorganizador.com`
 - **GraphQL:** `/graphql`
 - **MCP:** `:4001/mcp` (Producción), `:3001/mcp` (Test)
+
+---
+
+## 📚 **DOCUMENTACIÓN CONSOLIDADA**
+
+### **🆕 API_COMPLETA.md - Documentación Unificada**
+- **Editor de Emails Profesional** - Sistema drag & drop completo
+- **Automatización Avanzada** - Workflows y triggers inteligentes  
+- **Segmentación Avanzada** - Segmentación comportamental con IA
+- **Analytics Avanzados** - Dashboard en tiempo real y métricas
+- **Sistema de Campañas** - Email, WhatsApp, SMS unificados
+- **APIs GraphQL** - 200+ endpoints documentados
+
+**📖 [Ver Documentación Completa](./API_COMPLETA.md)**
 
 ---
 
