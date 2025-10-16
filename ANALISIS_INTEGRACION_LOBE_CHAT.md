@@ -520,3 +520,15 @@ ChatSchema.index({ 'mensajes.aiMetadata.model': 1 });
 ---
 
 *Análisis generado el 26 de septiembre de 2025 - Propuesta de implementación optimizada*
+
+
+
+
+
+
+
+
+
+
+
+

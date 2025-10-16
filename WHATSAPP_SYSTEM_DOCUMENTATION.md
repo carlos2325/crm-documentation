@@ -341,3 +341,15 @@ export const whatsappResolvers = {
 **📅 Última actualización:** 26 de Septiembre 2025  
 **✅ Estado:** Servicios implementados, necesita endpoints GraphQL  
 **🔧 Acción requerida:** Crear tipos y resolvers específicos
+
+
+
+
+
+
+
+
+
+
+
+

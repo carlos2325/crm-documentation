@@ -576,3 +576,15 @@ getCampaignDeliveryMetrics(campaign_id: ID!): USAGE_DeliveryMetrics
 ---
 
 *Análisis generado el 26 de septiembre de 2025 - Sistema completamente funcional*
+
+
+
+
+
+
+
+
+
+
+
+

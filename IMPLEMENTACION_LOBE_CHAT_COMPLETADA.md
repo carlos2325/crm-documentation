@@ -412,3 +412,15 @@ mutation TestAIProvider($whitelabelId: ID!, $provider: String!, $model: String!)
 ---
 
 *Implementación completada el 26 de septiembre de 2025 - Sistema listo para producción*
+
+
+
+
+
+
+
+
+
+
+
+
