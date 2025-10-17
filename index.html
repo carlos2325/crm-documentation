@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API de Eventos - Documentación Completa</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .nav-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .nav-card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .nav-card p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        .nav-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .nav-card a:hover {
+            background: #667eea;
+            color: white;
+        }
+        .section {
+            margin: 40px 0;
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .feature-item strong {
+            color: #2c3e50;
+        }
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        .cta h2 {
+            color: white;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .cta a {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 API de Eventos</h1>
+            <p>Documentación Completa para Desarrolladores</p>
+        </div>
+
+        <div class="section">
+            <h2>🚀 ¿Qué es esta API?</h2>
+            <p>Nuestra API te permite crear aplicaciones que gestionen eventos, CRM, chat automatizado, email marketing e integración con IA.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>📅 Eventos</strong><br>
+                    Bodas, cumpleaños, corporativos
+                </div>
+                <div class="feature-item">
+                    <strong>👥 CRM</strong><br>
+                    Contactos, leads, campañas
+                </div>
+                <div class="feature-item">
+                    <strong>💬 Chat y WhatsApp</strong><br>
+                    Mensajería automatizada
+                </div>
+                <div class="feature-item">
+                    <strong>📧 Email Marketing</strong><br>
+                    Campañas avanzadas
+                </div>
+                <div class="feature-item">
+                    <strong>🤖 Integración IA</strong><br>
+                    ChatGPT, Claude, automatización
+                </div>
+                <div class="feature-item">
+                    <strong>💰 Contabilización</strong><br>
+                    Control de tokens y facturación
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Guías Disponibles</h2>
+            <div class="nav-grid">
+                <div class="nav-card">
+                    <h3>🟢 Para Principiantes</h3>
+                    <p>¿Nunca has usado APIs? Empieza aquí con ejemplos simples y guías paso a paso.</p>
+                    <a href="public/user-guides/getting-started.md">Empezar desde Cero</a>
+                    <a href="public/user-guides/authentication-basic.md">Autenticación</a>
+                </div>
+
+                <div class="nav-card">
+                    <h3>🟡 Para Intermedios</h3>
+                    <p>Ya conoces APIs básicas y quieres crear aplicaciones complejas con automatización.</p>
+                    <a href="public/user-guides/events-management.md">Gestión de Eventos</a>
+                    <a href="public/user-guides/crm-system.md">Sistema CRM</a>
+                    <a href="public/user-guides/chat-whatsapp.md">Chat y WhatsApp</a>
+                </div>
+
+                <div class="nav-card">
+                    <h3>🔴 Para Expertos</h3>
+                    <p>Desarrolladores senior que necesitan integración completa y personalización avanzada.</p>
+                    <a href="public/user-guides/ai-integration.md">Integración IA</a>
+                    <a href="public/user-guides/advanced-api.md">API Avanzada</a>
+                    <a href="public/user-guides/customization.md">Personalización</a>
+                </div>
+
+                <div class="nav-card">
+                    <h3>💼 Para Empresas</h3>
+                    <p>Control de tokens, contabilización automática, límites y reportes detallados.</p>
+                    <a href="public/user-guides/SISTEMA_CONTROL_TOKENS_CONTABILIZACION.md">Sistema Contabilización</a>
+                    <a href="public/user-guides/ANALISIS_EVENTOS_USUARIO_BODASDEHOY.md">Análisis de Eventos</a>
+                </div>
+
+                <div class="nav-card">
+                    <h3>🛠️ Herramientas</h3>
+                    <p>SDKs, ejemplos de código, Postman collection y herramientas de desarrollo.</p>
+                    <a href="public/user-guides/code-examples.md">Ejemplos de Código</a>
+                    <a href="public/user-guides/postman-collection.json">Colección Postman</a>
+                </div>
+
+                <div class="nav-card">
+                    <h3>📋 Referencias</h3>
+                    <p>Documentación completa, FAQ, referencias de API y guías de resolución de problemas.</p>
+                    <a href="public/user-guides/complete-reference.md">Referencia Completa</a>
+                    <a href="public/user-guides/faq.md">Preguntas Frecuentes</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>🎯 ¿Listo para Empezar?</h2>
+            <p>Elige tu nivel de experiencia y comienza a crear aplicaciones increíbles</p>
+            <a href="public/user-guides/getting-started.md">🚀 Empezar Ahora</a>
+            <a href="public/user-guides/code-examples.md">💻 Ver Ejemplos</a>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Herramientas de Desarrollo</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>GraphQL Playground</strong><br>
+                    https://api2.eventosorganizador.com/graphql
+                </div>
+                <div class="feature-item">
+                    <strong>Sandbox de Pruebas</strong><br>
+                    https://testapi2.eventosorganizador.com/graphql
+                </div>
+                <div class="feature-item">
+                    <strong>Soporte Email</strong><br>
+                    soporte@eventosorganizador.com
+                </div>
+                <div class="feature-item">
+                    <strong>GitHub</strong><br>
+                    Reportar issues y contribuir
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Última actualización:</strong> Octubre 2025 | <strong>Versión API:</strong> 2.0.0 | <strong>Estado:</strong> ✅ 100% Operativa</p>
+        </div>
+    </div>
+</body>
+</html>
