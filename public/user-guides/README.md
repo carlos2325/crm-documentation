@@ -79,6 +79,18 @@ Nuestra API te permite crear aplicaciones que gestionen:
    - Integraciones complejas
    - Soluciones empresariales
 
+### **💼 Para Empresas**
+9. **[💰 Sistema de Contabilización](./SISTEMA_CONTROL_TOKENS_CONTABILIZACION.md)**
+   - Control de tokens y uso
+   - Facturación automática
+   - Límites y alertas
+   - Reportes detallados
+
+10. **[📊 Análisis de Eventos](./ANALISIS_EVENTOS_USUARIO_BODASDEHOY.md)**
+    - Estadísticas por usuario
+    - Agrupación por developer
+    - Métricas de uso
+
 ---
 
 ## 🛠️ **Herramientas de Desarrollo**
