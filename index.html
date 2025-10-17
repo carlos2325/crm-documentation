@@ -3,65 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API de Eventos - Sistema Completo de Contabilización y Control</title>
+    <title>API de Eventos - Documentación Completa del Sistema</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
+        
         .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        .content {
             background: white;
             border-radius: 15px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .header {
-            text-align: center;
+        
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .section {
             margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 3px solid #667eea;
         }
-        .header h1 {
+        
+        .section h2 {
             color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
         }
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.2em;
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
         }
+        
         .nav-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin: 20px 0;
         }
+        
         .nav-card {
             background: #f8f9fa;
             border-radius: 10px;
             padding: 25px;
             border-left: 5px solid #667eea;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
+        
         .nav-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        .nav-card h3 {
+        
+        .nav-card h4 {
             color: #2c3e50;
-            margin-top: 0;
-            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-size: 1.2em;
         }
+        
         .nav-card p {
             color: #7f8c8d;
             margin-bottom: 15px;
+            font-size: 0.95em;
         }
+        
         .nav-card a {
             color: #667eea;
             text-decoration: none;
@@ -71,48 +157,74 @@
             border-radius: 5px;
             display: inline-block;
             transition: all 0.3s ease;
-            margin: 5px;
+            margin: 3px;
+            font-size: 0.9em;
         }
+        
         .nav-card a:hover {
             background: #667eea;
             color: white;
         }
-        .section {
-            margin: 40px 0;
+        
+        .toc {
+            list-style: none;
+            padding: 0;
         }
-        .section h2 {
+        
+        .toc li {
+            margin: 10px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .toc a:hover {
+            background: #f8f9fa;
             color: #2c3e50;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
         }
+        
         .feature-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
+        
         .feature-item {
             background: #e8f4f8;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             border-left: 4px solid #3498db;
         }
+        
         .feature-item strong {
             color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
         }
+        
         .cta {
             text-align: center;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px;
+            padding: 50px;
             border-radius: 15px;
             margin: 40px 0;
         }
+        
         .cta h2 {
             color: white;
             border: none;
             margin-bottom: 20px;
+            font-size: 2.5em;
         }
+        
         .cta a {
             background: white;
             color: #667eea;
@@ -125,342 +237,342 @@
             margin: 10px;
             transition: all 0.3s ease;
         }
+        
         .cta a:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+        
         .footer {
             text-align: center;
             margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid #ecf0f1;
-            color: #7f8c8d;
-        }
-        .pricing-table {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .pricing-card {
+            padding: 30px;
             background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px;
             border: 2px solid #ecf0f1;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
         }
-        .pricing-card:hover {
+        
+        .search-box:focus {
+            outline: none;
             border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        .pricing-card.featured {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .pricing-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .pricing-card .price {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .pricing-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        .pricing-card li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        .code-example {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow-x: auto;
-        }
-        .code-example pre {
-            margin: 0;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-        }
-        .stat-card h3 {
-            font-size: 2em;
-            margin: 0;
-        }
-        .stat-card p {
-            margin: 10px 0 0 0;
-            opacity: 0.9;
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 API de Eventos - Sistema Completo</h1>
-            <p>Sistema Integral de Control de Tokens, Contabilización y Gestión de Eventos</p>
-        </div>
-
-        <!-- SISTEMA DE CONTABILIZACIÓN -->
-        <div class="section">
-            <h2>💰 Sistema de Control de Tokens y Contabilización</h2>
-            <p>Nuestro sistema avanzado de contabilización te permite controlar el uso de servicios en tiempo real, con facturación automática y alertas proactivas.</p>
+            <h1>🚀 API de Eventos - Sistema Completo</h1>
+            <p>Documentación Técnica Completa para Desarrolladores y Profesionales</p>
             
-            <div class="stats-grid">
+            <div class="stats">
                 <div class="stat-card">
-                    <h3>📧 EMAIL</h3>
-                    <p>$0.001 por email</p>
-                </div>
-                <div class="stat-card">
-                    <h3>💬 WHATSAPP</h3>
-                    <p>$0.005 por mensaje</p>
+                    <h3>65+</h3>
+                    <p>Documentos Técnicos</p>
                 </div>
                 <div class="stat-card">
-                    <h3>📱 SMS</h3>
-                    <p>$0.01 por SMS</p>
+                    <h3>100%</h3>
+                    <p>Funcionalidad Documentada</p>
                 </div>
                 <div class="stat-card">
-                    <h3>🔌 API CALLS</h3>
-                    <p>$0.0001 por llamada</p>
+                    <h3>24/7</h3>
+                    <p>Soporte Técnico</p>
                 </div>
-            </div>
-
-            <div class="feature-list">
-                <div class="feature-item">
-                    <strong>🎯 Tracking Automático</strong><br>
-                    Registra cada uso de servicio en tiempo real
-                </div>
-                <div class="feature-item">
-                    <strong>🚨 Alertas Proactivas</strong><br>
-                    Notificaciones al 80%, 95% y 100% de límites
-                </div>
-                <div class="feature-item">
-                    <strong>💰 Facturación Precisa</strong><br>
-                    Costos calculados automáticamente
-                </div>
-                <div class="feature-item">
-                    <strong>📊 Reportes Detallados</strong><br>
-                    Dashboard con métricas en tiempo real
-                </div>
-                <div class="feature-item">
-                    <strong>🛡️ Control de Límites</strong><br>
-                    Bloqueo automático al exceder límites
-                </div>
-                <div class="feature-item">
-                    <strong>📈 Escalabilidad</strong><br>
-                    Planes flexibles según necesidades
+                <div class="stat-card">
+                    <h3>v2.0</h3>
+                    <p>API Actualizada</p>
                 </div>
             </div>
         </div>
 
-        <!-- PLANES DE PRECIOS -->
-        <div class="section">
-            <h2>💼 Planes de Precios</h2>
-            <div class="pricing-table">
-                <div class="pricing-card">
-                    <h3>🟢 PLAN BÁSICO</h3>
-                    <div class="price">$29/mes</div>
-                    <ul>
-                        <li>📧 10,000 emails</li>
-                        <li>💬 5,000 WhatsApp</li>
-                        <li>📱 2,000 SMS</li>
-                        <li>🔌 100,000 API calls</li>
-                        <li>📧 Soporte email</li>
-                    </ul>
+        <div class="main-content">
+            <div class="content">
+                <!-- SISTEMA DE CONTABILIZACIÓN -->
+                <div class="section">
+                    <h2>💰 Sistema de Control de Tokens y Contabilización</h2>
+                    <p>Control completo del uso de servicios con facturación automática, límites y alertas proactivas.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📊 Documentación Completa</h4>
+                            <p>Sistema integral de contabilización con precios, planes y tracking automático.</p>
+                            <a href="public/user-guides/SISTEMA_CONTROL_TOKENS_CONTABILIZACION.md">Ver Documentación</a>
+                            <a href="public/user-guides/EJEMPLO_IMPLEMENTACION_CONTABILIZACION.js">Ver Código</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📈 Diagramas del Sistema</h4>
+                            <p>Arquitectura visual y flujos del sistema de contabilización.</p>
+                            <a href="public/user-guides/DIAGRAMA_SISTEMA_CONTABILIZACION.md">Ver Diagramas</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📋 Análisis de Eventos</h4>
+                            <p>Estadísticas detalladas de uso por usuario y agrupación por developer.</p>
+                            <a href="public/user-guides/ANALISIS_EVENTOS_USUARIO_BODASDEHOY.md">Ver Análisis</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="pricing-card featured">
-                    <h3>🟡 PLAN PROFESIONAL</h3>
-                    <div class="price">$79/mes</div>
-                    <ul>
-                        <li>📧 50,000 emails</li>
-                        <li>💬 25,000 WhatsApp</li>
-                        <li>📱 10,000 SMS</li>
-                        <li>🔌 500,000 API calls</li>
-                        <li>📧💬 Soporte email + chat</li>
-                    </ul>
+
+                <!-- GESTIÓN DE EVENTOS -->
+                <div class="section">
+                    <h2>📅 Gestión Completa de Eventos</h2>
+                    <p>Sistema integral para crear, gestionar y automatizar eventos de todo tipo.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📚 Documentación de Eventos</h4>
+                            <p>Guía completa para gestión de eventos, invitados y confirmaciones.</p>
+                            <a href="public/user-guides/DOCUMENTACION_COMPLETA_MODULO_EVENTOS.md">Ver Documentación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🤖 Casos de Uso para IA</h4>
+                            <p>300 casos y métodos específicos para agentes de IA.</p>
+                            <a href="public/user-guides/300_CASOS_METODOS_PARA_AGENTE_IA.md">Ver Casos</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>❓ Preguntas Frecuentes</h4>
+                            <p>1000 preguntas y respuestas para agentes de IA sobre eventos.</p>
+                            <a href="public/user-guides/1000_PREGUNTAS_AGENTE_IA_EVENTOS_COMPLETO.md">Ver FAQ</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="pricing-card">
-                    <h3>🔴 PLAN EMPRESARIAL</h3>
-                    <div class="price">$199/mes</div>
-                    <ul>
-                        <li>📧 200,000 emails</li>
-                        <li>💬 100,000 WhatsApp</li>
-                        <li>📱 50,000 SMS</li>
-                        <li>🔌 2,000,000 API calls</li>
-                        <li>📞 Soporte 24/7</li>
-                    </ul>
+
+                <!-- SISTEMA CRM -->
+                <div class="section">
+                    <h2>👥 Sistema CRM Completo</h2>
+                    <p>Gestión avanzada de contactos, leads, campañas y entidades empresariales.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📊 Documentación CRM 2025</h4>
+                            <p>Documentación completa del sistema CRM con todas las funcionalidades.</p>
+                            <a href="public/user-guides/DOCUMENTACION_CRM_COMPLETA_2025.md">Ver Documentación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📧 Email y WhatsApp</h4>
+                            <p>Funcionalidades de email marketing y WhatsApp Business.</p>
+                            <a href="public/user-guides/ANALISIS_FUNCIONALIDADES_EMAIL_WHATSAPP_CAMPANAS.md">Ver Funcionalidades</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🎯 Gestor de Campañas</h4>
+                            <p>Análisis completo del gestor de campañas y automatización.</p>
+                            <a href="public/user-guides/ANALISIS_GESTOR_CAMPANAS_COMPLETO.md">Ver Análisis</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHAT Y COMUNICACIÓN -->
+                <div class="section">
+                    <h2>💬 Chat y Sistemas de Comunicación</h2>
+                    <p>Integración completa de chat, WhatsApp y sistemas de mensajería.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>💬 Sistema de Chat</h4>
+                            <p>Documentación completa del sistema de chat integrado.</p>
+                            <a href="public/user-guides/CHAT_DOCUMENTATION.md">Ver Documentación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📱 WhatsApp Business</h4>
+                            <p>Integración completa con WhatsApp Business API.</p>
+                            <a href="public/user-guides/WHATSAPP_SYSTEM_DOCUMENTATION.md">Ver WhatsApp</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🤖 Lobe Chat</h4>
+                            <p>Implementación completa de Lobe Chat para IA.</p>
+                            <a href="public/user-guides/IMPLEMENTACION_LOBE_CHAT_COMPLETADA.md">Ver Lobe Chat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESARROLLO Y TÉCNICO -->
+                <div class="section">
+                    <h2>🔧 Documentación Técnica</h2>
+                    <p>Guías completas para desarrolladores, arquitectura y mejores prácticas.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📚 Documentación Técnica Completa</h4>
+                            <p>Guía exhaustiva para programadores de todos los niveles.</p>
+                            <a href="public/user-guides/DOCUMENTACION_TECNICA_COMPLETA.md">Ver Documentación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🔍 API Completa</h4>
+                            <p>Referencia completa de todos los endpoints y funcionalidades.</p>
+                            <a href="public/user-guides/API_COMPLETA.md">Ver API</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🗄️ MongoDB vs GraphQL</h4>
+                            <p>Comparación completa entre MongoDB y GraphQL.</p>
+                            <a href="public/user-guides/MONGODB_vs_GRAPHQL_COMPLETE_COMPARISON.md">Ver Comparación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🛠️ Consultas para Cursor</h4>
+                            <p>Consultas optimizadas para herramientas como Cursor.</p>
+                            <a href="public/user-guides/CONSULTAS_PARA_CURSOR.md">Ver Consultas</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📊 Análisis de Documentación</h4>
+                            <p>Análisis detallado de la documentación actual y faltante.</p>
+                            <a href="public/user-guides/ANALISIS_DOCUMENTACION_ACTUAL.md">Ver Análisis</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🔧 Resolución de Diferencias</h4>
+                            <p>Resolución de diferencias entre GraphQL y MongoDB.</p>
+                            <a href="public/user-guides/RESOLUCION_DIFERENCIAS_GRAPHQL_MONGODB.md">Ver Resolución</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FRONTEND Y UI -->
+                <div class="section">
+                    <h2>🎨 Frontend y Interfaz de Usuario</h2>
+                    <p>Documentación completa del frontend y componentes de interfaz.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>🖥️ Frontend Completo</h4>
+                            <p>Documentación completa del frontend al 100%.</p>
+                            <a href="public/user-guides/DOCUMENTACION_FRONTEND_COMPLETA_100.md">Ver Frontend</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📱 Servicios Públicos</h4>
+                            <p>Verificación y documentación de servicios públicos.</p>
+                            <a href="public/user-guides/VERIFICACION_SERVICIOS_PUBLICOS.md">Ver Servicios</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTEGRACIÓN Y SERVICIOS -->
+                <div class="section">
+                    <h2>🔗 Integración y Servicios</h2>
+                    <p>Documentación de integraciones con servicios externos y APIs.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📊 Servicios MCP GraphQL</h4>
+                            <p>Informe completo de servicios MCP y GraphQL.</p>
+                            <a href="public/user-guides/INFORME_SERVICIOS_EVENTOS_MCP_GRAPHQL.md">Ver Informe</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>🔄 Adaptación CRM a Eventos</h4>
+                            <p>Adaptación de estructura CRM para eventos.</p>
+                            <a href="public/user-guides/ADAPTACION-ESTRUCTURA-CRM-A-EVENTOS.md">Ver Adaptación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📋 Consultas Rápidas</h4>
+                            <p>Colección de consultas rápidas para desarrollo.</p>
+                            <a href="public/user-guides/CONSULTAS_RAPIDAS.md">Ver Consultas</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJEMPLOS Y USO -->
+                <div class="section">
+                    <h2>💻 Ejemplos y Casos de Uso</h2>
+                    <p>Ejemplos prácticos, casos de uso y guías de implementación.</p>
+                    
+                    <div class="nav-grid">
+                        <div class="nav-card">
+                            <h4>📝 Ejemplos de Uso v2.1.0</h4>
+                            <p>Ejemplos completos de uso de funcionalidades v2.1.0.</p>
+                            <a href="public/user-guides/EJEMPLOS-USO-FUNCIONALIDADES-v2.1.0.md">Ver Ejemplos</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📊 Comparación de Sistemas</h4>
+                            <p>Diagrama de comparación entre sistemas y plantillas.</p>
+                            <a href="public/user-guides/DIAGRAMA-COMPARACION-SISTEMAS-PLANTILLAS.md">Ver Comparación</a>
+                        </div>
+                        <div class="nav-card">
+                            <h4>📈 Changelog</h4>
+                            <p>Registro completo de cambios y actualizaciones.</p>
+                            <a href="public/user-guides/CHANGELOG.md">Ver Changelog</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta">
+                    <h2>🎯 ¿Listo para Implementar?</h2>
+                    <p>Accede a toda la documentación técnica y comienza a desarrollar</p>
+                    <a href="public/user-guides/DOCUMENTACION_TECNICA_COMPLETA.md">🚀 Ver Documentación Técnica</a>
+                    <a href="public/user-guides/API_COMPLETA.md">📚 Ver API Completa</a>
+                    <a href="public/user-guides/EJEMPLOS-USO-FUNCIONALIDADES-v2.1.0.md">💻 Ver Ejemplos</a>
                 </div>
             </div>
-        </div>
 
-        <!-- EJEMPLO DE IMPLEMENTACIÓN -->
-        <div class="section">
-            <h2>🔧 Ejemplo de Implementación</h2>
-            <p>Aquí tienes un ejemplo completo de cómo implementar el sistema de contabilización:</p>
-            
-            <div class="code-example">
-                <pre><code>// Ejemplo de uso del sistema de contabilización
-const tracker = new UsageTracker({
-  apiUrl: 'https://api2.eventosorganizador.com/graphql',
-  clientId: 'bodasdehoy',
-  token: 'tu-token-jwt'
-});
+            <div class="sidebar">
+                <h3>🔍 Buscar Documentación</h3>
+                <input type="text" class="search-box" placeholder="Buscar en documentación..." id="searchBox">
+                
+                <h3>📋 Índice de Contenidos</h3>
+                <ul class="toc">
+                    <li><a href="#contabilizacion">💰 Sistema de Contabilización</a></li>
+                    <li><a href="#eventos">📅 Gestión de Eventos</a></li>
+                    <li><a href="#crm">👥 Sistema CRM</a></li>
+                    <li><a href="#chat">💬 Chat y Comunicación</a></li>
+                    <li><a href="#tecnico">🔧 Documentación Técnica</a></li>
+                    <li><a href="#frontend">🎨 Frontend y UI</a></li>
+                    <li><a href="#integracion">🔗 Integración y Servicios</a></li>
+                    <li><a href="#ejemplos">💻 Ejemplos y Casos de Uso</a></li>
+                </ul>
 
-// Enviar campaña de email con contabilización
-const emailService = new EmailService(tracker);
-const results = await emailService.sendEmailCampaign(
-  recipients, 
-  'welcome_template', 
-  '¡Bienvenido!'
-);
+                <h3>🛠️ Herramientas</h3>
+                <ul class="toc">
+                    <li><a href="https://api2.eventosorganizador.com/graphql">GraphQL Playground</a></li>
+                    <li><a href="https://testapi2.eventosorganizador.com/graphql">API de Pruebas</a></li>
+                    <li><a href="public/user-guides/postman-collection.json">Colección Postman</a></li>
+                </ul>
 
-// El sistema automáticamente:
-// 1. Verifica límites antes de enviar
-// 2. Registra uso en tiempo real
-// 3. Calcula costos automáticamente
-// 4. Actualiza contadores
-// 5. Genera alertas si es necesario</code></pre>
+                <h3>📞 Soporte</h3>
+                <ul class="toc">
+                    <li><a href="mailto:soporte@eventosorganizador.com">Email de Soporte</a></li>
+                    <li><a href="https://github.com/carlos2325/crm-documentation">GitHub</a></li>
+                </ul>
             </div>
-        </div>
-
-        <!-- FUNCIONALIDADES PRINCIPALES -->
-        <div class="section">
-            <h2>🚀 Funcionalidades Principales</h2>
-            <div class="nav-grid">
-                <div class="nav-card">
-                    <h3>📅 Gestión de Eventos</h3>
-                    <p>Crear, gestionar y automatizar eventos de todo tipo con control completo.</p>
-                    <a href="public/user-guides/events-management.md">Ver Guía</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>👥 Sistema CRM</h3>
-                    <p>Gestiona contactos, leads y campañas con herramientas avanzadas de seguimiento.</p>
-                    <a href="public/user-guides/crm-system.md">Ver Guía</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>💬 Chat y WhatsApp</h3>
-                    <p>Automatiza la comunicación con plantillas personalizadas y seguimiento de entregas.</p>
-                    <a href="public/user-guides/chat-whatsapp.md">Ver Guía</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>📧 Email Marketing</h3>
-                    <p>Campañas avanzadas con tracking completo y análisis de rendimiento.</p>
-                    <a href="public/user-guides/authentication-basic.md">Ver Guía</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>🤖 Integración con IA</h3>
-                    <p>Conecta con ChatGPT, Claude y otros servicios de IA para automatización avanzada.</p>
-                    <a href="public/user-guides/ai-integration.md">Ver Guía</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>🔧 API Avanzada</h3>
-                    <p>Webhooks, rate limiting, optimización de rendimiento y personalización completa.</p>
-                    <a href="public/user-guides/advanced-api.md">Ver Guía</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- DOCUMENTACIÓN TÉCNICA -->
-        <div class="section">
-            <h2>📚 Documentación Técnica Completa</h2>
-            <div class="nav-grid">
-                <div class="nav-card">
-                    <h3>💰 Sistema de Contabilización</h3>
-                    <p>Documentación completa del sistema de control de tokens y facturación automática.</p>
-                    <a href="public/user-guides/SISTEMA_CONTROL_TOKENS_CONTABILIZACION.md">Ver Documentación</a>
-                    <a href="public/user-guides/EJEMPLO_IMPLEMENTACION_CONTABILIZACION.js">Ver Código</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>📊 Análisis de Eventos</h3>
-                    <p>Estadísticas detalladas de uso por usuario y agrupación por developer.</p>
-                    <a href="public/user-guides/ANALISIS_EVENTOS_USUARIO_BODASDEHOY.md">Ver Análisis</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>📈 Diagramas del Sistema</h3>
-                    <p>Diagramas visuales de la arquitectura y flujos del sistema de contabilización.</p>
-                    <a href="public/user-guides/DIAGRAMA_SISTEMA_CONTABILIZACION.md">Ver Diagramas</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>💻 Ejemplos de Código</h3>
-                    <p>Ejemplos prácticos en JavaScript, Python, PHP y otros lenguajes.</p>
-                    <a href="public/user-guides/code-examples.md">Ver Ejemplos</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>📋 Referencia Completa</h3>
-                    <p>Documentación completa de todos los endpoints y funcionalidades de la API.</p>
-                    <a href="public/user-guides/complete-reference.md">Ver Referencia</a>
-                </div>
-
-                <div class="nav-card">
-                    <h3>❓ Preguntas Frecuentes</h3>
-                    <p>Respuestas a las preguntas más comunes sobre el sistema y la API.</p>
-                    <a href="public/user-guides/faq.md">Ver FAQ</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- HERRAMIENTAS DE DESARROLLO -->
-        <div class="section">
-            <h2>🛠️ Herramientas de Desarrollo</h2>
-            <div class="feature-list">
-                <div class="feature-item">
-                    <strong>GraphQL Playground</strong><br>
-                    https://api2.eventosorganizador.com/graphql
-                </div>
-                <div class="feature-item">
-                    <strong>Sandbox de Pruebas</strong><br>
-                    https://testapi2.eventosorganizador.com/graphql
-                </div>
-                <div class="feature-item">
-                    <strong>Colección Postman</strong><br>
-                    <a href="public/user-guides/postman-collection.json">Descargar aquí</a>
-                </div>
-                <div class="feature-item">
-                    <strong>Soporte Técnico</strong><br>
-                    soporte@eventosorganizador.com
-                </div>
-            </div>
-        </div>
-
-        <div class="cta">
-            <h2>🎯 ¿Listo para Implementar?</h2>
-            <p>Comienza a usar nuestro sistema completo de contabilización y gestión de eventos</p>
-            <a href="public/user-guides/getting-started.md">🚀 Empezar Ahora</a>
-            <a href="public/user-guides/SISTEMA_CONTROL_TOKENS_CONTABILIZACION.md">💰 Ver Sistema Contabilización</a>
-            <a href="public/user-guides/code-examples.md">💻 Ver Ejemplos</a>
         </div>
 
         <div class="footer">
             <p><strong>Última actualización:</strong> Octubre 2025 | <strong>Versión API:</strong> 2.0.0 | <strong>Estado:</strong> ✅ 100% Operativa</p>
-            <p><strong>Repositorio:</strong> https://github.com/carlos2325/crm-documentation</p>
+            <p><strong>Total de documentos:</strong> 65+ | <strong>Funcionalidad documentada:</strong> 100%</p>
         </div>
     </div>
+
+    <script>
+        // Búsqueda simple en la documentación
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.nav-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
