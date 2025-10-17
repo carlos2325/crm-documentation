@@ -1,0 +1,362 @@
+{
+  "info": {
+    "name": "API Eventos Organizador",
+    "description": "Colección completa de endpoints para la API de gestión de eventos",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{api_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://api2.eventosorganizador.com/graphql",
+      "type": "string"
+    },
+    {
+      "key": "api_token",
+      "value": "tu-token-aqui",
+      "type": "string"
+    },
+    {
+      "key": "origin_url",
+      "value": "https://tu-dominio.com",
+      "type": "string"
+    }
+  ],
+  "header": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Origin",
+      "value": "{{origin_url}}"
+    }
+  ],
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "Generar Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation GenerateToken($input: GenerateTokenInput!) {\\n    generateToken(input: $input) {\\n      success\\n      token\\n      user {\\n        uid\\n        email\\n        role\\n        development\\n        brand\\n        client_id\\n        permissions\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"uid\": \"usuario123\",\n      \"email\": \"test@ejemplo.com\",\n      \"role\": \"user\",\n      \"development\": \"bodasdehoy\",\n      \"brand\": \"bodasdehoy\",\n      \"client_id\": \"bodasdehoy\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eventos",
+      "item": [
+        {
+          "name": "Obtener Eventos",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetUserEvents {\\n    getUserEvents {\\n      success\\n      events {\\n        id\\n        nombre\\n        fecha\\n        ubicacion\\n        estado\\n        invitados {\\n          id\\n          nombre\\n          confirmado\\n        }\\n        tareas {\\n          id\\n          titulo\\n          completada\\n        }\\n      }\\n      totalCount\\n      errors\\n    }\\n  }\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Crear Evento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation CreateEvent($input: CreateEventInput!) {\\n    createEvent(input: $input) {\\n      success\\n      event {\\n        id\\n        nombre\\n        fecha\\n        ubicacion\\n        estado\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"nombre\": \"Mi Boda Perfecta\",\n      \"fecha\": \"2025-12-25\",\n      \"hora\": \"18:00\",\n      \"ubicacion\": \"Hotel Maravilloso\",\n      \"direccion\": \"Calle Principal 123, Madrid\",\n      \"descripcion\": \"Una boda inolvidable\",\n      \"tipo\": \"boda\",\n      \"presupuesto\": 15000,\n      \"estado\": \"planificacion\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Evento por ID",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetEventById($id: ID!) {\\n    getEventById(id: $id) {\\n      success\\n      event {\\n        id\\n        nombre\\n        fecha\\n        hora\\n        ubicacion\\n        direccion\\n        descripcion\\n        tipo\\n        presupuesto\\n        estado\\n        invitados {\\n          id\\n          nombre\\n          email\\n          telefono\\n          confirmado\\n          fechaInvitacion\\n          fechaConfirmacion\\n        }\\n        tareas {\\n          id\\n          titulo\\n          descripcion\\n          completada\\n          fechaLimite\\n          responsable\\n          prioridad\\n        }\\n        createdAt\\n        updatedAt\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"id\": \"evento_id_aqui\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Evento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation UpdateEvent($id: ID!, $input: UpdateEventInput!) {\\n    updateEvent(id: $id, input: $input) {\\n      success\\n      event {\\n        id\\n        nombre\\n        fecha\\n        ubicacion\\n        estado\\n        updatedAt\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"id\": \"evento_id_aqui\",\n    \"input\": {\n      \"nombre\": \"Mi Boda Perfecta - Actualizada\",\n      \"presupuesto\": 18000,\n      \"estado\": \"confirmado\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Evento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation DeleteEvent($id: ID!) {\\n    deleteEvent(id: $id) {\\n      success\\n      message\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"id\": \"evento_id_aqui\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contactos",
+      "item": [
+        {
+          "name": "Obtener Contactos",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetContacts {\\n    getContacts {\\n      success\\n      contacts {\\n        id\\n        nombre\\n        apellidos\\n        email\\n        telefono\\n        empresa\\n        cargo\\n        estado\\n        origen\\n        createdAt\\n      }\\n      totalCount\\n      errors\\n    }\\n  }\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Crear Contacto",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation CreateContact($input: CreateContactInput!) {\\n    createContact(input: $input) {\\n      success\\n      contact {\\n        id\\n        nombre\\n        apellidos\\n        email\\n        telefono\\n        empresa\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"nombre\": \"María\",\n      \"apellidos\": \"García López\",\n      \"email\": \"maria@ejemplo.com\",\n      \"telefono\": \"+34 600 123 456\",\n      \"empresa\": \"Empresa ABC\",\n      \"cargo\": \"Directora de Marketing\",\n      \"estado\": \"activo\",\n      \"origen\": \"web\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Contactos",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query SearchContacts($termino: String!) {\\n    searchContacts(termino: $termino) {\\n      success\\n      contacts {\\n        id\\n        nombre\\n        apellidos\\n        email\\n        telefono\\n        empresa\\n      }\\n      totalCount\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"termino\": \"maria\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads",
+      "item": [
+        {
+          "name": "Convertir Contacto en Lead",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation ConvertToLead($contactoId: ID!, $input: CreateLeadInput!) {\\n    convertToLead(contactoId: $contactoId, input: $input) {\\n      success\\n      lead {\\n        id\\n        contacto {\\n          id\\n          nombre\\n          apellidos\\n          email\\n        }\\n        estado\\n        prioridad\\n        valor\\n        fuente\\n        fechaConversion\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"contactoId\": \"contacto_id_aqui\",\n    \"input\": {\n      \"estado\": \"nuevo\",\n      \"prioridad\": \"alta\",\n      \"valor\": 5000,\n      \"fuente\": \"web\",\n      \"notas\": \"Interesado en boda para diciembre 2025\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Leads por Estado",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetLeadsByStatus($estado: String!) {\\n    getLeadsByStatus(estado: $estado) {\\n      success\\n      leads {\\n        id\\n        contacto {\\n          id\\n          nombre\\n          apellidos\\n          email\\n          telefono\\n        }\\n        estado\\n        prioridad\\n        valor\\n        fuente\\n        notas\\n        fechaConversion\\n      }\\n      totalCount\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"estado\": \"nuevo\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Estado de Lead",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation UpdateLeadStatus($leadId: ID!, $estado: String!) {\\n    updateLeadStatus(leadId: $leadId, estado: $estado) {\\n      success\\n      lead {\\n        id\\n        estado\\n        fechaActualizacion\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"leadId\": \"lead_id_aqui\",\n    \"estado\": \"en_proceso\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WhatsApp",
+      "item": [
+        {
+          "name": "Enviar Mensaje",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation SendWhatsAppMessage($input: SendWhatsAppMessageInput!) {\\n    sendWhatsAppMessage(input: $input) {\\n      success\\n      messageId\\n      status\\n      timestamp\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"numero\": \"+34600123456\",\n      \"mensaje\": \"¡Hola! Te recordamos que tienes un evento próximo.\",\n      \"tipo\": \"texto\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Enviar Plantilla",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation SendWhatsAppTemplate($input: SendWhatsAppTemplateInput!) {\\n    sendWhatsAppTemplate(input: $input) {\\n      success\\n      messageId\\n      status\\n      timestamp\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"numero\": \"+34600123456\",\n      \"plantilla\": \"recordatorio_evento\",\n      \"variables\": {\n        \"nombre\": \"María\",\n        \"nombre_evento\": \"Mi Boda Perfecta\",\n        \"fecha\": \"25 de Diciembre\",\n        \"hora\": \"18:00\"\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Estado de WhatsApp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetWhatsAppStatus {\\n    getWhatsAppStatus {\\n      success\\n      status {\\n        conectado\\n        numeroVerificado\\n        plantillasAprobadas\\n        mensajesEnviados\\n        ultimaActividad\\n      }\\n      errors\\n    }\\n  }\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Estadísticas de WhatsApp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query GetWhatsAppStats {\\n    getWhatsAppStats {\\n      success\\n      stats {\\n        mensajesEnviados\\n        mensajesEntregados\\n        mensajesLeidos\\n        mensajesFallidos\\n        porcentajeEntrega\\n        porcentajeLectura\\n        tiempoPromedioEntrega\\n        conversacionesActivas\\n        chatbotInteracciones\\n      }\\n      errors\\n    }\\n  }\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Campañas",
+      "item": [
+        {
+          "name": "Crear Campaña Email",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation CreateEmailCampaign($input: CreateEmailCampaignInput!) {\\n    createEmailCampaign(input: $input) {\\n      success\\n      campaign {\\n        id\\n        nombre\\n        asunto\\n        tipo\\n        estado\\n        fechaCreacion\\n        fechaProgramada\\n        destinatarios {\\n          total\\n          segmentos\\n        }\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"nombre\": \"Promoción Bodas 2025\",\n      \"asunto\": \"¡Ofertas especiales para tu boda perfecta!\",\n      \"tipo\": \"promocional\",\n      \"template\": \"bodas-2025\",\n      \"segmentos\": [\"leads_nuevos\", \"contactos_activos\"],\n      \"fechaProgramada\": \"2025-10-20T10:00:00Z\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Crear Campaña WhatsApp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation CreateWhatsAppCampaign($input: CreateWhatsAppCampaignInput!) {\\n    createWhatsAppCampaign(input: $input) {\\n      success\\n      campaign {\\n        id\\n        nombre\\n        mensaje\\n        tipo\\n        estado\\n        fechaCreacion\\n        fechaProgramada\\n        destinatarios {\\n          total\\n          segmentos\\n        }\\n      }\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"input\": {\n      \"nombre\": \"Recordatorio Eventos\",\n      \"mensaje\": \"Hola {{nombre}}, recordamos que tienes un evento próximo. ¿Necesitas ayuda con algo?\",\n      \"tipo\": \"recordatorio\",\n      \"template\": \"recordatorio-evento\",\n      \"segmentos\": [\"eventos_proximos\"],\n      \"fechaProgramada\": \"2025-10-20T09:00:00Z\"\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        },
+        {
+          "name": "Enviar Campaña",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation SendCampaign($campanaId: ID!) {\\n    sendCampaign(campanaId: $campanaId) {\\n      success\\n      sentCount\\n      errors\\n    }\\n  }\",\n  \"variables\": {\n    \"campanaId\": \"campana_id_aqui\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}",
+              "host": ["{{base_url}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

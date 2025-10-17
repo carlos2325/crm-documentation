@@ -8,6 +8,21 @@
 
 ## 🚀 DOCUMENTACIÓN PRINCIPAL
 
+### 🌐 [DOCUMENTACIÓN COMPLETA CONEXIÓN API 2025](./DOCUMENTACION_COMPLETA_CONEXION_API_2025.md)
+**Descripción:** Guía completa para conectarse a la API GraphQL y MCP  
+**Última actualización:** 16 Octubre, 2025  
+**Estado:** ✅ 100% Operativa
+
+**Contenido:**
+- Instrucciones detalladas de conexión
+- Autenticación JWT completa
+- Ejemplos de código (JavaScript, Python, cURL)
+- Estructura de headers y tokens
+- GraphQL queries y mutations
+- MCP (Model Context Protocol)
+- Manejo de errores y debugging
+- Rate limiting y mejores prácticas
+
 ### 📋 [DOCUMENTACIÓN TÉCNICA ACTUALIZADA 2025](./DOCUMENTACION_TECNICA_ACTUALIZADA_2025.md)
 **Descripción:** Documentación técnica completa y actualizada de la API GraphQL  
 **Última actualización:** 16 Octubre, 2025  
@@ -234,3 +249,8 @@ Para soporte técnico o consultas sobre la implementación:
 ---
 
 **¡Toda la documentación está actualizada y lista para producción!** 🎉
+
+
+
+
+
